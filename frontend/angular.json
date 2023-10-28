@@ -25,6 +25,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/devextreme/dist/css/dx.light.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -94,5 +95,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "16a9bc1f-8e11-40f3-a943-8835f8231440"
   }
 }
