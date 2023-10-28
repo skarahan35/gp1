@@ -1,0 +1,57 @@
+<nav aria-label="breadcrumb">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Deneme</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Deneme</li>
+    </ol>
+  </nav>
+
+  <dx-data-grid
+  id="gridContainer"
+  [dataSource]="dataSource"
+  keyExpr="ID"
+  [columns]="columns"
+  
+  (onInitialized)="onInitialized($event)"
+  [showBorders]="true"
+>
+
+  <dxo-paging [pageSize]="10"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="allowedPageSizes"
+    [displayMode]="displayMode"
+    [showPageSizeSelector]="showPageSizeSelector"
+    [showInfo]="showInfo"
+    [showNavigationButtons]="showNavButtons"
+  >
+  </dxo-pager>
+  <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-scrolling mode="infinite"></dxo-scrolling>
+  <dxi-column
+    dataField="OrderNumber"
+    caption="Invoice Number"
+    dataType="number"
+  >
+    <dxo-header-filter [groupInterval]="10000"></dxo-header-filter>
+  </dxi-column>
+  <dxi-column dataField="OrderDate" dataType="date"></dxi-column>
+  <dxi-column dataField="SaleAmount" format="currency" dataType="number">
+    <dxo-header-filter
+      [dataSource]="saleAmountHeaderFilter"
+    ></dxo-header-filter>
+  </dxi-column>
+  <dxi-column dataField="Employee" dataType="string"></dxi-column>
+  <dxi-column
+    dataField="CustomerInfo.StoreCity"
+    caption="City"
+    dataType="string"
+  ></dxi-column>
+  <dxi-column
+    dataField="CustomerInfo.StoreState"
+    caption="State"
+    dataType="string"
+  ></dxi-column>
+</dx-data-grid>
