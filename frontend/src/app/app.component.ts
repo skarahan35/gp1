@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gp1';
+  constructor(private toastr: ToastrService){
+    this.toastr.success('Toastr Deneme', 'Toastr Deneme');
+  }
 }
