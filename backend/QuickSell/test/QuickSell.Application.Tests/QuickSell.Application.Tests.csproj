@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>QuickSell</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\QuickSell.Application\QuickSell.Application.csproj" />
+    <ProjectReference Include="..\QuickSell.Domain.Tests\QuickSell.Domain.Tests.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="7.4.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,167 @@
+entity User {
+   UserName String minlength(1) maxlength(64)
+   Name String minlength(0) maxlength(256)
+   SurName String minlength(0) maxlength(256)
+   EMail String minlength(0) maxlength(256)
+   PhoneNumber String minlength(0) maxlength(13)
+   Address String minlength(0) maxlength(256)
+   Password String minlength(0) maxlength(256)
+}
+entity StockGroup {
+   Code String minlength(1) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+entity StockType {
+   Code String minlength(1) maxlength(64)
+   Name String minlength(0) maxlength(256)
+   Condition Boolean
+}
+entity StockUnit {
+   Code String minlength(1) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+entity StockPrice {
+   StockID UUID
+   StockPrice Integer
+   StockPriceType String minlength(0) maxlength(64)
+}
+entity StockCard {
+    Code String minlength(0) maxlength(64)
+    Name String minlength(0) maxlength(256)
+    StockTypeID UUID
+    StockUnitID UUID
+    StockGroupID UUID
+    TransferredQuantity Integer
+    AvailableQuantity Integer
+    TotalEntryQuantity Integer
+    TotalOutputQuantity Integer
+    VATRate Integer
+    DiscountRate Integer
+    CurrencyType String minlength(0) maxlength(64)
+    Price1 Integer
+    Price2 Integer
+    Price3 Integer
+}
+entity CustomerType {
+    Code String minlength(0) maxlength(64)
+    Name String minlength(0) maxlength(256)
+}
+entity CustomerGroup {
+   Code String minlength(0) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+entity CustomerAddress {
+   CustomerCardID UUID
+   AddressCode String minlength(0) maxlength(64)
+   Road String minlength(0) maxlength(256)
+   Street String minlength(0) maxlength(256)
+   BuildingName String minlength(0) maxlength(256)
+   BuildingNo Integer
+   PostCode Integer
+   DistrictID UUID
+   CityID UUID
+   CountryID UUID
+}
+entity CustomerCard {
+    Code String minlength(0) maxlength(128)
+    Name String minlength(0) maxlength(256)
+    CustomerTypeID UUID
+    AddressID UUID
+    CustomerGroupID UUID
+    TaxOffice String minlength(0) maxlength(128)
+    TaxNo Integer
+    TCNumber String minlength(0) maxlength(11)
+    AuthorizedPerson String minlength(0) maxlength(64)
+    EMail String minlength(0) maxlength(64)
+    RiskLimit Integer
+}
+entity District {
+   Code String minlength(0) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+entity City {
+   Code String minlength(0) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+entity Country {
+   Code String minlength(0) maxlength(64)
+   Name String minlength(0) maxlength(256)
+}
+
+entity MovementHeader{
+   TypeCode String minlength(0) maxlength(64)
+   ReceiptNo Integer
+   CustomerCardID UUID
+   FirstAmount Integer
+   DiscountAmount Integer
+   VATAmount Integer
+   TotalAmount Integer
+}
+entity MovementDetail{
+   TypeCode String minlength(0) maxlength(64)
+   ReceiptNo Integer
+   StockCardID UUID
+   Quantity Integer
+   Price Integer
+   DiscountRate Integer
+   DiscountAmount Integer
+   VATRate Integer
+   VATAmount Integer
+}
+entity Company {
+   CompanyName String minlength(0) maxlength(128)
+   Road String minlength(0) maxlength(64)
+   Street String minlength(0) maxlength(64)
+   BuildingName String minlength(0) maxlength(64)
+   BuildingNo Integer
+   PostCode Integer
+   DistrictID UUID
+   CityID UUID
+   CountryID UUID
+   TaxNo Integer
+   TaxOffice String minlength(0) maxlength(128)
+   Currency String minlength(0) maxlength(64)
+   DateFormat Boolean
+   WebSite String minlength(0) maxlength(128)
+   IncomingMail String minlength(0) maxlength(64)
+   SendingMail String minlength(0) maxlength(64)
+   WorkingYear String minlength(0) maxlength(4)
+   QuantityDecimal Integer
+   PriceDecimal Integer
+   AmountDecimal Integer
+}
+
+
+
+
+relationship OneToMany {
+   StockType to StockCard{StockType},
+   StockUnit to StockCard{StockUnit},
+   StockGroup to StockCard{StockGroup},
+
+   StockCard to StockPrice{StockCard},
+
+   CustomerCard to CustomerAddress{CustomerCard},
+   District to CustomerAddress{District},
+   City to CustomerAddress{City},
+   Country to CustomerAddress{Country},
+
+   CustomerType to CustomerCard{CustomerType},
+   CustomerAddress to CustomerCard{CustomerAddress},
+   CustomerGroup to CustomerCard{CustomerGroup},
+
+
+   CustomerCard to MovementHeader{CustomerCard},
+   StockCard to MovementDetail{StockCard},
+
+   District to Company{District},
+   City to Company{City},
+   Country to Company{Country},
+
+}
+
+
+paginate all with pagination
+filter *
+dto * with mapstruct
+service all with serviceImpl

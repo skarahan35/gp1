@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <RootNamespace>QuickSell</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.MongoDB" Version="7.4.0" />
+    <ProjectReference Include="..\QuickSell.Domain\QuickSell.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql">
+      <Version>7.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

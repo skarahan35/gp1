@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "QuickSell": {
+      "path": "QuickSell.abpmdl.json"
+    }
+  }
+}

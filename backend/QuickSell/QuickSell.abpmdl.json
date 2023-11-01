@@ -1,0 +1,79 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "QuickSell.Domain.Shared": {
+      "path": "src/QuickSell.Domain.Shared/QuickSell.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.Domain": {
+      "path": "src/QuickSell.Domain/QuickSell.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.Application.Contracts": {
+      "path": "src/QuickSell.Application.Contracts/QuickSell.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.Application": {
+      "path": "src/QuickSell.Application/QuickSell.Application.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.EntityFrameworkCore": {
+      "path": "src/QuickSell.EntityFrameworkCore/QuickSell.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.MongoDB": {
+      "path": "src/QuickSell.MongoDB/QuickSell.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.HttpApi": {
+      "path": "src/QuickSell.HttpApi/QuickSell.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.HttpApi.Client": {
+      "path": "src/QuickSell.HttpApi.Client/QuickSell.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "QuickSell.TestBase": {
+      "path": "test/QuickSell.TestBase/QuickSell.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.EntityFrameworkCore.Tests": {
+      "path": "test/QuickSell.EntityFrameworkCore.Tests/QuickSell.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.MongoDB.Tests": {
+      "path": "test/QuickSell.MongoDB.Tests/QuickSell.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.Domain.Tests": {
+      "path": "test/QuickSell.Domain.Tests/QuickSell.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.Application.Tests": {
+      "path": "test/QuickSell.Application.Tests/QuickSell.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.HttpApi.Host": {
+      "path": "host/QuickSell.HttpApi.Host/QuickSell.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "QuickSell.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/QuickSell.HttpApi.Client.ConsoleTestApp/QuickSell.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "QuickSell.AuthServer": {
+      "path": "host/QuickSell.AuthServer/QuickSell.AuthServer.abppkg.json",
+      "folder": "host"
+    },
+    "QuickSell.Host.Shared": {
+      "path": "host/QuickSell.Host.Shared/QuickSell.Host.Shared.abppkg.json",
+      "folder": "host"
+    }
+  }
+}
