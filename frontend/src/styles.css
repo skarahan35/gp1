@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+/* Kolon başlığı arka planı ve metin rengi */
+.dx-datagrid-headers {
+    background-color: #343A40; /* Daha koyu bir arka plan rengi */
+    color: #ffffff; /* Beyaz metin rengi */
+    border: none; /* Kenarlık olmadan daha modern bir görünüm */
+    border-radius: 0; /* Kenarlık olmadan daha modern bir görünüm */
+    box-shadow: none; /* Gölge olmadan daha modern bir görünüm */
+    font-weight: bold; /* Daha belirgin bir metin */
+    font-size: 18px;
+}
+
+/* Kolon başlığı hover rengi */
+.dx-datagrid-headers:hover {
+    background-color: #2C3136; /* Daha koyu hover rengi */
+}
+
+/* Kolon başlığı seçildiğindeki renk */
+.dx-datagrid-headers.dx-header-row .dx-datagrid-text-content.dx-datagrid-text-content-hidden {
+    background-color: #1E2226; /* Daha koyu seçili renk */
+}
+
+/* Filtre simgesi rengi */
+.dx-datagrid-headers .dx-datagrid-filter-button-popup {
+    background-color: #343A40; /* Daha koyu bir arka plan rengi */
+}
+
+/* Filtre simgesi rengi hover durumunda */
+.dx-datagrid-headers .dx-datagrid-filter-button-popup:hover {
+    background-color: #2C3136; /* Daha koyu hover rengi */
+}
+
+/* Filter satırı rengi */
+.dx-datagrid-filter-row {
+    background-color: #ffffff; /* Beyaz arka plan rengi */
+}
+
+.dx-popup .dx-popup-bottom .dx-button {
+    background-color: #FF5733; /* Kapatma butonunun arka plan rengi */
+    color: #ffffff; /* Kapatma butonunun metin rengi */
+}
+.dx-datagrid-rowsview tbody tr {
+    border-bottom: 1px solid #ccc; /* Çizgi rengi */
+}

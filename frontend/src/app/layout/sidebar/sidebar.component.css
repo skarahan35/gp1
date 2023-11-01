@@ -1,0 +1,24 @@
+.bg-dark {
+    background-color: #343A40 !important;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link.active {
+    background-color: #24282B;
+}
+
+/* Dropdown menüsündeki stil */
+.dropdown-menu {
+    background-color: #343A40 !important;
+}
+
+.dropdown-item {
+    color: white !important;
+}
+
+.dropdown-item:hover {
+    background-color: #24282B !important;
+}
