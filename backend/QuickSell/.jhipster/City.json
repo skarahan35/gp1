@@ -1,0 +1,46 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211416",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "city",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "City",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "customerAddress",
+            "otherEntityRelationshipName": "city",
+            "relationshipName": "customerAddress",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "city",
+            "relationshipName": "company",
+            "relationshipType": "one-to-many"
+        }
+    ],
+    "service": "serviceImpl"
+}

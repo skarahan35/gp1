@@ -1,0 +1,148 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211429",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "company",
+    "fields": [
+        {
+            "fieldName": "companyName",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "128",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "road",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "street",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "buildingName",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "buildingNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "postCode",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "districtID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "cityID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "countryID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "taxNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "taxOffice",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "128",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "dateFormat",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "webSite",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "128",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "incomingMail",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "sendingMail",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "workingYear",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "4",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "quantityDecimal",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "priceDecimal",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "amountDecimal",
+            "fieldType": "Integer"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "Company",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "district",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "district",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "city",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "city",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "country",
+            "otherEntityRelationshipName": "company",
+            "relationshipName": "country",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

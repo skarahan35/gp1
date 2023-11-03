@@ -9,14 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="7.4.0" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="7.4.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="7.4.1" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="7.4.1" />
     <ProjectReference Include="..\QuickSell.Domain.Shared\QuickSell.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql">
-      <Version>7.4.0</Version>
+      <Version>7.4.1</Version>
     </PackageReference>
   </ItemGroup>
 

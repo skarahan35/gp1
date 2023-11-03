@@ -1,0 +1,46 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211415",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "country",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "Country",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "customerAddress",
+            "otherEntityRelationshipName": "country",
+            "relationshipName": "customerAddress",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "country",
+            "relationshipName": "company",
+            "relationshipType": "one-to-many"
+        }
+    ],
+    "service": "serviceImpl"
+}

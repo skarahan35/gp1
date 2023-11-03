@@ -1,0 +1,96 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211424",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "customer_address",
+    "fields": [
+        {
+            "fieldName": "customerCardID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "addressCode",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "road",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "street",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "buildingName",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "buildingNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "postCode",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "districtID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "cityID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "countryID",
+            "fieldType": "UUID"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "CustomerAddress",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "customerCard",
+            "otherEntityRelationshipName": "customerAddress",
+            "relationshipName": "customerCard",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "district",
+            "otherEntityRelationshipName": "customerAddress",
+            "relationshipName": "district",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "city",
+            "otherEntityRelationshipName": "customerAddress",
+            "relationshipName": "city",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "country",
+            "otherEntityRelationshipName": "customerAddress",
+            "relationshipName": "country",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

@@ -1,0 +1,119 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211421",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "stock_card",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "stockTypeID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "stockUnitID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "stockGroupID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "transferredQuantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "availableQuantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "totalEntryQuantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "totalOutputQuantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "vATRate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountRate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "currencyType",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "price1",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "price2",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "price3",
+            "fieldType": "Integer"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "StockCard",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "stockPrice",
+            "otherEntityRelationshipName": "stockCard",
+            "relationshipName": "stockPrice",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "movementDetails",
+            "otherEntityRelationshipName": "stockCard",
+            "relationshipName": "movementDetails",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "stockType",
+            "otherEntityRelationshipName": "stockCard",
+            "relationshipName": "stockType",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "stockUnit",
+            "otherEntityRelationshipName": "stockCard",
+            "relationshipName": "stockUnit",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "stockGroup",
+            "otherEntityRelationshipName": "stockCard",
+            "relationshipName": "stockGroup",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

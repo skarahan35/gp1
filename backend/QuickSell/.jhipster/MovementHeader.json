@@ -1,0 +1,57 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211427",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "movement_header",
+    "fields": [
+        {
+            "fieldName": "typeCode",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "receiptNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "customerCardID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "firstAmount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountAmount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "vATAmount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "totalAmount",
+            "fieldType": "Integer"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "MovementHeader",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "customerCard",
+            "otherEntityRelationshipName": "movementHeader",
+            "relationshipName": "customerCard",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

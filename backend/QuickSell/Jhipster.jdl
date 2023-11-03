@@ -97,7 +97,7 @@ entity MovementHeader{
    VATAmount Integer
    TotalAmount Integer
 }
-entity MovementDetail{
+entity MovementDetails{
    TypeCode String minlength(0) maxlength(64)
    ReceiptNo Integer
    StockCardID UUID
@@ -147,12 +147,11 @@ relationship OneToMany {
    Country to CustomerAddress{Country},
 
    CustomerType to CustomerCard{CustomerType},
-   CustomerAddress to CustomerCard{CustomerAddress},
    CustomerGroup to CustomerCard{CustomerGroup},
 
 
    CustomerCard to MovementHeader{CustomerCard},
-   StockCard to MovementDetail{StockCard},
+   StockCard to MovementDetails{StockCard},
 
    District to Company{District},
    City to Company{City},

@@ -1,0 +1,65 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211428",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "movement_details",
+    "fields": [
+        {
+            "fieldName": "typeCode",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "receiptNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "stockCardID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountRate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountAmount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "vATRate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "vATAmount",
+            "fieldType": "Integer"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "MovementDetails",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "stockCard",
+            "otherEntityRelationshipName": "movementDetails",
+            "relationshipName": "stockCard",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

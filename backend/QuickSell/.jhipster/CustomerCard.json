@@ -1,0 +1,106 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211425",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "customer_card",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "128",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "256",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "customerTypeID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "addressID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "customerGroupID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "taxOffice",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "128",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "taxNo",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tCNumber",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "11",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "authorizedPerson",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "eMail",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        },
+        {
+            "fieldName": "riskLimit",
+            "fieldType": "Integer"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "CustomerCard",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "customerAddress",
+            "otherEntityRelationshipName": "customerCard",
+            "relationshipName": "customerAddress",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "movementHeader",
+            "otherEntityRelationshipName": "customerCard",
+            "relationshipName": "movementHeader",
+            "relationshipType": "one-to-many"
+        },
+        {
+            "otherEntityName": "customerType",
+            "otherEntityRelationshipName": "customerCard",
+            "relationshipName": "customerType",
+            "relationshipType": "many-to-one"
+        },
+        {
+            "otherEntityName": "customerGroup",
+            "otherEntityRelationshipName": "customerCard",
+            "relationshipName": "customerGroup",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}

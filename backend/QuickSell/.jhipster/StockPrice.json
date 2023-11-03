@@ -1,0 +1,41 @@
+{
+    "applications": "*",
+    "changelogDate": "20231101211420",
+    "clientRootFolder": "QuickSell",
+    "databaseType": "postgres",
+    "dto": "mapstruct",
+    "embedded": false,
+    "entityTableName": "stock_price",
+    "fields": [
+        {
+            "fieldName": "stockID",
+            "fieldType": "UUID"
+        },
+        {
+            "fieldName": "stockPrice",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "stockPriceType",
+            "fieldType": "String",
+            "fieldValidateRules": ["minlength", "maxlength"],
+            "fieldValidateRulesMaxlength": "64",
+            "fieldValidateRulesMinlength": "0"
+        }
+    ],
+    "fluentMethods": true,
+    "jpaMetamodelFiltering": false,
+    "microserviceName": "QuickSell",
+    "name": "StockPrice",
+    "pagination": "no",
+    "readOnly": false,
+    "relationships": [
+        {
+            "otherEntityName": "stockCard",
+            "otherEntityRelationshipName": "stockPrice",
+            "relationshipName": "stockCard",
+            "relationshipType": "many-to-one"
+        }
+    ],
+    "service": "serviceImpl"
+}
