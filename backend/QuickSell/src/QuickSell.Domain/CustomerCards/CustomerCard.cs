@@ -13,16 +13,6 @@ using QuickSell.MovementHeaders;
 using QuickSell.CustomerTypes;
 using QuickSell.CustomerGroups;
 
-        /// <summary>
-        ///  Code Generator ile üretilen abstract sınıflarda özellestirme yapılabilmesi için abstract 
-        ///  sinifi kalitim alınarak özelleştirme yapilmasi gerekmektedir.
-        ///  Code Generator tekrar calistirildiğinda yapılan özellestirmeler kaybolacaktir!!! 
-
-        ///  In order to be able to customize the abstract classes produced with Code Generator,
-        ///  it is necessary to inherit the abstract class and customize it.
-        ///  Restarting Code Generator, any customizations will be lost!!!
-        /// </summary>
-
 namespace QuickSell.CustomerCards
 {
     
@@ -30,12 +20,12 @@ namespace QuickSell.CustomerCards
     {
         
         [StringLength(128,MinimumLength=0)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
         [StringLength(256,MinimumLength=0)]
-        public string Name { get; set; }
-        public UNKNOWN_TYPE CustomerTypeID { get; set; }
-        public UNKNOWN_TYPE AddressID { get; set; }
-        public UNKNOWN_TYPE CustomerGroupID { get; set; }
+        public string? Name { get; set; }
+        public Guid? CustomerTypeID { get; set; }
+        public Guid? AddressID { get; set; }
+        public Guid? CustomerGroupID { get; set; }
         [StringLength(128,MinimumLength=0)]
         public string TaxOffice { get; set; }
         public int? TaxNo { get; set; }
@@ -45,13 +35,8 @@ namespace QuickSell.CustomerCards
         public string AuthorizedPerson { get; set; }
         [StringLength(64,MinimumLength=0)]
         public string EMail { get; set; }
-        public int? RiskLimit { get; set; }
-        
-        
-        public Guid? CustomerTypeId { get; set; }    
-        public Guid? CustomerGroupId { get; set; }    
+        public decimal? RiskLimit { get; set; }
         public Guid? TenantId { get; set; }
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
         public CustomerCard()
@@ -64,18 +49,19 @@ namespace QuickSell.CustomerCards
         (
             Guid id
           ,string code 
-          ,string name 
-          ,string taxOffice 
+          ,string name
+          , Guid? customerTypeID
+          , Guid? customerGroupID
+          , Guid? addressID
+          , string taxOffice 
           ,string tCNumber 
           ,string authorizedPerson 
           ,string eMail 
           ,int? taxNo
 
-          ,int? riskLimit
+          ,decimal? riskLimit
 
-          ,Guid? customerTypeId
-          ,Guid? customerGroupId
-            
+          
 
         )
 
@@ -84,15 +70,15 @@ namespace QuickSell.CustomerCards
                Id = id;
                 Code=code;
                 Name=name;
+                CustomerTypeID = customerTypeID;
+                CustomerGroupID = customerGroupID;
+                AddressID = addressID;
                 TaxOffice=taxOffice;
                 TCNumber=tCNumber;
                 AuthorizedPerson=authorizedPerson;
                 EMail=eMail;
                 TaxNo=taxNo;
                 RiskLimit=riskLimit;
-                CustomerTypeId=customerTypeId;
-                CustomerGroupId=customerGroupId;
-
         }
 
 

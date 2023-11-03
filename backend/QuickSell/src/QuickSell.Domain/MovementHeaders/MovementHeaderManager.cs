@@ -21,34 +21,24 @@ namespace QuickSell.MovementHeaders
 
         public async Task<MovementHeader> CreateAsync(
               string typeCode, 
-              int? receiptNo, 
-    
+              int? receiptNo,
+              Guid? customerCardID,
               int? firstAmount, 
-    
               int? discountAmount, 
-    
               int? vAtAmount, 
-    
-              int? totalAmount, 
-    
-              Guid? customerCardId,
+              int? totalAmount
         )
         {
 
             var movementHeader = new MovementHeader(
              GuidGenerator.Create(),
                typeCode, 
-               receiptNo, 
-    
+               receiptNo,
+               customerCardID,
                firstAmount, 
-    
                discountAmount, 
-    
                vAtAmount, 
-    
-               totalAmount, 
-    
-               customerCardId,
+               totalAmount
              );
 
             return await _movementHeaderRepository.InsertAsync(movementHeader);
@@ -57,17 +47,12 @@ namespace QuickSell.MovementHeaders
         public async Task<MovementHeader> UpdateAsync(
            Guid id,
           string typeCode, 
-          int? receiptNo, 
-
+          int? receiptNo,
+          Guid? customerCardID,
           int? firstAmount, 
-
           int? discountAmount, 
-
           int? vAtAmount, 
-
           int? totalAmount, 
-
-          Guid? customerCardId,
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -79,11 +64,11 @@ namespace QuickSell.MovementHeaders
 
                 movementHeader.TypeCode=typeCode;
                  movementHeader.ReceiptNo=receiptNo;
+                 movementHeader.CustomerCardID = customerCardID;
                  movementHeader.FirstAmount=firstAmount;
                  movementHeader.DiscountAmount=discountAmount;
                  movementHeader.VATAmount=vAtAmount;
                  movementHeader.TotalAmount=totalAmount;
-                movementHeader.CustomerCardId=customerCardId;
 
          movementHeader.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _movementHeaderRepository.UpdateAsync(movementHeader);

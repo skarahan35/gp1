@@ -9,18 +9,8 @@ namespace QuickSell.Countries
 
     public class CountryCreateDto
     {
-        
-        public string Code { get; set; }
-        public string Name { get; set; }
-        
-        // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
-
-       
-
-
-        
-        
-
+        public string? Code { get; set; }
+        public string? Name { get; set; }
     }
 }
 

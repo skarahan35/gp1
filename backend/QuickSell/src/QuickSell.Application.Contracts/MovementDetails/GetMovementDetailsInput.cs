@@ -3,7 +3,7 @@ using System;
 
 namespace QuickSell.MovementDetails
 {
-    public class GetMovementDetailsInput : PagedAndSortedResultRequestDto
+    public class GetMovementDetailInput : PagedAndSortedResultRequestDto
     {
         public string FilterText { get; set; }
         public string  TypeCode { get; set; } 
@@ -22,7 +22,7 @@ namespace QuickSell.MovementDetails
         public int? VATRateMax { get; set; } 
         public int? VATAmountMin { get; set; } 
         public int? VATAmountMax { get; set; } 
-        public GetMovementDetailsInput()
+        public GetMovementDetailInput()
         {
 
         }

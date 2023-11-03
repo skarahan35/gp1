@@ -20,9 +20,9 @@ namespace QuickSell.StockTypes
         }
 
         public async Task<StockType> CreateAsync(
-              string code, 
-              string name, 
-              bool? condition, 
+              string? code, 
+              string? name, 
+              bool? condition
         )
         {
 
@@ -30,7 +30,7 @@ namespace QuickSell.StockTypes
              GuidGenerator.Create(),
                code, 
                name, 
-                condition, 
+                condition 
              );
 
             return await _stockTypeRepository.InsertAsync(stockType);
@@ -38,8 +38,8 @@ namespace QuickSell.StockTypes
 
         public async Task<StockType> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code, 
+          string? name, 
           bool? condition, 
             [CanBeNull] string concurrencyStamp = null
         )

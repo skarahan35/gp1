@@ -26,11 +26,10 @@ namespace QuickSell.StockPrices
     public  class StockPrice : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         
-        public UNKNOWN_TYPE StockID { get; set; }
-        public int? StockPrice { get; set; }
+        public Guid? StockCardID { get; set; }
+        public decimal? Price { get; set; }
         [StringLength(64,MinimumLength=0)]
-        public string StockPriceType { get; set; }
-        public Guid? StockCardId { get; set; }    
+        public string PriceType { get; set; }    
         public Guid? TenantId { get; set; }
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
@@ -44,10 +43,9 @@ namespace QuickSell.StockPrices
         public StockPrice
         (
             Guid id
-          ,string stockPriceType 
-          ,int? stockPrice
-
-          ,Guid? stockCardId
+           ,Guid? stockCardID
+          , decimal? price
+          , string priceType 
             
 
         )
@@ -55,9 +53,9 @@ namespace QuickSell.StockPrices
 
         {
                Id = id;
-                StockPriceType=stockPriceType;
-                StockPrice=stockPrice;
-                StockCardId=stockCardId;
+            StockCardID = stockCardID;
+            Price = price;
+            PriceType = priceType;
 
         }
 

@@ -1,19 +1,6 @@
-
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.AuditLogging.EntityFrameworkCore;
-using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
-using QuickSell.EntityFrameworkCore;
-using QuickSell;
-using QuickSell.Countrys;
-using QuickSell.Citys;
 using QuickSell.StockGroups;
 using QuickSell.StockTypes;
 using QuickSell.StockUnits;
@@ -21,13 +8,14 @@ using QuickSell.StockPrices;
 using QuickSell.StockCards;
 using QuickSell.CustomerTypes;
 using QuickSell.CustomerGroups;
-using QuickSell.CustomerAddresss;
 using QuickSell.CustomerCards;
 using QuickSell.Districts;
 using QuickSell.MovementHeaders;
-using QuickSell.MovementDetailss;
-using QuickSell.Companys;
-
+using QuickSell.Countries;
+using QuickSell.Cities;
+using QuickSell.CustomerAddresses;
+using QuickSell.Companies;
+using QuickSell.MovementDetails;
 
 namespace QuickSell.EntityFrameworkCore
 {
@@ -57,7 +45,7 @@ namespace QuickSell.EntityFrameworkCore
         public DbSet<CustomerCard> CustomerCards { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<MovementHeader> MovementHeaders { get; set; }
-        public DbSet<MovementDetails> MovementDetails { get; set; }
+        public DbSet<MovementDetail> MovementDetails { get; set; }
         public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -65,18 +53,8 @@ namespace QuickSell.EntityFrameworkCore
             base.OnModelCreating(builder);
 
 
-            
 
-           
-
-
-            
-        
-
-
-
-
-                builder.Entity<Country>(e=>{
+            builder.Entity<Country>(e=>{
 
                   e.Property(e => e.Code); 
                   e.Property(e => e.Name); 
@@ -104,10 +82,10 @@ namespace QuickSell.EntityFrameworkCore
                       });
                 builder.Entity<StockPrice>(e=>{
 
-                  e.Property(e => e.StockID); 
-                  e.Property(e => e.StockPrice); 
-                  e.Property(e => e.StockPriceType); 
-                e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardId).IsRequired();
+                  e.Property(e => e.StockCardID); 
+                  e.Property(e => e.Price); 
+                  e.Property(e => e.PriceType); 
+                e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardID).IsRequired();
                       });
                 builder.Entity<StockCard>(e=>{
 
@@ -126,9 +104,9 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.Price1); 
                   e.Property(e => e.Price2); 
                   e.Property(e => e.Price3); 
-                e.HasOne<StockType>().WithMany().HasForeignKey(x => x.StockTypeId).IsRequired();
-                e.HasOne<StockUnit>().WithMany().HasForeignKey(x => x.StockUnitId).IsRequired();
-                e.HasOne<StockGroup>().WithMany().HasForeignKey(x => x.StockGroupId).IsRequired();
+                e.HasOne<StockType>().WithMany().HasForeignKey(x => x.StockTypeID).IsRequired();
+                e.HasOne<StockUnit>().WithMany().HasForeignKey(x => x.StockUnitID).IsRequired();
+                e.HasOne<StockGroup>().WithMany().HasForeignKey(x => x.StockGroupID).IsRequired();
                       });
                 builder.Entity<CustomerType>(e=>{
 
@@ -152,10 +130,10 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.DistrictID); 
                   e.Property(e => e.CityID); 
                   e.Property(e => e.CountryID); 
-                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardId).IsRequired();
-                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictId).IsRequired();
-                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityId).IsRequired();
-                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryId).IsRequired();
+                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardID).IsRequired();
+                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictID).IsRequired();
+                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityID).IsRequired();
+                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryID).IsRequired();
                       });
                 builder.Entity<CustomerCard>(e=>{
 
@@ -170,8 +148,8 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.AuthorizedPerson); 
                   e.Property(e => e.EMail); 
                   e.Property(e => e.RiskLimit); 
-                e.HasOne<CustomerType>().WithMany().HasForeignKey(x => x.CustomerTypeId).IsRequired();
-                e.HasOne<CustomerGroup>().WithMany().HasForeignKey(x => x.CustomerGroupId).IsRequired();
+                e.HasOne<CustomerType>().WithMany().HasForeignKey(x => x.CustomerTypeID).IsRequired();
+                e.HasOne<CustomerGroup>().WithMany().HasForeignKey(x => x.CustomerGroupID).IsRequired();
                       });
                 builder.Entity<District>(e=>{
 
@@ -187,9 +165,9 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.DiscountAmount); 
                   e.Property(e => e.VATAmount); 
                   e.Property(e => e.TotalAmount); 
-                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardId).IsRequired();
+                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardID).IsRequired();
                       });
-                builder.Entity<MovementDetails>(e=>{
+                builder.Entity<MovementDetail>(e=>{
 
                   e.Property(e => e.TypeCode); 
                   e.Property(e => e.ReceiptNo); 
@@ -200,7 +178,7 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.DiscountAmount); 
                   e.Property(e => e.VATRate); 
                   e.Property(e => e.VATAmount); 
-                e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardId).IsRequired();
+                e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardID).IsRequired();
                       });
                 builder.Entity<Company>(e=>{
 
@@ -224,22 +202,12 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.QuantityDecimal); 
                   e.Property(e => e.PriceDecimal); 
                   e.Property(e => e.AmountDecimal); 
-                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictId).IsRequired();
-                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityId).IsRequired();
-                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryId).IsRequired();
-                      });
-
-            
-
-
-       
-           
-           
+                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictID).IsRequired();
+                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityID).IsRequired();
+                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryID).IsRequired();
+                });
         
-                    }
-
-    
-
+        }
     }
 }
 

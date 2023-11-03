@@ -38,9 +38,9 @@ namespace QuickSell.Companies
               int? priceDecimal, 
               int? amountDecimal,
               DateEnum? dateFormat, 
-              Guid? districtId,
-              Guid? cityId,
-              Guid? countryId
+              Guid? districtID,
+              Guid? cityID,
+              Guid? countryID
         )
         {
 
@@ -63,9 +63,9 @@ namespace QuickSell.Companies
                priceDecimal, 
                amountDecimal, 
                 dateFormat, 
-               districtId,
-               cityId,
-               countryId
+               districtID,
+               cityID,
+               countryID
              );
 
             return await _companyRepository.InsertAsync(company);
@@ -90,9 +90,9 @@ namespace QuickSell.Companies
           int? priceDecimal, 
           int? amountDecimal,
           DateEnum? dateFormat, 
-          Guid? districtId,
-          Guid? cityId,
-          Guid? countryId,
+          Guid? districtID,
+          Guid? cityID,
+          Guid? countryID,
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -119,9 +119,9 @@ namespace QuickSell.Companies
                  company.PriceDecimal=priceDecimal;
                  company.AmountDecimal=amountDecimal;
                 company.DateFormat=dateFormat;  
-                company.DistrictId=districtId;
-                company.CityId=cityId;
-                company.CountryId=countryId;
+                company.DistrictID=districtID;
+                company.CityID=cityID;
+                company.CountryID=countryID;
 
          company.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _companyRepository.UpdateAsync(company);

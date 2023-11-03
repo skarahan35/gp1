@@ -12,6 +12,10 @@ public class QuickSellEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        Configure<AbpDbContextOptions>(options =>
+        {
+            options.UseNpgsql();
+        });
         context.Services.AddAbpDbContext<QuickSellDbContext>(options =>
         {
                 /* Add custom repositories here. Example:

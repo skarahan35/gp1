@@ -20,15 +20,15 @@ namespace QuickSell.CustomerGroups
         }
 
         public async Task<CustomerGroup> CreateAsync(
-              string code, 
-              string name, 
+              string? code, 
+              string? name
         )
         {
 
             var customerGroup = new CustomerGroup(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name
              );
 
             return await _customerGroupRepository.InsertAsync(customerGroup);
@@ -36,8 +36,8 @@ namespace QuickSell.CustomerGroups
 
         public async Task<CustomerGroup> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code, 
+          string? name, 
             [CanBeNull] string concurrencyStamp = null
         )
         {

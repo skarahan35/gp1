@@ -20,59 +20,42 @@ namespace QuickSell.StockCards
         }
 
         public async Task<StockCard> CreateAsync(
-              string code, 
-              string name, 
+              string? code, 
+              string? name,
+              Guid? stockTypeID,
+              Guid? stockUnitID,
+              Guid? stockGroupID,
               string currencyType, 
-              int? transferredQuantity, 
-    
-              int? availableQuantity, 
-    
-              int? totalEntryQuantity, 
-    
-              int? totalOutputQuantity, 
-    
+              decimal? transferredQuantity, 
+              decimal? availableQuantity, 
+              decimal? totalEntryQuantity, 
+              decimal? totalOutputQuantity, 
               int? vAtRate, 
-    
               int? discountRate, 
-    
-              int? price1, 
-    
-              int? price2, 
-    
-              int? price3, 
-    
-              Guid? stockTypeId,
-              Guid? stockUnitId,
-              Guid? stockGroupId,
+              decimal? price1, 
+              decimal? price2, 
+              decimal? price3
+              
         )
         {
 
             var stockCard = new StockCard(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name,
+               stockTypeID,
+               stockUnitID,
+               stockGroupID,
                currencyType, 
                transferredQuantity, 
-    
                availableQuantity, 
-    
                totalEntryQuantity, 
-    
                totalOutputQuantity, 
-    
                vAtRate, 
-    
                discountRate, 
-    
                price1, 
-    
                price2, 
-    
-               price3, 
-    
-               stockTypeId,
-               stockUnitId,
-               stockGroupId,
+               price3
              );
 
             return await _stockCardRepository.InsertAsync(stockCard);
@@ -80,30 +63,21 @@ namespace QuickSell.StockCards
 
         public async Task<StockCard> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code, 
+          string? name,
+          Guid? stockTypeID,
+          Guid? stockUnitID,
+          Guid? stockGroupID,
           string currencyType, 
-          int? transferredQuantity, 
-
-          int? availableQuantity, 
-
-          int? totalEntryQuantity, 
-
-          int? totalOutputQuantity, 
-
+          decimal? transferredQuantity, 
+          decimal? availableQuantity, 
+          decimal? totalEntryQuantity, 
+          decimal? totalOutputQuantity, 
           int? vAtRate, 
-
           int? discountRate, 
-
-          int? price1, 
-
-          int? price2, 
-
-          int? price3, 
-
-          Guid? stockTypeId,
-          Guid? stockUnitId,
-          Guid? stockGroupId,
+          decimal? price1, 
+          decimal? price2, 
+          decimal? price3, 
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -115,6 +89,9 @@ namespace QuickSell.StockCards
 
                 stockCard.Code=code;
                 stockCard.Name=name;
+                stockCard.StockTypeID = stockTypeID;
+                stockCard.StockUnitID = stockUnitID;
+                stockCard.StockGroupID = stockGroupID;
                 stockCard.CurrencyType=currencyType;
                  stockCard.TransferredQuantity=transferredQuantity;
                  stockCard.AvailableQuantity=availableQuantity;
@@ -125,9 +102,6 @@ namespace QuickSell.StockCards
                  stockCard.Price1=price1;
                  stockCard.Price2=price2;
                  stockCard.Price3=price3;
-                stockCard.StockTypeId=stockTypeId;
-                stockCard.StockUnitId=stockUnitId;
-                stockCard.StockGroupId=stockGroupId;
 
          stockCard.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _stockCardRepository.UpdateAsync(stockCard);

@@ -20,15 +20,15 @@ namespace QuickSell.StockGroups
         }
 
         public async Task<StockGroup> CreateAsync(
-              string code, 
-              string name, 
+              string? code, 
+              string? name
         )
         {
 
             var stockGroup = new StockGroup(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name
              );
 
             return await _stockGroupRepository.InsertAsync(stockGroup);
@@ -36,8 +36,8 @@ namespace QuickSell.StockGroups
 
         public async Task<StockGroup> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code,
+          string? name, 
             [CanBeNull] string concurrencyStamp = null
         )
         {

@@ -21,14 +21,14 @@ namespace QuickSell.Cities
 
         public async Task<City> CreateAsync(
               string code, 
-              string name, 
+              string name
         )
         {
 
             var city = new City(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name
              );
 
             return await _cityRepository.InsertAsync(city);

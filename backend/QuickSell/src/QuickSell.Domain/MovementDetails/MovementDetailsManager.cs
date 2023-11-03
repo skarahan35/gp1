@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
 
@@ -19,67 +16,47 @@ namespace QuickSell.MovementDetails
             _movementDetailsRepository = movementDetailsRepository;
         }
 
-        public async Task<MovementDetails> CreateAsync(
-              string typeCode, 
-              int? receiptNo, 
-    
-              int? quantity, 
-    
-              int? price, 
-    
-              int? discountRate, 
-    
-              int? discountAmount, 
-    
-              int? vAtRate, 
-    
-              int? vAtAmount, 
-    
-              Guid? stockCardId,
+        public async Task<MovementDetail> CreateAsync(
+              string? typeCode, 
+              int? receiptNo,
+              Guid? stockCardID,
+              decimal? quantity,
+              decimal? price,
+              decimal? discountRate,
+              decimal? discountAmount,
+              decimal? vAtRate,
+              decimal? vAtAmount 
+              
         )
         {
 
-            var movementDetails = new MovementDetails(
+            var movementDetail = new MovementDetail(
              GuidGenerator.Create(),
                typeCode, 
-               receiptNo, 
-    
+               receiptNo,
+               stockCardID,
                quantity, 
-    
                price, 
-    
                discountRate, 
-    
                discountAmount, 
-    
                vAtRate, 
-    
-               vAtAmount, 
-    
-               stockCardId,
+               vAtAmount
              );
 
-            return await _movementDetailsRepository.InsertAsync(movementDetails);
+            return await _movementDetailsRepository.InsertAsync(movementDetail);
         }
 
-        public async Task<MovementDetails> UpdateAsync(
+        public async Task<MovementDetail> UpdateAsync(
            Guid id,
-          string typeCode, 
-          int? receiptNo, 
-
-          int? quantity, 
-
-          int? price, 
-
-          int? discountRate, 
-
-          int? discountAmount, 
-
-          int? vAtRate, 
-
-          int? vAtAmount, 
-
-          Guid? stockCardId,
+          string? typeCode, 
+          int? receiptNo,
+          Guid? stockCardID,
+          decimal? quantity,
+          decimal? price,
+          decimal? discountRate,
+          decimal? discountAmount,
+          decimal? vAtRate,
+          decimal? vAtAmount, 
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -91,13 +68,13 @@ namespace QuickSell.MovementDetails
 
                 movementDetails.TypeCode=typeCode;
                  movementDetails.ReceiptNo=receiptNo;
-                 movementDetails.Quantity=quantity;
+                movementDetails.StockCardID = stockCardID;
+                movementDetails.Quantity=quantity;
                  movementDetails.Price=price;
                  movementDetails.DiscountRate=discountRate;
                  movementDetails.DiscountAmount=discountAmount;
                  movementDetails.VATRate=vAtRate;
                  movementDetails.VATAmount=vAtAmount;
-                movementDetails.StockCardId=stockCardId;
 
          movementDetails.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _movementDetailsRepository.UpdateAsync(movementDetails);

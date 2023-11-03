@@ -23,49 +23,42 @@ using QuickSell.StockCards;
 namespace QuickSell.MovementDetails
 {
     
-    public  class MovementDetails : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class MovementDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         
         [StringLength(64,MinimumLength=0)]
-        public string TypeCode { get; set; }
+        public string? TypeCode { get; set; }
         public int? ReceiptNo { get; set; }
-        public UNKNOWN_TYPE StockCardID { get; set; }
-        public int? Quantity { get; set; }
-        public int? Price { get; set; }
-        public int? DiscountRate { get; set; }
-        public int? DiscountAmount { get; set; }
-        public int? VATRate { get; set; }
-        public int? VATAmount { get; set; }
-        public Guid? StockCardId { get; set; }    
+        public Guid? StockCardID { get; set; }
+        public decimal? Quantity { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? DiscountRate { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? VATRate { get; set; }
+        public decimal? VATAmount { get; set; }
         public Guid? TenantId { get; set; }
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
-        public MovementDetails()
+        public MovementDetail()
         {
 
         }
 
         
-        public MovementDetails
+        public MovementDetail
         (
             Guid id
-          ,string typeCode 
+          ,string? typeCode 
           ,int? receiptNo
-
-          ,int? quantity
-
-          ,int? price
-
-          ,int? discountRate
-
-          ,int? discountAmount
-
-          ,int? vAtRate
-
-          ,int? vAtAmount
-
-          ,Guid? stockCardId
+          , Guid? stockCardID
+          , decimal? quantity
+          ,decimal? price
+          ,decimal? discountRate
+          ,decimal? discountAmount
+          ,decimal? vAtRate
+          ,decimal? vAtAmount
+          
             
 
         )
@@ -75,13 +68,13 @@ namespace QuickSell.MovementDetails
                Id = id;
                 TypeCode=typeCode;
                 ReceiptNo=receiptNo;
+                StockCardID = stockCardID;           
                 Quantity=quantity;
                 Price=price;
                 DiscountRate=discountRate;
                 DiscountAmount=discountAmount;
                 VATRate=vAtRate;
                 VATAmount=vAtAmount;
-                StockCardId=stockCardId;
 
         }
 

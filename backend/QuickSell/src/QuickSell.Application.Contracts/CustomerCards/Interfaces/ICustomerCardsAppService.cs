@@ -12,19 +12,6 @@ namespace QuickSell.CustomerCards
 {
     public interface ICustomerCardsAppService: IApplicationService
     {
-        
-
-        Task<PagedResultDto< CustomerCardDto >> GetListAsync(GetCustomerCardsInput input);
-
-        Task<CustomerCardDto> GetAsync(Guid id);
-
-        Task DeleteAsync(Guid id);
-
-        Task<CustomerCardDto> CreateAsync(CustomerCardCreateDto input);
-
-        Task<CustomerCardDto> UpdateAsync(Guid id, CustomerCardUpdateDto input);
-
-        
     }
 }
 

@@ -13,7 +13,7 @@ namespace QuickSell.MovementDetails
     public class MovementDetailsWithNavigationPropertiesDto 
     {
     
-        public MovementDetailsDto  MovementDetails  {get; set;}
+        public MovementDetailDto  MovementDetail  {get; set;}
         
         public StockCardDto StockCard { get; set; }
         

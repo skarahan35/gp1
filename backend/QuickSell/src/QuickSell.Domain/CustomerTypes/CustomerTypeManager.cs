@@ -21,14 +21,14 @@ namespace QuickSell.CustomerTypes
 
         public async Task<CustomerType> CreateAsync(
               string code, 
-              string name, 
+              string name
         )
         {
 
             var customerType = new CustomerType(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name
              );
 
             return await _customerTypeRepository.InsertAsync(customerType);

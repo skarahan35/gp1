@@ -10,9 +10,9 @@ namespace QuickSell.Cities
     public class CityUpdateDto: IHasConcurrencyStamp
     {
         public Guid Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public string? ConcurrencyStamp { get; set; }
         // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
 
 

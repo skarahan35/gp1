@@ -9,18 +9,10 @@ namespace QuickSell.CustomerGroups
 
     public class CustomerGroupDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string ConcurrencyStamp { get; set; }      
-        // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
-
-
-
-
-        
-        
-
+        public string? Code { get; set; }
+        [StringLength(256, MinimumLength = 0)]
+        public string? Name { get; set; }
+        public string? ConcurrencyStamp { get; set; } 
     }
 }
 

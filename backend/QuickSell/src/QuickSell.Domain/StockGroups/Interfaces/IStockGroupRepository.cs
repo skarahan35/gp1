@@ -18,8 +18,8 @@ namespace QuickSell.StockGroups
       Task<List< StockGroup>> GetListAsync(
          string filterText = null
          ,string sorting = null
-         ,string code= null 
-         ,string name= null 
+         ,string? code= null 
+         ,string? name= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
          ,CancellationToken cancellationToken = default      
@@ -27,8 +27,8 @@ namespace QuickSell.StockGroups
 
        Task<long> GetCountAsync(
         string filterText = null,
-          string code= null , 
-          string name= null , 
+          string? code= null , 
+          string? name= null , 
         CancellationToken cancellationToken = default);
 
         

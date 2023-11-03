@@ -58,10 +58,7 @@ namespace QuickSell.Companies
         public string? WorkingYear { get; set; }
         public int? QuantityDecimal { get; set; }
         public int? PriceDecimal { get; set; }
-        public int? AmountDecimal { get; set; }
-        public Guid? DistrictId { get; set; }    
-        public Guid? CityId { get; set; }    
-        public Guid? CountryId { get; set; }    
+        public int? AmountDecimal { get; set; }    
         public Guid? TenantId { get; set; }
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
@@ -92,9 +89,9 @@ namespace QuickSell.Companies
           ,int? priceDecimal
           ,int? amountDecimal
           , DateEnum? dateFormat
-          ,Guid? districtId
-          ,Guid? cityId
-          ,Guid? countryId
+          ,Guid? districtID
+          ,Guid? cityID
+          ,Guid? countryID
             
 
         )
@@ -119,9 +116,9 @@ namespace QuickSell.Companies
                 PriceDecimal=priceDecimal;
                 AmountDecimal=amountDecimal;
                  DateFormat=dateFormat; 
-                DistrictId=districtId;
-                CityId=cityId;
-                CountryId=countryId;
+                DistrictID=districtID;
+                CityID=cityID;
+                CountryID=countryID;
 
         }
 

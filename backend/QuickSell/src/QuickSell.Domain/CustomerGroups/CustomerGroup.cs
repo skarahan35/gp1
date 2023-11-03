@@ -9,17 +9,6 @@ using Volo.Abp;
 
 
 using QuickSell.CustomerCards;
-
-        /// <summary>
-        ///  Code Generator ile üretilen abstract sınıflarda özellestirme yapılabilmesi için abstract 
-        ///  sinifi kalitim alınarak özelleştirme yapilmasi gerekmektedir.
-        ///  Code Generator tekrar calistirildiğinda yapılan özellestirmeler kaybolacaktir!!! 
-
-        ///  In order to be able to customize the abstract classes produced with Code Generator,
-        ///  it is necessary to inherit the abstract class and customize it.
-        ///  Restarting Code Generator, any customizations will be lost!!!
-        /// </summary>
-
 namespace QuickSell.CustomerGroups
 {
     
@@ -27,9 +16,9 @@ namespace QuickSell.CustomerGroups
     {
         
         [StringLength(64,MinimumLength=0)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
         [StringLength(256,MinimumLength=0)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         
         public Guid? TenantId { get; set; }
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -44,8 +33,8 @@ namespace QuickSell.CustomerGroups
         public CustomerGroup
         (
             Guid id
-          ,string code 
-          ,string name 
+          ,string? code 
+          ,string? name 
             
 
         )

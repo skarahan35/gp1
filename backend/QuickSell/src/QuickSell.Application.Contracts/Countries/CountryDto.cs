@@ -9,18 +9,10 @@ namespace QuickSell.Countries
 
     public class CountryDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string ConcurrencyStamp { get; set; }      
-        // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
 
-
-
-
-        
-        
-
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public string? ConcurrencyStamp { get; set; }      
     }
 }
 

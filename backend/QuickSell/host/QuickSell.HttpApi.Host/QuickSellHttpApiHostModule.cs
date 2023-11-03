@@ -28,6 +28,8 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Auditing;
+using Volo.Abp.Timing;
 
 namespace QuickSell;
 
@@ -40,8 +42,8 @@ namespace QuickSell;
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpEntityFrameworkCoreSqlServerModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
-    typeof(AbpPermissionManagementEntityFrameworkCoreModule),
-    typeof(AbpSettingManagementEntityFrameworkCoreModule),
+    //typeof(AbpPermissionManagementEntityFrameworkCoreModule),
+    //typeof(AbpSettingManagementEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
@@ -53,6 +55,12 @@ public class QuickSellHttpApiHostModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
+        
+
+        Configure<AbpAuditingOptions>(options =>
+        {
+            options.IsEnabled = false;
+        });
 
         Configure<AbpDbContextOptions>(options =>
         {
@@ -165,7 +173,7 @@ public class QuickSellHttpApiHostModule : AbpModule
         {
             app.UseHsts();
         }
-
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         app.UseHttpsRedirection();
         app.UseCorrelationId();
         app.UseStaticFiles();

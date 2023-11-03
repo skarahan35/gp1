@@ -10,24 +10,13 @@ namespace QuickSell.MovementHeaders
 
     public class MovementHeaderCreateDto
     {
-        
-        public string TypeCode { get; set; }
+        public string? TypeCode { get; set; }
         public int? ReceiptNo { get; set; }
-        public UNKNOWN_TYPE CustomerCardID { get; set; }
+        public Guid? CustomerCardID { get; set; }
         public int? FirstAmount { get; set; }
         public int? DiscountAmount { get; set; }
         public int? VATAmount { get; set; }
         public int? TotalAmount { get; set; }
-        public Guid? CustomerCardId { get; set; }
-        
-        // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
-
-       
-
-
-        
-        
-
     }
 }
 

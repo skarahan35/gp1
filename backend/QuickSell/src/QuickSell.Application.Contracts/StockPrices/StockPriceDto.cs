@@ -10,21 +10,10 @@ namespace QuickSell.StockPrices
 
     public class StockPriceDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
-        
-        public UNKNOWN_TYPE StockID { get; set; }
-        public int? StockPrice { get; set; }
-        public string StockPriceType { get; set; }
-        public Guid? StockCardId { get; set; }
-        
-        public string ConcurrencyStamp { get; set; }      
-        // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
-
-
-
-
-        
-        
-
+        public Guid? StockCardID { get; set; }
+        public decimal? Price { get; set; }
+        public string PriceType { get; set; }
+        public string? ConcurrencyStamp { get; set; }      
     }
 }
 

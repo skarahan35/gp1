@@ -9,30 +9,30 @@ namespace QuickSell.MovementDetails
     
 
 
-    public interface IMovementDetailsRepository : IRepository<MovementDetails, Guid>
+    public interface IMovementDetailsRepository : IRepository<MovementDetail, Guid>
 {
 
   
 
   
-      Task<List< MovementDetails>> GetListAsync(
+      Task<List< MovementDetail>> GetListAsync(
          string filterText = null
          ,string sorting = null
          ,string typeCode= null 
          ,int? receiptNoMin= null 
          ,int? receiptNoMax= null 
-         ,int? quantityMin= null 
-         ,int? quantityMax= null 
-         ,int? priceMin= null 
-         ,int? priceMax= null 
-         ,int? discountRateMin= null 
-         ,int? discountRateMax= null 
-         ,int? discountAmountMin= null 
-         ,int? discountAmountMax= null 
-         ,int? vAtRateMin= null 
-         ,int? vAtRateMax= null 
-         ,int? vAtAmountMin= null 
-         ,int? vAtAmountMax= null 
+         ,decimal? quantityMin= null 
+         ,decimal? quantityMax= null 
+         ,decimal? priceMin= null 
+         ,decimal? priceMax= null 
+         ,decimal? discountRateMin= null 
+         ,decimal? discountRateMax= null 
+         ,decimal? discountAmountMin= null 
+         ,decimal? discountAmountMax= null 
+         ,decimal? vAtRateMin= null 
+         ,decimal? vAtRateMax= null 
+         ,decimal? vAtAmountMin= null 
+         ,decimal? vAtAmountMax= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
          ,CancellationToken cancellationToken = default      
@@ -43,18 +43,18 @@ namespace QuickSell.MovementDetails
           string typeCode= null , 
           int? receiptNoMin= null , 
           int? receiptNoMax= null ,
-          int? quantityMin= null , 
-          int? quantityMax= null ,
-          int? priceMin= null , 
-          int? priceMax= null ,
-          int? discountRateMin= null , 
-          int? discountRateMax= null ,
-          int? discountAmountMin= null , 
-          int? discountAmountMax= null ,
-          int? vAtRateMin= null , 
-          int? vAtRateMax= null ,
-          int? vAtAmountMin= null , 
-          int? vAtAmountMax= null ,
+          decimal? quantityMin= null , 
+          decimal? quantityMax= null ,
+          decimal? priceMin= null , 
+          decimal? priceMax= null ,
+          decimal? discountRateMin= null , 
+          decimal? discountRateMax= null ,
+          decimal? discountAmountMin= null , 
+          decimal? discountAmountMax= null ,
+          decimal? vAtRateMin= null , 
+          decimal? vAtRateMax= null ,
+          decimal? vAtAmountMin= null , 
+          decimal? vAtAmountMax= null ,
         CancellationToken cancellationToken = default);
 
         

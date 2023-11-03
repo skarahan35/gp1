@@ -20,15 +20,15 @@ namespace QuickSell.Districts
         }
 
         public async Task<District> CreateAsync(
-              string code, 
-              string name, 
+              string? code, 
+              string? name
         )
         {
 
             var district = new District(
              GuidGenerator.Create(),
                code, 
-               name, 
+               name
              );
 
             return await _districtRepository.InsertAsync(district);
@@ -36,8 +36,8 @@ namespace QuickSell.Districts
 
         public async Task<District> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code, 
+          string? name, 
             [CanBeNull] string concurrencyStamp = null
         )
         {

@@ -11,10 +11,6 @@ namespace QuickSell.Districts
 
     public interface IDistrictRepository : IRepository<District, Guid>
 {
-
-  
-
-  
       Task<List< District>> GetListAsync(
          string filterText = null
          ,string sorting = null

@@ -13,17 +13,6 @@ namespace QuickSell.Districts
     public interface IDistrictsAppService: IApplicationService
     {
         
-
-        Task<PagedResultDto< DistrictDto >> GetListAsync(GetDistrictsInput input);
-
-        Task<DistrictDto> GetAsync(Guid id);
-
-        Task DeleteAsync(Guid id);
-
-        Task<DistrictDto> CreateAsync(DistrictCreateDto input);
-
-        Task<DistrictDto> UpdateAsync(Guid id, DistrictUpdateDto input);
-
         
     }
 }

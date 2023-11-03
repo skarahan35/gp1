@@ -27,9 +27,9 @@ namespace QuickSell.CustomerTypes
     {
         
         [StringLength(64,MinimumLength=0)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
         [StringLength(256,MinimumLength=0)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         
         public Guid? TenantId { get; set; }
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -44,8 +44,8 @@ namespace QuickSell.CustomerTypes
         public CustomerType
         (
             Guid id
-          ,string code 
-          ,string name 
+          ,string? code 
+          ,string? name 
             
 
         )

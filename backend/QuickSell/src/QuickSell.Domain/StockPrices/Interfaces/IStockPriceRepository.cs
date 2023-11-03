@@ -18,9 +18,9 @@ namespace QuickSell.StockPrices
       Task<List< StockPrice>> GetListAsync(
          string filterText = null
          ,string sorting = null
-         ,string stockPriceType= null 
-         ,int? stockPriceMin= null 
-         ,int? stockPriceMax= null 
+         ,string priceType= null 
+         ,decimal? priceMin= null 
+         ,decimal? priceMax= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
          ,CancellationToken cancellationToken = default      
@@ -28,9 +28,9 @@ namespace QuickSell.StockPrices
 
        Task<long> GetCountAsync(
         string filterText = null,
-          string stockPriceType= null , 
-          int? stockPriceMin= null , 
-          int? stockPriceMax= null ,
+          string priceType= null ,
+          decimal? priceMin = null,
+         decimal? priceMax = null,
         CancellationToken cancellationToken = default);
 
         

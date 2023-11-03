@@ -1,5 +1,6 @@
 using Volo.Abp.Application.Dtos;
 using System;
+using QuickSell.Enums;
 
 namespace QuickSell.Companies
 {
@@ -29,7 +30,7 @@ namespace QuickSell.Companies
         public int? PriceDecimalMax { get; set; } 
         public int? AmountDecimalMin { get; set; } 
         public int? AmountDecimalMax { get; set; } 
-        public bool? DateFormat { get; set; }  
+        public DateEnum? DateFormat { get; set; }  
         public GetCompaniesInput()
         {
 

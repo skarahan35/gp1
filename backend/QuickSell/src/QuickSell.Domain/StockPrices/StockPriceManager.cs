@@ -20,30 +20,27 @@ namespace QuickSell.StockPrices
         }
 
         public async Task<StockPrice> CreateAsync(
-              string stockPriceType, 
-              int? stockPrice, 
-    
-              Guid? stockCardId,
+              Guid? stockCardID,
+              int? price,
+              string priceType
         )
         {
 
             var stockPrice = new StockPrice(
              GuidGenerator.Create(),
-               stockPriceType, 
-               stockPrice, 
-    
-               stockCardId,
+               stockCardID,
+               price,
+               priceType
              );
 
             return await _stockPriceRepository.InsertAsync(stockPrice);
         }
 
         public async Task<StockPrice> UpdateAsync(
-           Guid id,
-          string stockPriceType, 
-          int? stockPrice, 
-
-          Guid? stockCardId,
+            Guid id,
+           Guid? stockCardID,
+           int? price,
+           string priceType,
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -52,10 +49,9 @@ namespace QuickSell.StockPrices
             var query = queryable.Where(x => x.Id == id);
 
             var stockPrice = await AsyncExecuter.FirstOrDefaultAsync(query);
-
-                stockPrice.StockPriceType=stockPriceType;
-                 stockPrice.StockPrice=stockPrice;
-                stockPrice.StockCardId=stockCardId;
+                stockPrice.StockCardID = stockCardID;
+                stockPrice.Price=price;
+                 stockPrice.PriceType=priceType;
 
          stockPrice.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _stockPriceRepository.UpdateAsync(stockPrice);

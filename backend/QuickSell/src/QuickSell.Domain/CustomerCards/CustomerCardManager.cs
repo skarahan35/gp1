@@ -22,16 +22,15 @@ namespace QuickSell.CustomerCards
         public async Task<CustomerCard> CreateAsync(
               string code, 
               string name, 
+              Guid? customerTypeID,
+              Guid? customerGroupID,
+              Guid? addressID,
               string taxOffice, 
               string tCNumber, 
               string authorizedPerson, 
               string eMail, 
               int? taxNo, 
-    
-              int? riskLimit, 
-    
-              Guid? customerTypeId,
-              Guid? customerGroupId,
+              decimal? riskLimit
         )
         {
 
@@ -39,16 +38,15 @@ namespace QuickSell.CustomerCards
              GuidGenerator.Create(),
                code, 
                name, 
+               customerTypeID,
+               customerGroupID,
+               addressID,
                taxOffice, 
                tCNumber, 
                authorizedPerson, 
                eMail, 
                taxNo, 
-    
-               riskLimit, 
-    
-               customerTypeId,
-               customerGroupId,
+               riskLimit
              );
 
             return await _customerCardRepository.InsertAsync(customerCard);
@@ -57,17 +55,17 @@ namespace QuickSell.CustomerCards
         public async Task<CustomerCard> UpdateAsync(
            Guid id,
           string code, 
-          string name, 
+          string name,
+          Guid? customerTypeID,
+          Guid? customerGroupID,
+          Guid? addressID,
           string taxOffice, 
           string tCNumber, 
           string authorizedPerson, 
           string eMail, 
           int? taxNo, 
 
-          int? riskLimit, 
-
-          Guid? customerTypeId,
-          Guid? customerGroupId,
+          decimal? riskLimit,
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -79,14 +77,15 @@ namespace QuickSell.CustomerCards
 
                 customerCard.Code=code;
                 customerCard.Name=name;
+                customerCard.CustomerTypeID=customerTypeID;
+                customerCard.CustomerGroupID=customerGroupID;
+                customerCard.AddressID=addressID;
                 customerCard.TaxOffice=taxOffice;
                 customerCard.TCNumber=tCNumber;
                 customerCard.AuthorizedPerson=authorizedPerson;
                 customerCard.EMail=eMail;
                  customerCard.TaxNo=taxNo;
                  customerCard.RiskLimit=riskLimit;
-                customerCard.CustomerTypeId=customerTypeId;
-                customerCard.CustomerGroupId=customerGroupId;
 
          customerCard.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _customerCardRepository.UpdateAsync(customerCard);
