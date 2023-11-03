@@ -30,6 +30,10 @@ namespace QuickSell
             CreateMap<StockTypeDto, StockType>()
             .ForMember(dest => dest.TenantId, opt => opt.Ignore())
             .ForMember(dest => dest.ExtraProperties, opt => opt.Ignore());
+            CreateMap<StockUnit, StockUnitDto>();
+            CreateMap<StockUnitDto, StockUnit>()
+            .ForMember(dest => dest.TenantId, opt => opt.Ignore())
+            .ForMember(dest => dest.ExtraProperties, opt => opt.Ignore());
             CreateMap<StockPrice, StockPriceDto>();
             CreateMap<StockCard, StockCardDto>();
             CreateMap<CustomerType, CustomerTypeDto>();
