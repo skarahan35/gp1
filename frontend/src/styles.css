@@ -1,43 +1,57 @@
-/* Kolon başlığı arka planı ve metin rengi */
+
 .dx-datagrid-headers {
-    background-color: #343A40; /* Daha koyu bir arka plan rengi */
-    color: #ffffff; /* Beyaz metin rengi */
-    border: none; /* Kenarlık olmadan daha modern bir görünüm */
-    border-radius: 0; /* Kenarlık olmadan daha modern bir görünüm */
-    box-shadow: none; /* Gölge olmadan daha modern bir görünüm */
-    font-weight: bold; /* Daha belirgin bir metin */
+    background-color: #394A57; 
+    color: #ffffff; 
+    border: none;
+    border-radius: 0; 
+    box-shadow: none; 
+    font-weight: bold; 
     font-size: 18px;
 }
 
-/* Kolon başlığı hover rengi */
 .dx-datagrid-headers:hover {
-    background-color: #2C3136; /* Daha koyu hover rengi */
+    background-color: #2C3136; 
 }
 
-/* Kolon başlığı seçildiğindeki renk */
 .dx-datagrid-headers.dx-header-row .dx-datagrid-text-content.dx-datagrid-text-content-hidden {
-    background-color: #1E2226; /* Daha koyu seçili renk */
+    background-color: #1E2226; 
 }
 
-/* Filtre simgesi rengi */
 .dx-datagrid-headers .dx-datagrid-filter-button-popup {
-    background-color: #343A40; /* Daha koyu bir arka plan rengi */
+    background-color: #343A40; 
 }
 
-/* Filtre simgesi rengi hover durumunda */
 .dx-datagrid-headers .dx-datagrid-filter-button-popup:hover {
-    background-color: #2C3136; /* Daha koyu hover rengi */
+    background-color: #2C3136; 
 }
 
-/* Filter satırı rengi */
 .dx-datagrid-filter-row {
-    background-color: #ffffff; /* Beyaz arka plan rengi */
+    background-color: #ffffff; 
 }
 
 .dx-popup .dx-popup-bottom .dx-button {
-    background-color: #FF5733; /* Kapatma butonunun arka plan rengi */
-    color: #ffffff; /* Kapatma butonunun metin rengi */
+    background-color: #FF5733; 
+    color: #ffffff; 
 }
 .dx-datagrid-rowsview tbody tr {
-    border-bottom: 1px solid #ccc; /* Çizgi rengi */
+    border-bottom: 1px solid #ccc; 
+}
+.breadcrumb {
+    background-color: transparent; 
+    border-radius: 0; 
+    font-size: 16px; 
+}
+
+.breadcrumb-item {
+    margin: 0; 
+    padding: 0.5rem 0.25rem; 
+}
+
+.breadcrumb-item a {
+    color: #007bff; 
+    text-decoration: none; 
+}
+
+.breadcrumb-item.active {
+    color: #555; 
 }

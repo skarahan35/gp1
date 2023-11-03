@@ -1,24 +1,23 @@
 .bg-dark {
-    background-color: #343A40 !important;
+    background-color: #1e272e !important; 
 }
 
 .nav-link {
-    color: white !important;
+    color: #ecf0f1 !important; 
 }
 
 .nav-link.active {
-    background-color: #24282B;
+    background-color: #34495e; 
 }
 
-/* Dropdown menüsündeki stil */
 .dropdown-menu {
-    background-color: #343A40 !important;
+    background-color: #1e272e !important; 
 }
 
 .dropdown-item {
-    color: white !important;
+    color: #ecf0f1 !important; 
 }
 
 .dropdown-item:hover {
-    background-color: #24282B !important;
+    background-color: #34495e !important; 
 }
