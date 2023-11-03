@@ -10,13 +10,15 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DenemeComponent } from './deneme/deneme.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DxDataGridModule } from 'devextreme-angular';
+import { StockTypeComponent } from './stock/stock-type/stock-type.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    DenemeComponent
+    DenemeComponent,
+    StockTypeComponent
   ],
   imports: [
     BrowserModule,
