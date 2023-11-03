@@ -33,12 +33,12 @@ namespace QuickSell.StockUnits
         {
             var getStockUnit = await _stockUnitRepository.GetQueryableAsync();
 
-            var getJoinedData = from stktyp in getStockUnit
+            var getJoinedData = from stkunt in getStockUnit
                                 select new DxStockUnitLookupDto
                                 {
-                                    Id = stktyp.Id,
-                                    Code = stktyp.Code,
-                                    Name = stktyp.Name
+                                    Id = stkunt.Id,
+                                    Code = stkunt.Code,
+                                    Name = stkunt.Name
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
         }
@@ -47,14 +47,14 @@ namespace QuickSell.StockUnits
             var dataFilter = _dataFilter.Disable<ISoftDelete>();
             using (dataFilter)
             {
-                var getStockType = (await _stockUnitRepository.GetQueryableAsync());
-                var stockUnits = (from stktyp in getStockType
-                                  where stktyp.Id == id
+                var getStockUnit = (await _stockUnitRepository.GetQueryableAsync());
+                var stockUnits = (from stkunt in getStockUnit
+                                  where stkunt.Id == id
                                   select new DxStockUnitLookupDto
                                   {
-                                      Id = stktyp.Id,
-                                      Code = stktyp.Code,
-                                      Name = stktyp.Name,
+                                      Id = stkunt.Id,
+                                      Code = stkunt.Code,
+                                      Name = stkunt.Name,
                                   }).FirstOrDefault();
                 return stockUnits;
             }
@@ -71,9 +71,9 @@ namespace QuickSell.StockUnits
         {
             //Entity üzerinde update işlemi yapıldığı zaman işlem tamamlanmadan update işlemini yapmış oluyor.
             //Bu yüzden de map işlemi ile update edene kadar datayı dto ya dönüştürülüyor.
-            var stockType = await _stockUnitRepository.GetAsync(id);
-            var stockTypeDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockType);
-            var updated = await DevExtremeUpdate.Update(stockTypeDto, input);
+            var stockUnit = await _stockUnitRepository.GetAsync(id);
+            var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
+            var updated = await DevExtremeUpdate.Update(stockUnitDto, input);
             var a = ObjectMapper.Map<StockUnitDto, StockUnit>(updated);
             return ObjectMapper.Map<StockUnit, StockUnitDto>(a);
         }
