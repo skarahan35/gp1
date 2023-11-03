@@ -1,0 +1,83 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Stock</li>
+      <li class="breadcrumb-item active" aria-current="page">Stock Group</li>
+    </ol>
+  </nav>
+  
+  <div id="data-grid-demo">
+      <dx-data-grid
+      #targetDataGrid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+          [allowColumnReordering]="true"
+          [columnHidingEnabled]="true"
+          [filterRow]="{ visible: true, applyFilter: 'auto' }"
+          [headerFilter]="{ visible: true }"
+          [groupPanel]="{ visible: true }"
+          [searchPanel]="{ visible: true }"
+          [selection]="{ mode: 'multiple' }"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="false"
+          
+      >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-paging [pageSize]="10"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [displayMode]="displayMode"
+      [showPageSizeSelector]="showPageSizeSelector"
+      [showInfo]="showInfo"
+      [showNavigationButtons]="showNavButtons"
+    >
+    </dxo-pager>
+      <dxo-filter-panel [visible]="true"> </dxo-filter-panel>
+        <dxo-paging [enabled]="true"></dxo-paging>
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+      ></dxo-export>
+        <dxo-editing
+          mode="popup"
+          [allowUpdating]="true"
+          [allowAdding]="true"
+          [allowDeleting]="true"
+          [useIcons]="true"
+        >
+          <dxo-popup
+            title="Stock Group"
+            [showTitle]="true"
+            [width]="500"
+            [height]="250"
+          >
+          <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="successButtonOptions"
+        >
+        </dxi-toolbar-item>
+        <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="cancelButtonOptions"
+        >
+        </dxi-toolbar-item>
+          </dxo-popup>
+          <dxo-form>
+            <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+              <dxi-item dataField="code" [colCount]="2"></dxi-item>
+              <dxi-item dataField="name" [colCount]="2"></dxi-item>
+            </dxi-item>
+          </dxo-form>
+        </dxo-editing>
+    
+        <dxi-column dataField="code" dataType="string"></dxi-column>
+        <dxi-column dataField="name" dataType="string"></dxi-column>
+      </dx-data-grid>
+    </div>

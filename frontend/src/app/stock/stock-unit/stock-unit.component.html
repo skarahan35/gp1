@@ -1,9 +1,9 @@
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item">Stock</li>
-    <li class="breadcrumb-item active" aria-current="page">Stock Type</li>
-  </ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Stock</li>
+      <li class="breadcrumb-item active" aria-current="page">Stock Unit</li>
+    </ol>
 </nav>
 
 <div id="data-grid-demo">
@@ -49,7 +49,7 @@
         [useIcons]="true"
       >
         <dxo-popup
-          title="Stock Type"
+          title="Stock Unit"
           [showTitle]="true"
           [width]="500"
           [height]="250"
@@ -73,13 +73,11 @@
           <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
             <dxi-item dataField="code" [colCount]="2"></dxi-item>
             <dxi-item dataField="name" [colCount]="2"></dxi-item>
-            <!-- <dxi-item dataField="condition"></dxi-item> -->
           </dxi-item>
         </dxo-form>
       </dxo-editing>
   
       <dxi-column dataField="code" dataType="string"></dxi-column>
       <dxi-column dataField="name" dataType="string"></dxi-column>
-      <dxi-column dataField="condition" dataType="boolean"> </dxi-column>
     </dx-data-grid>
   </div>

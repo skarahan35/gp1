@@ -11,6 +11,8 @@ import { DenemeComponent } from './deneme/deneme.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DxDataGridModule } from 'devextreme-angular';
 import { StockTypeComponent } from './stock/stock-type/stock-type.component';
+import { StockUnitComponent } from './stock/stock-unit/stock-unit.component';
+import { StockGroupComponent } from './stock/stock-group/stock-group.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { StockTypeComponent } from './stock/stock-type/stock-type.component';
     NavbarComponent,
     SidebarComponent,
     DenemeComponent,
-    StockTypeComponent
+    StockTypeComponent,
+    StockUnitComponent,
+    StockGroupComponent
   ],
   imports: [
     BrowserModule,
