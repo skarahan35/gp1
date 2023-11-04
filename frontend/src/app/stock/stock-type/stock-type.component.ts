@@ -1,5 +1,10 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
+import CustomStore from 'devextreme/data/custom_store';
+import { formatDate } from 'devextreme/localization';
+import { ToastrService } from 'ngx-toastr';
+import { lastValueFrom } from 'rxjs';
 
 
 @Component({
@@ -13,6 +18,8 @@ export class StockTypeComponent {
   successButtonOptions: any;
   cancelButtonOptions: any;
   copyButtonOptions: any;
+  result:any;
+  requests: string[] = [];
   readonly allowedPageSizes = [10, 20, 'all'];
 
   readonly displayModes = [{ text: "Display Mode 'full'", value: 'full' }, { text: "Display Mode 'compact'", value: 'compact' }];
@@ -22,11 +29,18 @@ export class StockTypeComponent {
   showPageSizeSelector = true;
 
   showInfo = true;
-
+  dataSource:any;
   showNavButtons = true;
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
-  constructor() {
+  constructor(private http: HttpClient, private toastr:ToastrService) {
+    this.dataSource = new CustomStore({
+      key: 'id',
+      load: () => this.sendRequest('https://localhost:44369/100204'),
+      insert: (values) => this.sendRequest('https://localhost:44369/100201', 'POST', values),
+      update: (key, values) => this.sendRequest(`https://localhost:44369/100202/${key}`, 'PUT', values),
+      remove: (key) => this.sendRequest(`https://localhost:44369/100203/${key}`, 'DELETE'),
+    });
     this.successButtonOptions = {
       type: 'success',
       stylingMode: 'outlined',
@@ -57,105 +71,73 @@ export class StockTypeComponent {
       },
     };
   }
-  dataSource= [
-    {
-      id : '001',
-      code: '001',
-      name: 'Stock Type 1',
-      condition: true
-    },
-    {
-      id : '002',
-      code: '002',
-      name: 'Stock Type 2',
-      condition: true
-    },
-    {
-      id : '003',
-      code: '003',
-      name: 'Stock Type 3',
-      condition: true
-    },
-    {
-      id : '004',
-      code: '004',
-      name: 'Stock Type 4',
-      condition: true
-    },
-    {
-      id : '005',
-      code: '005',
-      name: 'Stock Type 5',
-      condition: true
-    },
-    {
-      id : '006',
-      code: '006',
-      name: 'Stock Type 6',
-      condition: true
-    },
-    {
-      id : '007',
-      code: '007',
-      name: 'Stock Type 7',
-      condition: true
-    },
-    {
-      id : '008',
-      code: '008',
-      name: 'Stock Type 8',
-      condition: true
-    },
-    {
-      id : '009',
-      code: '009',
-      name: 'Stock Type 9',
-      condition: true
-    },
-    {
-      id : '010',
-      code: '010',
-      name: 'Stock Type 10',
-      condition: true
-    },
-    {
-      id : '011',
-      code: '011',
-      name: 'Stock Type 11',
-      condition: true
-    },
-    {
-      id : '012',
-      code: '012',
-      name: 'Stock Type 12',
-      condition: true
-    },
-    {
-      id : '013',
-      code: '013',
-      name: 'Stock Type 13',
-      condition: true
-    },
-    {
-      id : '014',
-      code: '014',
-      name: 'Stock Type 14',
-      condition: true
-    },
-    {
-      id : '015',
-      code: '015',
-      name: 'Stock Type 15',
-      condition: true
-    },
-    {
-      id : '016',
-      code: '016',
-      name: 'Stock Type 16',
-      condition: true
-    },
-  ]
 
+  sendRequest(url: string, method = 'GET', data: any = {}): any {
+    this.logRequest(method, url, data);
+    const httpParams = new HttpParams({ fromObject: data });
+    const httpOptions = { withCredentials: false, body: httpParams };
+  
+    switch (method) {
+      case 'GET':
+        this.result = this.http.get(url, httpOptions);
+        break;
+      case 'PUT':
+        this.result = this.http.put(url, data, httpOptions);
+        break;
+      case 'POST':
+        this.result = this.http.post(url, data, httpOptions);
+        break;
+      case 'DELETE':
+        this.result = this.http.delete(url, httpOptions);
+        break;
+    }
+  
+    return lastValueFrom(this.result)
+      .then((data: any) => {
+        if (method === 'GET') {
+          return data.data;
+        } 
+        else if (method === 'POST') {
+          // Başarılı kayıt durumunda toastr ile uyarı mesajı göster
+          this.toastr.success('Data saved successfully', 'Success', {
+            closeButton: true,
+            timeOut: 5000
+          });
+          return data;
+        } 
+        else if (method  === 'PUT'){
+          this.toastr.success('Data updated successfully', 'Success', {
+            closeButton: true,
+            timeOut: 5000
+          });
+          return data;
+        }
+        else if (method === 'DELETE'){
+          this.toastr.success('Data deleted successfully', 'Success', {
+            closeButton: true,
+            timeOut: 5000
+          });
+          return data;
+        }
+        else {
+          return data;
+        }
+      })
+      .catch((e) => {
+        throw e && e.error && e.error.Message;
+      });
+  }
+  logRequest(method: string, url: string, data: any): void {
+    const args = Object.keys(data || {}).map((key) => `${key}=${data[key]}`).join(' ');
+
+    const time = formatDate(new Date(), 'HH:mm:ss');
+
+    this.requests.unshift([time, method, url.slice(URL.length), args].join(' '));
+  }
+
+  clearRequests() {
+    this.requests = [];
+  }
 
 
 }

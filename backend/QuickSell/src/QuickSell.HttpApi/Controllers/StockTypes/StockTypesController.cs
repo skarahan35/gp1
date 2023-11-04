@@ -24,31 +24,31 @@ namespace  QuickSell.Controllers.StockTypes
             _stockTypesAppService = stockTypesAppService;
         }
         [HttpPost]
-        [Route("1-2-1")]
+        [Route("100201")]
         public async Task<StockTypeDto> AddStockType(StockTypeDto input)
         {
             return await _stockTypesAppService.AddStockType(input);
         }
         [HttpGet]
-        [Route("1-2-4")]
+        [Route("100204")]
         public async Task<LoadResult> GetListStockType(DataSourceLoadOptions loadOptions)
         {
             return await _stockTypesAppService.GetListStockType(loadOptions);
         }
         [HttpGet]
-        [Route("1-2-5/{id}")]
+        [Route("100205/{id}")]
         public async Task<DxStockTypeLookupDto?> GetStockTypeByID(Guid? id)
         {
             return await _stockTypesAppService.GetStockTypeByID(id);
         }
         [HttpDelete]
-        [Route("1-2-3")]
+        [Route("100203/{id}")]
         public async Task DeleteStockType(Guid id)
         {
             await _stockTypesAppService.DeleteStockType(id);
         }
         [HttpPut]
-        [Route("1-2-2/{id}")]
+        [Route("100202/{id}")]
         public async Task<StockTypeDto> UpdateStockType(Guid id, IDictionary<string, object> input)
         {
             return await _stockTypesAppService.UpdateStockType(id, input);

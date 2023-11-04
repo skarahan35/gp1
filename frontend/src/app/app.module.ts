@@ -13,7 +13,10 @@ import { DxDataGridModule } from 'devextreme-angular';
 import { StockTypeComponent } from './stock/stock-type/stock-type.component';
 import { StockUnitComponent } from './stock/stock-unit/stock-unit.component';
 import { StockGroupComponent } from './stock/stock-group/stock-group.component';
-
+import {
+  HttpClient, HttpClientModule, HttpHeaders, HttpParams,
+} from '@angular/common/http';
+import Swal from 'sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,7 @@ import { StockGroupComponent } from './stock/stock-group/stock-group.component';
     BreadcrumbModule,
     AppRoutingModule,
     DxDataGridModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
