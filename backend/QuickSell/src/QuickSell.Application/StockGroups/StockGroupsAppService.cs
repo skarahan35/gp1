@@ -28,7 +28,7 @@ namespace QuickSell.StockGroups
             _dataFilter = dataFilter;
         }
 
-        public async Task<LoadResult> GetListStockUnit(DataSourceLoadOptions loadOptions)
+        public async Task<LoadResult> GetListStockGroup(DataSourceLoadOptions loadOptions)
         {
             var getStockGroup = await _stockGroupRepository.GetQueryableAsync();
 
@@ -41,7 +41,7 @@ namespace QuickSell.StockGroups
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
         }
-        public async Task<DxStockGroupLookupDto?> GetStockTypeByID(Guid? id)
+        public async Task<DxStockGroupLookupDto?> GetStockGroupByID(Guid? id)
         {
             var dataFilter = _dataFilter.Disable<ISoftDelete>();
             using (dataFilter)
@@ -58,7 +58,7 @@ namespace QuickSell.StockGroups
                 return stockGroups;
             }
         }
-        public async Task<StockGroupDto> AddStockType(StockGroupDto input)
+        public async Task<StockGroupDto> AddStockGroup(StockGroupDto input)
         {
             var stockGroup = await _stockGroupManager.CreateAsync(
               input.Code,
@@ -66,7 +66,7 @@ namespace QuickSell.StockGroups
           );
             return ObjectMapper.Map<StockGroup, StockGroupDto>(stockGroup);
         }
-        public async Task<StockGroupDto> UpdateStockType(Guid id, IDictionary<string, object> input)
+        public async Task<StockGroupDto> UpdateStockGroup(Guid id, IDictionary<string, object> input)
         {
             //Entity üzerinde update işlemi yapıldığı zaman işlem tamamlanmadan update işlemini yapmış oluyor.
             //Bu yüzden de map işlemi ile update edene kadar datayı dto ya dönüştürülüyor.
@@ -76,7 +76,7 @@ namespace QuickSell.StockGroups
             var a = ObjectMapper.Map<StockGroupDto, StockGroup>(updated);
             return ObjectMapper.Map<StockGroup, StockGroupDto>(a);
         }
-        public async Task DeleteStockType(Guid id)
+        public async Task DeleteStockGroup(Guid id)
         {
             await _stockGroupRepository.DeleteAsync(id);
         }

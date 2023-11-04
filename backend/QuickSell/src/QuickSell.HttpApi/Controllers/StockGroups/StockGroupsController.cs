@@ -25,33 +25,33 @@ namespace  QuickSell.Controllers.StockGroups
        }
         [HttpPost]
         [Route("1-4-1")]
-        public async Task<StockGroupDto> AddStockType(StockGroupDto input)
+        public async Task<StockGroupDto> AddStockGroup(StockGroupDto input)
         {
-            return await _stockGroupsAppService.AddStockType(input);
+            return await _stockGroupsAppService.AddStockGroup(input);
         }
         [HttpGet]
         [Route("1-4-4")]
-        public async Task<LoadResult> GetListStockType(DataSourceLoadOptions loadOptions)
+        public async Task<LoadResult> GetListStockGroup(DataSourceLoadOptions loadOptions)
         {
-            return await _stockGroupsAppService.GetListStockType(loadOptions);
+            return await _stockGroupsAppService.GetListStockGroup(loadOptions);
         }
         [HttpGet]
         [Route("1-4-5/{id}")]
-        public async Task<DxStockGroupLookupDto?> GetStockTypeByID(Guid? id)
+        public async Task<DxStockGroupLookupDto?> GetStockGroupByID(Guid? id)
         {
-            return await _stockGroupsAppService.GetStockTypeByID(id);
+            return await _stockGroupsAppService.GetStockGroupByID(id);
         }
         [HttpDelete]
         [Route("1-4-3")]
-        public async Task DeleteStockType(Guid id)
+        public async Task DeleteStockGroup(Guid id)
         {
-            await _stockGroupsAppService.DeleteStockType(id);
+            await _stockGroupsAppService.DeleteStockGroup(id);
         }
         [HttpPut]
         [Route("1-4-2/{id}")]
-        public async Task<StockGroupDto> UpdateStockType(Guid id, IDictionary<string, object> input)
+        public async Task<StockGroupDto> UpdateStockGroup(Guid id, IDictionary<string, object> input)
         {
-            return await _stockGroupsAppService.UpdateStockType(id, input);
+            return await _stockGroupsAppService.UpdateStockGroup(id, input);
         }
     }
 }
