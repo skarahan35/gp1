@@ -13,11 +13,11 @@ namespace QuickSell.StockUnits
 {
     public interface IStockUnitsAppService: IApplicationService
     {
-        Task<LoadResult> GetListStockType(DataSourceLoadOptions loadOptions);
-        Task<DxStockUnitLookupDto?> GetStockTypeByID(Guid? id);
-        Task<StockUnitDto> AddStockType(StockUnitDto input);
-        Task<StockUnitDto> UpdateStockType(Guid id, IDictionary<string, object> input);
-        Task DeleteStockType(Guid id);
+        Task<LoadResult> GetListStockUnit(DataSourceLoadOptions loadOptions);
+        Task<DxStockUnitLookupDto?> GetStockUnitByID(Guid? id);
+        Task<StockUnitDto> AddStockUnit(StockUnitDto input);
+        Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input);
+        Task DeleteStockUnit(Guid id);
     }
 }
 

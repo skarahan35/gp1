@@ -42,7 +42,7 @@ namespace QuickSell.StockUnits
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
         }
-        public async Task<DxStockUnitLookupDto?> GetStockTypeByID(Guid? id)
+        public async Task<DxStockUnitLookupDto?> GetStockUnitByID(Guid? id)
         {
             var dataFilter = _dataFilter.Disable<ISoftDelete>();
             using (dataFilter)
@@ -59,7 +59,7 @@ namespace QuickSell.StockUnits
                 return stockUnits;
             }
         }
-        public async Task<StockUnitDto> AddStockType(StockUnitDto input)
+        public async Task<StockUnitDto> AddStockUnit(StockUnitDto input)
         {
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
@@ -67,7 +67,7 @@ namespace QuickSell.StockUnits
           );
             return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
-        public async Task<StockUnitDto> UpdateStockType(Guid id, IDictionary<string, object> input)
+        public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
             //Entity üzerinde update işlemi yapıldığı zaman işlem tamamlanmadan update işlemini yapmış oluyor.
             //Bu yüzden de map işlemi ile update edene kadar datayı dto ya dönüştürülüyor.
@@ -77,7 +77,7 @@ namespace QuickSell.StockUnits
             var a = ObjectMapper.Map<StockUnitDto, StockUnit>(updated);
             return ObjectMapper.Map<StockUnit, StockUnitDto>(a);
         }
-        public async Task DeleteStockType(Guid id)
+        public async Task DeleteStockUnit(Guid id)
         {
             await _stockUnitRepository.DeleteAsync(id);
         }

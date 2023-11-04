@@ -10,11 +10,11 @@ namespace QuickSell.StockGroups
 {
     public interface IStockGroupsAppService: IApplicationService
     {
-        Task<LoadResult> GetListStockType(DataSourceLoadOptions loadOptions);
-        Task<DxStockGroupLookupDto?> GetStockTypeByID(Guid? id);
-        Task<StockGroupDto> AddStockType(StockGroupDto input);
-        Task<StockGroupDto> UpdateStockType(Guid id, IDictionary<string, object> input);
-        Task DeleteStockType(Guid id);
+        Task<LoadResult> GetListStockGroup(DataSourceLoadOptions loadOptions);
+        Task<DxStockGroupLookupDto?> GetStockGroupByID(Guid? id);
+        Task<StockGroupDto> AddStockGroup(StockGroupDto input);
+        Task<StockGroupDto> UpdateStockGroup(Guid id, IDictionary<string, object> input);
+        Task DeleteStockGroup(Guid id);
     }
 }
 

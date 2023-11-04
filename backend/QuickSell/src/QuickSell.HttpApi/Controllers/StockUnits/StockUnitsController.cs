@@ -22,33 +22,33 @@ namespace  QuickSell.Controllers.StockUnits
        }
         [HttpPost]
         [Route("1-3-1")]
-        public async Task<StockUnitDto> AddStockType(StockUnitDto input)
+        public async Task<StockUnitDto> AddStockUnit(StockUnitDto input)
         {
-            return await _stockUnitsAppService.AddStockType(input);
+            return await _stockUnitsAppService.AddStockUnit(input);
         }
         [HttpGet]
         [Route("1-3-4")]
-        public async Task<LoadResult> GetListStockType(DataSourceLoadOptions loadOptions)
+        public async Task<LoadResult> GetListStockUnit(DataSourceLoadOptions loadOptions)
         {
-            return await _stockUnitsAppService.GetListStockType(loadOptions);
+            return await _stockUnitsAppService.GetListStockUnit(loadOptions);
         }
         [HttpGet]
         [Route("1-3-5/{id}")]
-        public async Task<DxStockUnitLookupDto?> GetStockTypeByID(Guid? id)
+        public async Task<DxStockUnitLookupDto?> GetStockUnitByID(Guid? id)
         {
-            return await _stockUnitsAppService.GetStockTypeByID(id);
+            return await _stockUnitsAppService.GetStockUnitByID(id);
         }
         [HttpDelete]
         [Route("1-3-3")]
-        public async Task DeleteStockType(Guid id)
+        public async Task DeleteStockUnit(Guid id)
         {
-            await _stockUnitsAppService.DeleteStockType(id);
+            await _stockUnitsAppService.DeleteStockUnit(id);
         }
         [HttpPut]
         [Route("1-3-2/{id}")]
-        public async Task<StockUnitDto> UpdateStockType(Guid id, IDictionary<string, object> input)
+        public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
-            return await _stockUnitsAppService.UpdateStockType(id, input);
+            return await _stockUnitsAppService.UpdateStockUnit(id, input);
         }
 
     }
