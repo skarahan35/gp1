@@ -5,6 +5,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import { formatDate } from 'devextreme/localization';
 import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-stock-group',
@@ -121,7 +122,9 @@ export class StockGroupComponent {
         }
       })
       .catch((e) => {
-        throw e && e.error && e.error.Message;
+        Swal.fire('Error', e.error.error.message, 'error')
+        // e.error.error.message
+        // throw e && e.error && e.error.Message;
       });
   }
   logRequest(method: string, url: string, data: any): void {
