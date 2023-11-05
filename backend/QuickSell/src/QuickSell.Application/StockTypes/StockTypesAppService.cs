@@ -69,13 +69,10 @@ namespace QuickSell.StockTypes
         }
         public async Task<StockTypeDto> UpdateStockType(Guid id, IDictionary<string, object> input)
         {
-            //Entity üzerinde update iþlemi yapýldýðý zaman iþlem tamamlanmadan update iþlemini yapmýþ oluyor.
-            //Bu yüzden de map iþlemi ile update edene kadar datayý dto ya dönüþtürülüyor.
             var stockType = await _stockTypeRepository.GetAsync(id);
-            var stockTypeDto = ObjectMapper.Map<StockType, StockTypeDto>(stockType);
-            var updated = await DevExtremeUpdate.Update(stockTypeDto, input);
-            var a= ObjectMapper.Map<StockTypeDto, StockType>(updated);
-            return ObjectMapper.Map<StockType, StockTypeDto>(a);
+            var updated = await DevExtremeUpdate.Update(stockType, input);
+            await _stockTypeRepository.UpdateAsync(updated);
+            return ObjectMapper.Map<StockType, StockTypeDto>(updated);
         }
         public async Task DeleteStockType(Guid id)
         {
