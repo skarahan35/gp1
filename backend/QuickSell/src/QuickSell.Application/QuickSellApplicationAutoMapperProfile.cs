@@ -26,17 +26,8 @@ namespace QuickSell
             CreateMap<Country, CountryDto>();
             CreateMap<City, CityDto>();
             CreateMap<StockGroup, StockGroupDto>();
-            CreateMap<StockGroupDto, StockGroup>()
-            .ForMember(dest => dest.TenantId, opt => opt.Ignore())
-            .ForMember(dest => dest.ExtraProperties, opt => opt.Ignore());
             CreateMap<StockType, StockTypeDto>();
-            CreateMap<StockTypeDto, StockType>()
-            .ForMember(dest => dest.TenantId, opt => opt.Ignore())
-            .ForMember(dest => dest.ExtraProperties, opt => opt.Ignore());
             CreateMap<StockUnit, StockUnitDto>();
-            CreateMap<StockUnitDto, StockUnit>()
-            .ForMember(dest => dest.TenantId, opt => opt.Ignore())
-            .ForMember(dest => dest.ExtraProperties, opt => opt.Ignore());
             CreateMap<StockPrice, StockPriceDto>();
             CreateMap<StockCard, StockCardDto>();
             CreateMap<CustomerType, CustomerTypeDto>();

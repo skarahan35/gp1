@@ -68,13 +68,10 @@ namespace QuickSell.StockGroups
         }
         public async Task<StockGroupDto> UpdateStockGroup(Guid id, IDictionary<string, object> input)
         {
-            //Entity üzerinde update işlemi yapıldığı zaman işlem tamamlanmadan update işlemini yapmış oluyor.
-            //Bu yüzden de map işlemi ile update edene kadar datayı dto ya dönüştürülüyor.
             var stockGroup = await _stockGroupRepository.GetAsync(id);
-            var stockTypeDto = ObjectMapper.Map<StockGroup, StockGroupDto>(stockGroup);
-            var updated = await DevExtremeUpdate.Update(stockTypeDto, input);
-            var a = ObjectMapper.Map<StockGroupDto, StockGroup>(updated);
-            return ObjectMapper.Map<StockGroup, StockGroupDto>(a);
+            var updated = await DevExtremeUpdate.Update(stockGroup, input);
+            await _stockGroupRepository.UpdateAsync(updated);
+            return ObjectMapper.Map<StockGroup, StockGroupDto>(updated);
         }
         public async Task DeleteStockGroup(Guid id)
         {

@@ -69,13 +69,10 @@ namespace QuickSell.StockUnits
         }
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
-            //Entity üzerinde update işlemi yapıldığı zaman işlem tamamlanmadan update işlemini yapmış oluyor.
-            //Bu yüzden de map işlemi ile update edene kadar datayı dto ya dönüştürülüyor.
             var stockUnit = await _stockUnitRepository.GetAsync(id);
-            var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
-            var updated = await DevExtremeUpdate.Update(stockUnitDto, input);
-            var a = ObjectMapper.Map<StockUnitDto, StockUnit>(updated);
-            return ObjectMapper.Map<StockUnit, StockUnitDto>(a);
+            var updated = await DevExtremeUpdate.Update(stockUnit, input);
+            await _stockUnitRepository.UpdateAsync(updated);
+            return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
         }
         public async Task DeleteStockUnit(Guid id)
         {
