@@ -12,6 +12,10 @@ using Volo.Abp.Data;
 using System.Linq;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
+using Volo.Abp.Domain.Repositories;
+using Microsoft.Extensions.Localization;
+using QuickSell.Localization;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace QuickSell.StockUnits
 {
@@ -20,14 +24,17 @@ namespace QuickSell.StockUnits
         private readonly IStockUnitRepository _stockUnitRepository;
         private readonly StockUnitManager _stockUnitManager;
         private readonly IDataFilter _dataFilter;
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
 
         public StockUnitsAppService(IStockUnitRepository stockUnitRepository,
                                     StockUnitManager stockUnitManager,
-                                    IDataFilter dataFilter)
+                                    IDataFilter dataFilter,
+                                    IStringLocalizer<QuickSellResource> localizer)
         {
             _stockUnitRepository = stockUnitRepository;
             _stockUnitManager = stockUnitManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
         public async Task<LoadResult> GetListStockUnit(DataSourceLoadOptions loadOptions)
         {
@@ -59,12 +66,25 @@ namespace QuickSell.StockUnits
                 return stockUnits;
             }
         }
-        public async Task<StockUnitDto> AddStockUnit(StockUnitDto input)
+        public async Task CodeControl(StockUnitDto input)
+        {
+            var code = await _stockUnitRepository.FirstOrDefaultAsync(x=> x.Code == input.Code);
+            if (code != null)
+            {
+                throw new UserFriendlyException(string.Format(_localizer["Code:AlreadyExist"], nameof(code)));
+            }
+            else if (input.Code == null)
+            {
+                throw new UserFriendlyException(string.Format(_localizer["Code:Null"]));
+            }
+        }
+        public async Task<StockUnitDto> AddStockUnit(StockUnitDto input) 
         {
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
               input.Name
           );
+            //await Validation.CodeControl(input, x => x.Code);
             return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)

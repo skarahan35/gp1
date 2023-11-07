@@ -21,7 +21,7 @@ namespace QuickSell.StockPrices
 
         public async Task<StockPrice> CreateAsync(
               Guid? stockCardID,
-              int? price,
+              decimal? price,
               string priceType
         )
         {
@@ -39,7 +39,7 @@ namespace QuickSell.StockPrices
         public async Task<StockPrice> UpdateAsync(
             Guid id,
            Guid? stockCardID,
-           int? price,
+           decimal? price,
            string priceType,
             [CanBeNull] string concurrencyStamp = null
         )
