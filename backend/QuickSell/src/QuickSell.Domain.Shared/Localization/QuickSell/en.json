@@ -1,7 +1,9 @@
 {
   "culture": "en",
   "texts": {
-    "MyAccount":  "My account",
-    "SamplePageMessage": "A sample page for the QuickSell module"
+    "MyAccount": "My account",
+    "SamplePageMessage": "A sample page for the QuickSell module",
+    "Code:AlreadyExist": "this code already exists",
+    "Code:Null": "Code field cannot be empty"
   }
 }
