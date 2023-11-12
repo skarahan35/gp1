@@ -17,6 +17,13 @@ import {
   HttpClient, HttpClientModule, HttpHeaders, HttpParams,
 } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { StockCardComponent } from './stock/stock-card/stock-card.component';
+import { StockPriceComponent } from './stock/stock-price/stock-price.component';
+import { CustomerTypeComponent } from './customer/customer-type/customer-type.component';
+import { CustomerGroupComponent } from './customer/customer-group/customer-group.component';
+import { CountriesComponent } from './locations/countries/countries.component';
+import { CitiesComponent } from './locations/cities/cities.component';
+import { DistrictsComponent } from './locations/districts/districts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +32,14 @@ import Swal from 'sweetalert2';
     DenemeComponent,
     StockTypeComponent,
     StockUnitComponent,
-    StockGroupComponent
+    StockGroupComponent,
+    StockCardComponent,
+    StockPriceComponent,
+    CustomerTypeComponent,
+    CustomerGroupComponent,
+    CountriesComponent,
+    CitiesComponent,
+    DistrictsComponent
   ],
   imports: [
     BrowserModule,
