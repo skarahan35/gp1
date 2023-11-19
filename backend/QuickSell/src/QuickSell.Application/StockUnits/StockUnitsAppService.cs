@@ -16,6 +16,7 @@ using Volo.Abp.Domain.Repositories;
 using Microsoft.Extensions.Localization;
 using QuickSell.Localization;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using System.Security.Cryptography.X509Certificates;
 
 namespace QuickSell.StockUnits
 {
@@ -66,32 +67,30 @@ namespace QuickSell.StockUnits
                 return stockUnits;
             }
         }
-        public async Task CodeControl(StockUnitDto input)
+        public async Task StockUnitValidation(StockUnitDto input)
         {
-            var code = await _stockUnitRepository.FirstOrDefaultAsync(x=> x.Code == input.Code);
-            if (code != null)
-            {
-                throw new UserFriendlyException(string.Format(_localizer["Code:AlreadyExist"], nameof(code)));
-            }
-            else if (input.Code == null)
-            {
-                throw new UserFriendlyException(string.Format(_localizer["Code:Null"]));
-            }
+            var a = await _stockUnitRepository.GetQueryableAsync();
+            await Validation<StockUnit, QuickSellResource>.CodeControl(input, a.Where(x => x.Code == input.Code), _localizer);
         }
         public async Task<StockUnitDto> AddStockUnit(StockUnitDto input) 
         {
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
               input.Name
-          );
-            //await Validation.CodeControl(input, x => x.Code);
+              );
+            await StockUnitValidation(input);
             return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
             var stockUnit = await _stockUnitRepository.GetAsync(id);
+            var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
+            //todo frontendden dönen code alaný Code olarak dönüþtürülecek
+            await StockUnitValidation(inputDto);
             var updated = await DevExtremeUpdate.Update(stockUnit, input);
+
             await _stockUnitRepository.UpdateAsync(updated);
+
             return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
         }
         public async Task DeleteStockUnit(Guid id)

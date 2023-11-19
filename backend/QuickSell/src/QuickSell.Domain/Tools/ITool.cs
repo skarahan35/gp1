@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using QuickSell.Tools;
 
-namespace QuickSell.StockUnits
+namespace QuickSell.Tools
 {
-    public class DxStockUnitLookupDto
+    public interface ITool
     {
-        public Guid Id { get; set; }
+        public Guid Id { get;}
         public string? Code { get; set; }
         public string? Name { get; set; }
     }
