@@ -4,27 +4,84 @@
       <span class="fs-4">GP1</span>
   </a>
   <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item mb-2">
-          <a href="#" routerLink="/stock/stock-type" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Stock Type
-          </a>
-      </li>
-      <li class="nav-item mb-2">
-          <a href="#" routerLink="/stock/stock-unit" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Stock Unit
-          </a>
-      </li>
-      <li class="nav-item mb-2">
-          <a href="#" routerLink="/stock/stock-group" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Stock Group
-          </a>
-      </li>
-      <!-- Diğer menü öğeleri buraya gelecek -->
-  </ul>
+  <div class="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStockType" aria-expanded="true" aria-controls="collapseStockType">
+                Stocks
+            </button>
+        </h2>
+        <div id="collapseStockType" class="accordion-collapse collapse show" aria-labelledby="headingStockType" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <a href="#" routerLink="/stock/stock-type" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Stock Type
+                </a><br>
+                <a href="#" routerLink="/stock/stock-unit" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Stock Unit
+                </a><br>
+                <a href="#" routerLink="/stock/stock-group" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Stock Group
+                </a><br>
+                <a href="#" routerLink="/stock/stock-card" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Stock Card
+                </a><br>
+                <a href="#" routerLink="/stock/stock-price" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Stock Price
+                </a>
+            </div>
+        </div>
+        
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCustomerType" aria-expanded="true" aria-controls="collapseCustomerType">
+                Customers
+            </button>
+        </h2>
+        <div id="collapseCustomerType" class="accordion-collapse collapse show" aria-labelledby="headingCustomerType" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <a href="#" routerLink="/customer/customer-type" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Customer Type
+                </a><br>
+                <a href="#" routerLink="/customer/customer-group" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Customer Group
+                </a><br>
+            </div>
+        </div>
+        
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations" aria-expanded="true" aria-controls="collapseLocations">
+                Locations
+            </button>
+        </h2>
+        <div id="collapseLocations" class="accordion-collapse collapse show" aria-labelledby="headingLocations" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <a href="#" routerLink="/location/countries" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Countries
+                </a><br>
+                <a href="#" routerLink="/location/cities" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Cities
+                </a><br>
+                <a href="#" routerLink="/location/districts" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Districts
+                </a><br>
+            </div>
+        </div>
+        
+    </div>
+  </div>
   <hr>
   <div class="dropdown">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"

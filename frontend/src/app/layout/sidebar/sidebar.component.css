@@ -1,23 +1,74 @@
-.bg-dark {
-    background-color: #1e272e !important; 
+/* Genel stiller */
+body {
+    background-color: #f8f9fa;
 }
 
-.nav-link {
-    color: #ecf0f1 !important; 
+.container-fluid {
+    padding: 0;
 }
 
-.nav-link.active {
-    background-color: #34495e; 
+/* Sidebar stilleri */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: #343a40;
+    color: #fff;
 }
 
-.dropdown-menu {
-    background-color: #1e272e !important; 
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar hr {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Accordion stilleri */
+.accordion-button {
+    background-color: #343a40;
+    color: #fff;
+    border: 1px solid #343a40;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-body {
+    background-color: #212529;
+    color: #fff;
+}
+
+/* Accordion içindeki metin rengi */
+.accordion-body a {
+    color: #fff;
+}
+
+/* Dropdown stilleri */
+.dropdown-menu-dark {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
 }
 
 .dropdown-item {
-    color: #ecf0f1 !important; 
+    color: #fff;
 }
 
-.dropdown-item:hover {
-    background-color: #34495e !important; 
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #495057;
+}
+
+/* İsim ve menü ikonu stilleri */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.user-info img {
+    border-radius: 50%;
+    margin-right: 10px;
 }
