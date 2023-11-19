@@ -25,7 +25,6 @@ namespace  QuickSell.Controllers.MovementDetails
         {
         _movementDetailsAppService = movementDetailsAppService;
         }
-        //todo Route düzenlenecek
         [HttpPost]
         [Route("300201")]
         public async Task<MovementDetailDto> AddMovementDetail(MovementDetailDto input)
