@@ -71,14 +71,14 @@ namespace QuickSell.Cities
           );
             return ObjectMapper.Map<City, CityDto>(city);
         }
-        public async Task<CityDto> UpdateCountry(Guid id, IDictionary<string, object> input)
+        public async Task<CityDto> UpdateCity(Guid id, IDictionary<string, object> input)
         {
             var city = await _cityRepository.GetAsync(id);
             var updated = await DevExtremeUpdate.Update(city, input);
             await _cityRepository.UpdateAsync(updated);
             return ObjectMapper.Map<City, CityDto>(city);
         }
-        public async Task DeleteCountry(Guid id)
+        public async Task DeleteCity(Guid id)
         {
             await _cityRepository.DeleteAsync(id);
         }

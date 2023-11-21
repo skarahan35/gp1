@@ -20,8 +20,8 @@ namespace QuickSell.CustomerTypes
         }
 
         public async Task<CustomerType> CreateAsync(
-              string code, 
-              string name
+              string? code, 
+              string? name
         )
         {
 
@@ -36,8 +36,8 @@ namespace QuickSell.CustomerTypes
 
         public async Task<CustomerType> UpdateAsync(
            Guid id,
-          string code, 
-          string name, 
+          string? code, 
+          string? name, 
             [CanBeNull] string concurrencyStamp = null
         )
         {
