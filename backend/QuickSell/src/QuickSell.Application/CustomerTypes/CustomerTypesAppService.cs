@@ -1,31 +1,14 @@
-
-using System;
-using System.Linq;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Data;
+using QuickSell.Tools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
-using Microsoft.AspNetCore.Authorization;
+using System;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
+using System.Linq;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
-using QuickSell.Permissions;
-using QuickSell.CustomerTypes;
+using Volo.Abp.Data;
 using QuickSell.Shared;
-
-
-/// <summary>
-    ///  Code Generator ile üretilen abstract siniflarda özellestirme yapilabilmesi için abstract 
-    ///  sinifi kalitim alinarak özelleştirme yapilmasi gerekmektedir.
-    ///  Code Generator tekrar calistirildiğinda yapilan özellestirmeler kaybolacaktir!!! 
-
-    ///  In order to be able to customize the abstract classes produced with Code Generator,
-    ///  it is necessary to inherit the abstract class and customize it.
-    ///  Restarting Code Generator, any customizations will be lost!!!
-    /// </summary>
-
-
-
 
 namespace QuickSell.CustomerTypes
 {
@@ -33,13 +16,63 @@ namespace QuickSell.CustomerTypes
     {
         private readonly ICustomerTypeRepository _customerTypeRepository;
         private readonly CustomerTypeManager _customerTypeManager;
+        private readonly IDataFilter _dataFilter;
     
-        public CustomerTypesAppService(ICustomerTypeRepository customerTypeRepository,CustomerTypeManager customerTypeManager)
+        public CustomerTypesAppService(ICustomerTypeRepository customerTypeRepository,CustomerTypeManager customerTypeManager,IDataFilter dataFilter)
         {
             _customerTypeRepository = customerTypeRepository;
             _customerTypeManager= customerTypeManager;
+            _dataFilter = dataFilter;
         }
-    
-        
+
+        public async Task<LoadResult> GetListCustomerType(DataSourceLoadOptions loadOptions)
+        {
+            var getCustomerType = await _customerTypeRepository.GetQueryableAsync();
+
+            var getJoinedData = from cstmrtyp in getCustomerType
+                                select new DxCustomerTypeLookupDto
+                                {
+                                    Id = cstmrtyp.Id,
+                                    Code = cstmrtyp.Code,
+                                    Name = cstmrtyp.Name
+                                };
+            return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
+        }
+        public async Task<DxCustomerTypeLookupDto?> GetCustomerTypeByID(Guid? id)
+        {
+            var dataFilter = _dataFilter.Disable<ISoftDelete>();
+            using (dataFilter)
+            {
+                var getCustomerType = (await _customerTypeRepository.GetQueryableAsync());
+                var customerTypes = (from cstmrtyp in getCustomerType
+                                  where cstmrtyp.Id == id
+                                  select new DxCustomerTypeLookupDto
+                                  {
+                                      Id = cstmrtyp.Id,
+                                      Code = cstmrtyp.Code,
+                                      Name = cstmrtyp.Name
+                                  }).FirstOrDefault();
+                return customerTypes;
+            }
+        }
+        public async Task<CustomerTypeDto> AddCustomerType(CustomerTypeDto input)
+        {
+            var customerType = await _customerTypeManager.CreateAsync(
+              input.Code,
+              input.Name
+          );
+            return ObjectMapper.Map<CustomerType, CustomerTypeDto>(customerType);
+        }
+        public async Task<CustomerTypeDto> UpdateCustomerType(Guid id, IDictionary<string, object> input)
+        {
+            var customerType = await _customerTypeRepository.GetAsync(id);
+            var updated = await DevExtremeUpdate.Update(customerType, input);
+            await _customerTypeRepository.UpdateAsync(updated);
+            return ObjectMapper.Map<CustomerType, CustomerTypeDto>(updated);
+        }
+        public async Task DeleteCustomerType(Guid id)
+        {
+            await _customerTypeRepository.DeleteAsync(id);
+        }
     }
 }
