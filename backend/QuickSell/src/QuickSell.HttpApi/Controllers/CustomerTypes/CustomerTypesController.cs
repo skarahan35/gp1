@@ -1,22 +1,15 @@
-
-
-
-
 using System;
 using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using QuickSell.CustomerTypes;
 using DevExtreme.AspNet.Data.ResponseModel;
 using QuickSell.Shared;
 using System.Collections.Generic;
 
-namespace  QuickSell.Controllers.CustomerTypes
+namespace QuickSell.Controllers.CustomerTypes
 {
-    
+
     public class CustomerTypesController : AbpController,ICustomerTypesAppService
     {
         private readonly ICustomerTypesAppService _customerTypesAppService;

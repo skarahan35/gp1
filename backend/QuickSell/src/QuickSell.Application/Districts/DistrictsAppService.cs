@@ -72,14 +72,14 @@ namespace QuickSell.Districts
           );
             return ObjectMapper.Map<District, DistrictDto>(district);
         }
-        public async Task<DistrictDto> UpdateCountry(Guid id, IDictionary<string, object> input)
+        public async Task<DistrictDto> UpdateDistrict(Guid id, IDictionary<string, object> input)
         {
             var district = await _districtRepository.GetAsync(id);
             var updated = await DevExtremeUpdate.Update(district, input);
             await _districtRepository.UpdateAsync(updated);
             return ObjectMapper.Map<District, DistrictDto>(district);
         }
-        public async Task DeleteCountry(Guid id)
+        public async Task DeleteDistrict(Guid id)
         {
             await _districtRepository.DeleteAsync(id);
         }

@@ -24,7 +24,6 @@ namespace QuickSell.CustomerCards
         [StringLength(256,MinimumLength=0)]
         public string? Name { get; set; }
         public Guid? CustomerTypeID { get; set; }
-        public Guid? AddressID { get; set; }
         public Guid? CustomerGroupID { get; set; }
         [StringLength(128,MinimumLength=0)]
         public string TaxOffice { get; set; }
@@ -52,7 +51,6 @@ namespace QuickSell.CustomerCards
           ,string name
           , Guid? customerTypeID
           , Guid? customerGroupID
-          , Guid? addressID
           , string taxOffice 
           ,string tCNumber 
           ,string authorizedPerson 
@@ -72,7 +70,6 @@ namespace QuickSell.CustomerCards
                 Name=name;
                 CustomerTypeID = customerTypeID;
                 CustomerGroupID = customerGroupID;
-                AddressID = addressID;
                 TaxOffice=taxOffice;
                 TCNumber=tCNumber;
                 AuthorizedPerson=authorizedPerson;
