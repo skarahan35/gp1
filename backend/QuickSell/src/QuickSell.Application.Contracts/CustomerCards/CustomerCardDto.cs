@@ -14,7 +14,6 @@ namespace QuickSell.CustomerCards
         public string? Code { get; set; }
         public string? Name { get; set; }
         public Guid? CustomerTypeID { get; set; }
-        public Guid? AddressID { get; set; }
         public Guid? CustomerGroupID { get; set; }
         public string TaxOffice { get; set; }
         public int? TaxNo { get; set; }

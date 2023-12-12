@@ -120,27 +120,26 @@ namespace QuickSell.EntityFrameworkCore
                       });
                 builder.Entity<CustomerAddress>(e=>{
 
-                  e.Property(e => e.CustomerCardID); 
                   e.Property(e => e.AddressCode); 
                   e.Property(e => e.Road); 
                   e.Property(e => e.Street); 
                   e.Property(e => e.BuildingName); 
                   e.Property(e => e.BuildingNo); 
-                  e.Property(e => e.PostCode); 
-                  e.Property(e => e.DistrictID); 
-                  e.Property(e => e.CityID); 
-                  e.Property(e => e.CountryID); 
-                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardID).IsRequired();
-                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictID).IsRequired();
-                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityID).IsRequired();
-                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryID).IsRequired();
+                  e.Property(e => e.PostCode);
+                  e.Property(e => e.CustomerCardId);
+                  e.Property(e => e.DistrictId); 
+                  e.Property(e => e.CityId); 
+                  e.Property(e => e.CountryId); 
+                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardId).IsRequired();
+                e.HasOne<District>().WithMany().HasForeignKey(x => x.DistrictId).IsRequired();
+                e.HasOne<City>().WithMany().HasForeignKey(x => x.CityId).IsRequired();
+                e.HasOne<Country>().WithMany().HasForeignKey(x => x.CountryId).IsRequired();
                       });
                 builder.Entity<CustomerCard>(e=>{
 
                   e.Property(e => e.Code); 
                   e.Property(e => e.Name); 
                   e.Property(e => e.CustomerTypeID); 
-                  e.Property(e => e.AddressID); 
                   e.Property(e => e.CustomerGroupID); 
                   e.Property(e => e.TaxOffice); 
                   e.Property(e => e.TaxNo); 
