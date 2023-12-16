@@ -18,7 +18,6 @@ namespace QuickSell.MovementHeaders
         public int? VATAmount { get; set; }
         public int? TotalAmount { get; set; }  
         public Guid? TenantId { get; set; }
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
         public MovementHeader()

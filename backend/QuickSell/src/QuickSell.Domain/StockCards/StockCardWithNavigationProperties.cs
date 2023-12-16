@@ -25,16 +25,6 @@ namespace QuickSell.StockCards
         public StockUnit StockUnit { get; set; }
         
         public StockGroup StockGroup { get; set; }
-        
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-
-        
-
-        
-       
-
-
-        
+                
     }
 }

@@ -39,7 +39,6 @@ namespace QuickSell.StockCards
         public decimal? Price2 { get; set; }
         public decimal? Price3 { get; set; }
         public Guid? TenantId { get; set; }
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
         public StockCard()

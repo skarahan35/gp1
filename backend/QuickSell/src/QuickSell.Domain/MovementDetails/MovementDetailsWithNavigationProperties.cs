@@ -17,16 +17,6 @@ namespace QuickSell.MovementDetails
         public MovementDetail  MovementDetails  {get; set;}
         
         public StockCard StockCard { get; set; }
-        
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-
-        
-
-        
-       
-
-
-        
+                
     }
 }

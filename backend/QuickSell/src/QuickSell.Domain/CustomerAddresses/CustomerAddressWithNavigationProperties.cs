@@ -26,16 +26,6 @@ namespace QuickSell.CustomerAddresses
         public City City { get; set; }
         
         public Country Country { get; set; }
-        
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-
-        
-
-        
-       
-
-
-        
+               
     }
 }

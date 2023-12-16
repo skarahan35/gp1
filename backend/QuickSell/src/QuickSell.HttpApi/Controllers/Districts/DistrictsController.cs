@@ -10,7 +10,6 @@ using System.Collections.Generic;
 namespace QuickSell.Controllers.Districts
 {
 
-
     public class DistrictsController : AbpController,IDistrictsAppService
     {
         private readonly IDistrictsAppService _districtsAppService;
@@ -19,7 +18,7 @@ namespace QuickSell.Controllers.Districts
 
         public DistrictsController(IDistrictsAppService districtsAppService)
         {
-        _districtsAppService = districtsAppService;
+            _districtsAppService = districtsAppService;
         }
         [HttpPost]
         [Route("700301")]

@@ -24,7 +24,6 @@ namespace QuickSell.CustomerAddresses
         public Guid? CityId { get; set; }    
         public Guid? CountryId { get; set; }    
         public Guid? TenantId { get; set; }
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
         public CustomerAddress()
