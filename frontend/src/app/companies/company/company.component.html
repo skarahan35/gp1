@@ -1,0 +1,127 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Companies</li>
+      <li class="breadcrumb-item active" aria-current="page">Company</li>
+    </ol>
+  </nav>
+  
+  <div id="data-grid-demo">
+      <dx-data-grid
+      #targetDataGrid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+          [allowColumnReordering]="true"
+          [columnHidingEnabled]="true"
+          [filterRow]="{ visible: true, applyFilter: 'auto' }"
+          [headerFilter]="{ visible: true }"
+          [groupPanel]="{ visible: true }"
+          [searchPanel]="{ visible: true }"
+          [selection]="{ mode: 'multiple' }"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="false"
+          
+      >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-paging [pageSize]="10"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [displayMode]="displayMode"
+      [showPageSizeSelector]="showPageSizeSelector"
+      [showInfo]="showInfo"
+      [showNavigationButtons]="showNavButtons"
+    >
+    </dxo-pager>
+      <dxo-filter-panel [visible]="true"> </dxo-filter-panel>
+        <dxo-paging [enabled]="true"></dxo-paging>
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+      ></dxo-export>
+        <dxo-editing
+          mode="popup"
+          [allowUpdating]="true"
+          [allowAdding]="true"
+          [allowDeleting]="true"
+          [useIcons]="true"
+        >
+          <dxo-popup
+            title="Company"
+            [showTitle]="true"
+            [width]="500"
+            [height]="850"
+          >
+          <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="successButtonOptions"
+        >
+        </dxi-toolbar-item>
+        <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="cancelButtonOptions"
+        >
+        </dxi-toolbar-item>
+          </dxo-popup>
+          <dxo-form>
+            <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+              <dxi-item dataField="companyName" [colCount]="2"></dxi-item>
+              <dxi-item dataField="road" [colCount]="2"></dxi-item>
+              <dxi-item dataField="street" [colCount]="2"></dxi-item>
+              <dxi-item dataField="buildingName" [colCount]="2"></dxi-item>
+              <dxi-item dataField="buildingNo" [colCount]="2"></dxi-item>
+              <dxi-item dataField="postCode" [colCount]="2"></dxi-item>
+              <dxi-item dataField="districtID" [colCount]="2"></dxi-item>
+              <dxi-item dataField="cityID" [colCount]="2"></dxi-item>
+              <dxi-item dataField="countryID" [colCount]="2"></dxi-item>
+              <dxi-item dataField="taxNo" [colCount]="2"></dxi-item>
+              <dxi-item dataField="taxOffice" [colCount]="2"></dxi-item>
+              <dxi-item dataField="currency" [colCount]="2"></dxi-item>
+              <dxi-item dataField="dateFormat" [colCount]="2"></dxi-item>
+              <dxi-item dataField="webSite" [colCount]="2"></dxi-item>
+              <dxi-item dataField="incomingMail" [colCount]="2"></dxi-item>
+              <dxi-item dataField="sendingMail" [colCount]="2"></dxi-item>
+              <dxi-item dataField="workingYear" [colCount]="2"></dxi-item>
+              <dxi-item dataField="quantityDecimal" [colCount]="2"></dxi-item>
+              <dxi-item dataField="priceDecimal" [colCount]="2"></dxi-item>
+              <dxi-item dataField="amountDecimal" [colCount]="2"></dxi-item>
+            </dxi-item>
+          </dxo-form>
+        </dxo-editing>
+    
+        <dxi-column dataField="companyName" dataType="string"></dxi-column>
+        <dxi-column dataField="road" dataType="string"></dxi-column>
+        <dxi-column dataField="street" dataType="string"></dxi-column>
+        <dxi-column dataField="buildingName" dataType="string"></dxi-column>
+        <dxi-column dataField="buildingNo" dataType="string"></dxi-column>
+        <dxi-column dataField="postCode" dataType="number"></dxi-column>
+        <dxi-column dataField="districtID" dataType="string">
+            <dxo-lookup [dataSource]="districtLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+    
+        <dxi-column dataField="cityID" dataType="string">
+            <dxo-lookup [dataSource]="cityLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+    
+        <dxi-column dataField="countryID" dataType="string">
+            <dxo-lookup [dataSource]="countryLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="taxNo" dataType="number"></dxi-column>
+        <dxi-column dataField="taxOffice" dataType="string"></dxi-column>
+        <dxi-column dataField="currency" dataType="string"></dxi-column>
+        <dxi-column dataField="dateFormat" dataType="string"></dxi-column>
+        <dxi-column dataField="webSite" dataType="string"></dxi-column>
+        <dxi-column dataField="incomingMail" dataType="number"></dxi-column>
+        <dxi-column dataField="sendingMail" dataType="number"></dxi-column>
+        <dxi-column dataField="workingYear" dataType="number"></dxi-column>
+        <dxi-column dataField="quantityDecimal" dataType="number"></dxi-column>
+        <dxi-column dataField="priceDecimal" dataType="number"></dxi-column>
+        <dxi-column dataField="amountDecimal" dataType="number"></dxi-column>
+      </dx-data-grid>
+    </div>

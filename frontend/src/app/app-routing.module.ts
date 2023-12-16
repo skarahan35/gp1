@@ -13,6 +13,7 @@ import { CitiesComponent } from './locations/cities/cities.component';
 import { DistrictsComponent } from './locations/districts/districts.component';
 import { CustomerCardComponent } from './customer/customer-card/customer-card.component';
 import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
+import { CompanyComponent } from './companies/company/company.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path: 'customer/customer-address',
     component: CustomerAddressComponent
+  },
+  {
+    path: 'companies/company',
+    component: CompanyComponent
   }
 ];
 
