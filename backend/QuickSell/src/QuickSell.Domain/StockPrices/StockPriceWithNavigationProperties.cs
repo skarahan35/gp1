@@ -18,15 +18,5 @@ namespace QuickSell.StockPrices
         
         public StockCard StockCard { get; set; }
         
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-
-        
-
-        
-       
-
-
-        
     }
 }

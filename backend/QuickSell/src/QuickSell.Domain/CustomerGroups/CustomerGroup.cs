@@ -21,7 +21,6 @@ namespace QuickSell.CustomerGroups
         public string? Name { get; set; }
         
         public Guid? TenantId { get; set; }
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
 
         public CustomerGroup()

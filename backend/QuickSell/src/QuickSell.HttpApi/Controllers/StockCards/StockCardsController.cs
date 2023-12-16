@@ -10,18 +10,15 @@ using System.Collections.Generic;
 namespace QuickSell.Controllers.StockCards
 {
 
-    [Route("api/stock-cards")]
     
-    public abstract class StockCardsController : AbpController,IStockCardsAppService
+    public class StockCardsController : AbpController,IStockCardsAppService
     {
         private readonly IStockCardsAppService _stockCardsAppService;
 
-        
-
         public StockCardsController(IStockCardsAppService stockCardsAppService)
-       {
-        _stockCardsAppService = stockCardsAppService;
-       }
+        {
+            _stockCardsAppService = stockCardsAppService;
+        }
 
         [HttpPost]
         [Route("100101")]

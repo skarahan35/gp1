@@ -9,10 +9,8 @@ using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace QuickSell.Controllers.MovementHeaders
 {
-
-    [Route("api/movement-headers")]
     
-    public abstract class MovementHeadersController : AbpController,IMovementHeadersAppService
+    public class MovementHeadersController : AbpController,IMovementHeadersAppService
     {
         private readonly IMovementHeadersAppService _movementHeadersAppService;
 

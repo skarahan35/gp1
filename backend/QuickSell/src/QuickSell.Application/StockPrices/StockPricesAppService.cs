@@ -14,7 +14,7 @@ using Volo.Abp.Data;
 
 namespace QuickSell.StockPrices
 {
-    public abstract class StockPricesAppService :ApplicationService, IStockPricesAppService
+    public class StockPricesAppService :ApplicationService, IStockPricesAppService
     {
         private readonly IStockPriceRepository _stockPriceRepository;
         private readonly StockPriceManager _stockPriceManager;

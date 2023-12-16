@@ -15,16 +15,6 @@ namespace QuickSell.StockTypes
     {
     
         public StockType  StockType  {get; set;}
-        
-        // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-
-
-        
-
-        
-       
-
-
-        
+                
     }
 }
