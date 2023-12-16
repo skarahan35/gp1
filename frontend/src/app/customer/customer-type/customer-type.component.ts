@@ -32,13 +32,13 @@ export class CustomerTypeComponent {
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
   constructor(private http: HttpClient, private toastr:ToastrService) {
-    // this.dataSource = new CustomStore({
-    //   key: 'id',
-    //   load: () => this.sendRequest('https://localhost:44369/100204'),
-    //   insert: (values) => this.sendRequest('https://localhost:44369/100201', 'POST', values),
-    //   update: (key, values) => this.sendRequest(`https://localhost:44369/100202/${key}`, 'PUT', values),
-    //   remove: (key) => this.sendRequest(`https://localhost:44369/100203/${key}`, 'DELETE'),
-    // });
+    this.dataSource = new CustomStore({
+      key: 'id',
+      load: () => this.sendRequest('https://localhost:44369/200104'),
+      insert: (values) => this.sendRequest('https://localhost:44369/200101', 'POST', values),
+      update: (key, values) => this.sendRequest(`https://localhost:44369/200102/${key}`, 'PUT', values),
+      remove: (key) => this.sendRequest(`https://localhost:44369/200103/${key}`, 'DELETE'),
+    });
     this.successButtonOptions = {
       type: 'success',
       stylingMode: 'outlined',
