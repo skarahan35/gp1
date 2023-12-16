@@ -1,0 +1,104 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Customer</li>
+      <li class="breadcrumb-item active" aria-current="page">Customer Card</li>
+    </ol>
+  </nav>
+  
+  <div id="data-grid-demo">
+      <dx-data-grid
+      #targetDataGrid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+          [allowColumnReordering]="true"
+          [columnHidingEnabled]="true"
+          [filterRow]="{ visible: true, applyFilter: 'auto' }"
+          [headerFilter]="{ visible: true }"
+          [groupPanel]="{ visible: true }"
+          [searchPanel]="{ visible: true }"
+          [selection]="{ mode: 'multiple' }"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="false"
+          
+      >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-paging [pageSize]="10"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [displayMode]="displayMode"
+      [showPageSizeSelector]="showPageSizeSelector"
+      [showInfo]="showInfo"
+      [showNavigationButtons]="showNavButtons"
+    >
+    </dxo-pager>
+      <dxo-filter-panel [visible]="true"> </dxo-filter-panel>
+        <dxo-paging [enabled]="true"></dxo-paging>
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+      ></dxo-export>
+        <dxo-editing
+          mode="popup"
+          [allowUpdating]="true"
+          [allowAdding]="true"
+          [allowDeleting]="true"
+          [useIcons]="true"
+        >
+          <dxo-popup
+            title="Customer Card"
+            [showTitle]="true"
+            [width]="500"
+            [height]="630"
+          >
+          <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="successButtonOptions"
+        >
+        </dxi-toolbar-item>
+        <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="cancelButtonOptions"
+        >
+        </dxi-toolbar-item>
+          </dxo-popup>
+          <dxo-form>
+            <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
+              <dxi-item dataField="code" [colCount]="2"></dxi-item>
+              <dxi-item dataField="name" [colCount]="2"></dxi-item>
+              <dxi-item dataField="customerTypeID" [colCount]="2"></dxi-item>
+              <dxi-item dataField="customerGroupID" [colCount]="2"></dxi-item>
+              <dxi-item dataField="taxOffice" [colCount]="2"></dxi-item>
+              <dxi-item dataField="taxNo" [colCount]="2"></dxi-item>
+              <dxi-item dataField="tCNumber" [colCount]="2"></dxi-item>
+              <dxi-item dataField="authorizedPerson" [colCount]="2"></dxi-item>
+              <dxi-item dataField="eMail" [colCount]="2"></dxi-item>
+              <dxi-item dataField="riskLimit" [colCount]="2"></dxi-item>
+            </dxi-item>
+          </dxo-form>
+        </dxo-editing>
+    
+        <dxi-column dataField="code" dataType="string"></dxi-column>
+        <dxi-column dataField="name" dataType="string"></dxi-column>
+        <dxi-column dataField="customerTypeID" dataType="string">
+            <dxo-lookup [dataSource]="customerTypeLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+    
+        <dxi-column dataField="customerGroupID" dataType="string">
+            <dxo-lookup [dataSource]="customerGroupLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="taxOffice" dataType="string"></dxi-column>
+        <dxi-column dataField="taxNo" dataType="number"></dxi-column>
+        <dxi-column dataField="tCNumber" dataType="number"></dxi-column>
+        <dxi-column dataField="authorizedPerson" dataType="string"></dxi-column>
+        <dxi-column dataField="eMail" dataType="string"></dxi-column>
+        <dxi-column dataField="riskLimit" dataType="decimal"></dxi-column>
+      </dx-data-grid>
+    </div>

@@ -11,6 +11,8 @@ import { CustomerGroupComponent } from './customer/customer-group/customer-group
 import { CountriesComponent } from './locations/countries/countries.component';
 import { CitiesComponent } from './locations/cities/cities.component';
 import { DistrictsComponent } from './locations/districts/districts.component';
+import { CustomerCardComponent } from './customer/customer-card/customer-card.component';
+import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,14 @@ const routes: Routes = [
   {
     path: 'location/districts',
     component: DistrictsComponent
+  },
+  {
+    path: 'customer/customer-card',
+    component: CustomerCardComponent
+  },
+  {
+    path: 'customer/customer-address',
+    component: CustomerAddressComponent
   }
 ];
 
