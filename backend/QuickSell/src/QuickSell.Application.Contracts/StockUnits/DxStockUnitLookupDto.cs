@@ -9,6 +9,7 @@ namespace QuickSell.StockUnits
     {
         public Guid Id { get; set; }
         public string? Code { get; set; }
+        public string? InternationalCode { get; set; }
         public string? Name { get; set; }
     }
 }

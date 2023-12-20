@@ -2,6 +2,7 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
+using QuickSell.Shared;
 
 namespace QuickSell.MovementHeaders
 {
@@ -17,6 +18,9 @@ namespace QuickSell.MovementHeaders
         public int? DiscountAmount { get; set; }
         public int? VATAmount { get; set; }
         public int? TotalAmount { get; set; }  
+        public Guid? AddressID { get; set; }  
+        public PaymentType? PaymentType { get; set; }  
+
         public Guid? TenantId { get; set; }
 
 
@@ -36,6 +40,8 @@ namespace QuickSell.MovementHeaders
           ,int? discountAmount
           ,int? vAtAmount
           ,int? totalAmount
+          ,Guid? addressID
+          ,PaymentType? paymentType
           
             
 
@@ -51,6 +57,8 @@ namespace QuickSell.MovementHeaders
                 DiscountAmount=discountAmount;
                 VATAmount=vAtAmount;
                 TotalAmount=totalAmount;
+            AddressID = addressID;
+            PaymentType = paymentType;
 
         }
 

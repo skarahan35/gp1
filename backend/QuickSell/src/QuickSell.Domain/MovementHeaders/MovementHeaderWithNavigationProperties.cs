@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
 using Volo.Abp;
 using QuickSell.CustomerCards;
+using QuickSell.CustomerAddresses;
 
 namespace QuickSell.MovementHeaders
 {
@@ -17,6 +18,7 @@ namespace QuickSell.MovementHeaders
         public MovementHeader  MovementHeader  {get; set;}
         
         public CustomerCard CustomerCard { get; set; }
+        public CustomerAddress CustomerAddress { get; set; }
                 
     }
 }

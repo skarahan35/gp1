@@ -18,13 +18,13 @@ namespace QuickSell.StockUnits
         {
         }
 
-        
 
 
         public async Task<List<StockUnit>> GetListAsync(
              string filterText = null
             ,string sorting = null
             ,string code= null 
+            ,string internationalCode = null 
             ,string name= null 
             
             ,int maxResultCount = int.MaxValue
@@ -32,8 +32,8 @@ namespace QuickSell.StockUnits
             ,CancellationToken cancellationToken = default)
         {
             var query = ApplyFilter((await GetQueryableAsync()),filterText,
-               code
-,
+               code,
+               internationalCode,
                name
             );
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? StockUnitConsts.GetDefaultSorting(false) : sorting);
@@ -45,6 +45,7 @@ namespace QuickSell.StockUnits
         public async Task<long> GetCountAsync(
          string filterText = null
           ,string code= null 
+          ,string internationalCode = null 
           ,string name= null 
            ,CancellationToken cancellationToken = default
             )
@@ -60,15 +61,18 @@ namespace QuickSell.StockUnits
             IQueryable<StockUnit> query,
             string filterText = null
           ,string code= null  
+          ,string internationalCode = null  
           ,string name= null  
 )
         {
             return query
             .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Code.Contains(filterText)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.InternationalCode.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Name.Contains(filterText)) 
 
             .WhereIf(!string.IsNullOrWhiteSpace(code),e => e.Code.Contains(code)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(code),e => e.InternationalCode.Contains(code)) 
             .WhereIf(!string.IsNullOrWhiteSpace(name),e => e.Name.Contains(name)) 
          ;
         }

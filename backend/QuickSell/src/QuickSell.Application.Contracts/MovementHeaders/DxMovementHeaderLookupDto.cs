@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickSell.Shared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,5 +15,7 @@ namespace QuickSell.MovementHeaders
         public int? DiscountAmount { get; set; }
         public int? VATAmount { get; set; }
         public int? TotalAmount { get; set; }
+        public Guid? AddressID { get; set; }
+        public PaymentType? PaymentType { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace QuickSell.CustomerCards
               Guid? customerTypeID,
               Guid? customerGroupID,
               string taxOffice, 
-              string tCNumber, 
+              string phoneNumber, 
               string authorizedPerson, 
               string eMail, 
               int? taxNo, 
@@ -40,7 +40,7 @@ namespace QuickSell.CustomerCards
                customerTypeID,
                customerGroupID,
                taxOffice, 
-               tCNumber, 
+               phoneNumber, 
                authorizedPerson, 
                eMail, 
                taxNo, 
@@ -57,7 +57,7 @@ namespace QuickSell.CustomerCards
           Guid? customerTypeID,
           Guid? customerGroupID,
           string taxOffice, 
-          string tCNumber, 
+          string phoneNumber, 
           string authorizedPerson, 
           string eMail, 
           int? taxNo, 
@@ -77,7 +77,7 @@ namespace QuickSell.CustomerCards
                 customerCard.CustomerTypeID=customerTypeID;
                 customerCard.CustomerGroupID=customerGroupID;
                 customerCard.TaxOffice=taxOffice;
-                customerCard.TCNumber=tCNumber;
+                customerCard.PhoneNumber =phoneNumber;
                 customerCard.AuthorizedPerson=authorizedPerson;
                 customerCard.EMail=eMail;
                  customerCard.TaxNo=taxNo;

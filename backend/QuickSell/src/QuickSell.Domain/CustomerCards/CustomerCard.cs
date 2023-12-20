@@ -28,8 +28,8 @@ namespace QuickSell.CustomerCards
         [StringLength(128,MinimumLength=0)]
         public string TaxOffice { get; set; }
         public int? TaxNo { get; set; }
-        [StringLength(11,MinimumLength=0)]
-        public string TCNumber { get; set; }
+        [StringLength(13,MinimumLength=0)]
+        public string PhoneNumber { get; set; }
         [StringLength(64,MinimumLength=0)]
         public string AuthorizedPerson { get; set; }
         [StringLength(64,MinimumLength=0)]
@@ -52,8 +52,8 @@ namespace QuickSell.CustomerCards
           , Guid? customerTypeID
           , Guid? customerGroupID
           , string taxOffice 
-          ,string tCNumber 
-          ,string authorizedPerson 
+          ,string phoneNumber
+          , string authorizedPerson 
           ,string eMail 
           ,int? taxNo
 
@@ -71,7 +71,7 @@ namespace QuickSell.CustomerCards
                 CustomerTypeID = customerTypeID;
                 CustomerGroupID = customerGroupID;
                 TaxOffice=taxOffice;
-                TCNumber=tCNumber;
+                PhoneNumber = phoneNumber;
                 AuthorizedPerson=authorizedPerson;
                 EMail=eMail;
                 TaxNo=taxNo;

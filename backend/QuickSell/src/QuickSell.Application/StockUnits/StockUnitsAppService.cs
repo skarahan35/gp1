@@ -17,6 +17,8 @@ using Microsoft.Extensions.Localization;
 using QuickSell.Localization;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
+using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.StockUnits
 {
@@ -46,6 +48,7 @@ namespace QuickSell.StockUnits
                                 {
                                     Id = stkunt.Id,
                                     Code = stkunt.Code,
+                                    InternationalCode = stkunt.InternationalCode,
                                     Name = stkunt.Name
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
@@ -62,6 +65,7 @@ namespace QuickSell.StockUnits
                                   {
                                       Id = stkunt.Id,
                                       Code = stkunt.Code,
+                                      InternationalCode = stkunt.InternationalCode,
                                       Name = stkunt.Name,
                                   }).FirstOrDefault();
                 return stockUnits;
@@ -76,6 +80,7 @@ namespace QuickSell.StockUnits
         {
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
+              input.InternationalCode,
               input.Name
               );
             await StockUnitValidation(input);
@@ -84,14 +89,29 @@ namespace QuickSell.StockUnits
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
             var stockUnit = await _stockUnitRepository.GetAsync(id);
-            var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
+            //var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
             //todo frontendden dönen code alaný Code olarak dönüþtürülecek
-            await StockUnitValidation(inputDto);
-            var updated = await DevExtremeUpdate.Update(stockUnit, input);
+            var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
+            var updated = await DevExtremeUpdate.Update(stockUnitDto, input);
 
-            await _stockUnitRepository.UpdateAsync(updated);
+            return await BPUpdateEmployees(stockUnitDto.Id, stockUnitDto);
 
-            return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
+            //await _stockUnitRepository.UpdateAsync(updated);
+             
+            //return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
+        }
+        public async Task<StockUnitDto> BPUpdateEmployees(Guid id, StockUnitDto input)
+        {
+            await StockUnitValidation(input);
+            var stockUnit = await _stockUnitManager.UpdateAsync(
+                id,
+                input.Code,
+                input.InternationalCode,
+                input.Name
+            );
+            await _stockUnitRepository.UpdateAsync(stockUnit);
+
+            return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
         public async Task DeleteStockUnit(Guid id)
         {

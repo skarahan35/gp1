@@ -19,6 +19,7 @@ namespace QuickSell.StockUnits
          string filterText = null
          ,string sorting = null
          ,string code= null 
+         ,string internationalCode = null 
          ,string name= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
@@ -28,6 +29,7 @@ namespace QuickSell.StockUnits
        Task<long> GetCountAsync(
         string filterText = null,
           string code= null , 
+          string internationalCode = null , 
           string name= null , 
         CancellationToken cancellationToken = default);
 
