@@ -43,7 +43,7 @@ namespace QuickSell.CustomerCards
                                     CustomerGroupID = cstmrcrd.CustomerGroupID,
                                     TaxOffice = cstmrcrd.TaxOffice,
                                     TaxNo = cstmrcrd.TaxNo,
-                                    TCNumber = cstmrcrd.TCNumber,
+                                    PhoneNumber = cstmrcrd.PhoneNumber,
                                     AuthorizedPerson = cstmrcrd.AuthorizedPerson,
                                     EMail = cstmrcrd.EMail,
                                     RiskLimit = cstmrcrd.RiskLimit
@@ -67,7 +67,7 @@ namespace QuickSell.CustomerCards
                                      CustomerGroupID = cstmrcrd.CustomerGroupID,
                                      TaxOffice = cstmrcrd.TaxOffice,
                                      TaxNo = cstmrcrd.TaxNo,
-                                     TCNumber = cstmrcrd.TCNumber,
+                                     PhoneNumber = cstmrcrd.PhoneNumber,
                                      AuthorizedPerson = cstmrcrd.AuthorizedPerson,
                                      EMail = cstmrcrd.EMail,
                                      RiskLimit = cstmrcrd.RiskLimit
@@ -83,7 +83,7 @@ namespace QuickSell.CustomerCards
               input.CustomerTypeID,
               input.CustomerGroupID,
               input.TaxOffice,
-              input.TCNumber,
+              input.PhoneNumber,
               input.AuthorizedPerson,
               input.EMail,
               input.TaxNo,

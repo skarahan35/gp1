@@ -11,9 +11,12 @@ namespace QuickSell.StockUnits
         
         [StringLength(64,MinimumLength=1)]
         public string? Code { get; set; }
+
+        [StringLength(5, MinimumLength = 1)]
+        public string? InternationalCode { get; set; }
+
         [StringLength(256,MinimumLength=0)]
         public string? Name { get; set; }
-        
         public Guid? TenantId { get; set; }
 
         public StockUnit()
@@ -26,7 +29,8 @@ namespace QuickSell.StockUnits
         (
             Guid id
           ,string? code 
-          ,string? name 
+          ,string? internationalCode
+          , string? name 
             
 
         )
@@ -35,6 +39,7 @@ namespace QuickSell.StockUnits
         {
                Id = id;
                 Code=code;
+            InternationalCode = internationalCode;
                 Name=name;
 
         }

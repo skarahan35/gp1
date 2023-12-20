@@ -49,6 +49,8 @@ namespace QuickSell.MovementHeaders
                                     DiscountAmount = mvmnthdr.DiscountAmount,
                                     VATAmount = mvmnthdr.VATAmount,
                                     TotalAmount= mvmnthdr.TotalAmount,
+                                    AddressID= mvmnthdr.AddressID,
+                                    PaymentType= mvmnthdr.PaymentType,
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
         }
@@ -70,6 +72,8 @@ namespace QuickSell.MovementHeaders
                                           DiscountAmount = mvmnthdr.DiscountAmount,
                                           VATAmount = mvmnthdr.VATAmount,
                                           TotalAmount = mvmnthdr.TotalAmount,
+                                          AddressID = mvmnthdr.AddressID,
+                                          PaymentType = mvmnthdr.PaymentType,
                                       }).FirstOrDefault();
                 return movementDetail;
             }
@@ -83,7 +87,9 @@ namespace QuickSell.MovementHeaders
               input.FirstAmount,
               input.DiscountAmount,
               input.VATAmount,
-              input.TotalAmount
+              input.TotalAmount,
+              input.AddressID,
+              input.PaymentType
           );
             return ObjectMapper.Map<MovementHeader, MovementHeaderDto>(movementHeader);
         }

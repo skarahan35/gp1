@@ -8,12 +8,16 @@ using QuickSell.CustomerGroups;
 using QuickSell.CustomerCards;
 using QuickSell.Districts;
 using QuickSell.MovementHeaders;
+using QuickSell.EndUsers;
+using QuickSell.StockSubGroups;
+using QuickSell.CustomerSubGroups;
 using AutoMapper;
 using QuickSell.Countries;
 using QuickSell.Cities;
 using QuickSell.CustomerAddresses;
 using QuickSell.MovementDetails;
 using QuickSell.Companies;
+using QuickSell.Prefixes;
 
 namespace QuickSell
 
@@ -38,6 +42,10 @@ namespace QuickSell
             CreateMap<MovementHeader, MovementHeaderDto>();
             CreateMap<MovementDetail, MovementDetailDto>();
             CreateMap<Company, CompanyDto>();
+            CreateMap<EndUser, EndUserDto>();
+            CreateMap<StockSubGroup, StockSubGroupDto>();
+            CreateMap<CustomerSubGroup, CustomerSubGroupDto>();
+            CreateMap<Prefix, PrefixDto>();
         }
     }
 
