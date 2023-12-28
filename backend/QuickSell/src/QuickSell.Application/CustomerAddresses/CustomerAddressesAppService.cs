@@ -16,6 +16,9 @@ using Volo.Abp.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
+using QuickSell.Localization;
+using Microsoft.Extensions.Localization;
+using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.CustomerAddresses
 {
@@ -24,14 +27,17 @@ namespace QuickSell.CustomerAddresses
         private readonly ICustomerAddressRepository _customerAddressRepository;
         private readonly CustomerAddressManager _customerAddressManager;
         private readonly IDataFilter _dataFilter;
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
     
         public CustomerAddressesAppService(ICustomerAddressRepository customerAddressRepository,
                                            CustomerAddressManager customerAddressManager,
-                                           IDataFilter dataFilter)
+                                           IDataFilter dataFilter,
+                                           IStringLocalizer<QuickSellResource> localizer)
         {
             _customerAddressRepository = customerAddressRepository;
             _customerAddressManager= customerAddressManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
 
         public async Task<LoadResult> GetListCustomerAddress(DataSourceLoadOptions loadOptions)
@@ -42,7 +48,7 @@ namespace QuickSell.CustomerAddresses
                                 select new DxCustomerAddressLookupDto
                                 {
                                     Id = cstmraddrss.Id,
-                                    AddressCode = cstmraddrss.AddressCode,
+                                    Code = cstmraddrss.Code,
                                     Road = cstmraddrss.Road,
                                     Street = cstmraddrss.Street,
                                     BuildingName = cstmraddrss.BuildingName,
@@ -66,7 +72,7 @@ namespace QuickSell.CustomerAddresses
                                      select new DxCustomerAddressLookupDto
                                      {
                                          Id = cstmraddrss.Id,
-                                         AddressCode = cstmraddrss.AddressCode,
+                                         Code = cstmraddrss.Code,
                                          Road = cstmraddrss.Road,
                                          Street = cstmraddrss.Street,
                                          BuildingName = cstmraddrss.BuildingName,
@@ -80,10 +86,16 @@ namespace QuickSell.CustomerAddresses
                 return customerAddress;
             }
         }
+        public async Task CustomerAddressValidation(CustomerAddressDto input)
+        {
+            var qry = await _customerAddressRepository.GetQueryableAsync();
+            await Validation<CustomerAddress, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+        }
         public async Task<CustomerAddressDto> AddCustomerAddress(CustomerAddressDto input)
         {
+            await CustomerAddressValidation(input);
             var customerAddress = await _customerAddressManager.CreateAsync(
-              input.AddressCode,
+              input.Code,
               input.Road,
               input.Street,
               input.BuildingName,
@@ -99,9 +111,30 @@ namespace QuickSell.CustomerAddresses
         public async Task<CustomerAddressDto> UpdateCustomerAddress(Guid id, IDictionary<string, object> input)
         {
             var customerAddress = await _customerAddressRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(customerAddress, input);
-            await _customerAddressRepository.UpdateAsync(updated);
-            return ObjectMapper.Map<CustomerAddress, CustomerAddressDto>(updated);
+            var customerAddressDto = ObjectMapper.Map<CustomerAddress, CustomerAddressDto>(customerAddress);
+            await DevExtremeUpdate.Update(customerAddressDto, input);
+
+            return await UpdateCustomerAddress(customerAddressDto.Id, customerAddressDto);
+        }
+        public async Task<CustomerAddressDto> UpdateCustomerAddress(Guid id, CustomerAddressDto input)
+        {
+            await CustomerAddressValidation(input);
+            var customerAddress = await _customerAddressManager.UpdateAsync(
+                id,
+                input.Code,
+                input.Road,
+                input.Street,
+                input.BuildingName,
+                input.BuildingNo,
+                input.PostCode,
+                input.CustomerCardId,
+                input.DistrictId,
+                input.CityId,
+                input.CountryId
+            );
+            await _customerAddressRepository.UpdateAsync(customerAddress);
+
+            return ObjectMapper.Map<CustomerAddress, CustomerAddressDto>(customerAddress);
         }
         public async Task DeleteCustomerAddress(Guid id)
         {

@@ -9,16 +9,10 @@ using Volo.Abp.Application.Services;
 using QuickSell.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using Volo.Abp.Data;
-using System.Linq;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
-using Volo.Abp.Domain.Repositories;
 using Microsoft.Extensions.Localization;
 using QuickSell.Localization;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics;
-using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.StockUnits
 {
@@ -73,8 +67,9 @@ namespace QuickSell.StockUnits
         }
         public async Task StockUnitValidation(StockUnitDto input)
         {
-            var a = await _stockUnitRepository.GetQueryableAsync();
-            await Validation<StockUnit, QuickSellResource>.CodeControl(input, a.Where(x => x.Code == input.Code), _localizer);
+            var qry = await _stockUnitRepository.GetQueryableAsync();
+            await Validation<StockUnit, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<StockUnit, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
         }
         public async Task<StockUnitDto> AddStockUnit(StockUnitDto input) 
         {
@@ -92,7 +87,7 @@ namespace QuickSell.StockUnits
             //var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
             //todo frontendden dönen code alaný Code olarak dönüþtürülecek
             var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
-            var updated = await DevExtremeUpdate.Update(stockUnitDto, input);
+            await DevExtremeUpdate.Update(stockUnitDto, input);
 
             return await BPUpdateEmployees(stockUnitDto.Id, stockUnitDto);
 

@@ -11,6 +11,9 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
 using Volo.Abp.Data;
+using QuickSell.Localization;
+using Microsoft.Extensions.Localization;
+using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.Countries
 {
@@ -19,14 +22,17 @@ namespace QuickSell.Countries
         private readonly ICountryRepository _countryRepository;
         private readonly CountryManager _countryManager;
         private readonly IDataFilter _dataFilter;
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
     
         public CountriesAppService(ICountryRepository countryRepository,
                                    CountryManager countryManager,
-                                   IDataFilter dataFilter)
+                                   IDataFilter dataFilter,
+                                   IStringLocalizer<QuickSellResource> localizer)
         {
             _countryRepository = countryRepository;
             _countryManager= countryManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
         public async Task<LoadResult> GetListCountry(DataSourceLoadOptions loadOptions)
         {
@@ -58,19 +64,40 @@ namespace QuickSell.Countries
                 return country;
             }
         }
+        public async Task CountryValidation(CountryDto input)
+        {
+            var qry = await _countryRepository.GetQueryableAsync();
+            await Validation<Country, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<Country, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+        }
         public async Task<CountryDto> AddCountry(CountryDto input)
         {
+            await CountryValidation(input);
             var country = await _countryManager.CreateAsync(
               input.Code,
               input.Name
           );
             return ObjectMapper.Map<Country, CountryDto>(country);
         }
+        
         public async Task<CountryDto> UpdateCountry(Guid id, IDictionary<string, object> input)
         {
             var country = await _countryRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(country, input);
-            await _countryRepository.UpdateAsync(updated);
+            var countryDto = ObjectMapper.Map<Country, CountryDto>(country);
+            await DevExtremeUpdate.Update(countryDto, input);
+
+            return await UpdateCountry(countryDto.Id, countryDto);
+        }
+        public async Task<CountryDto> UpdateCountry(Guid id, CountryDto input)
+        {
+            await CountryValidation(input);
+            var country = await _countryManager.UpdateAsync(
+                id,
+                input.Code,
+                input.Name
+            );
+            await _countryRepository.UpdateAsync(country);
+
             return ObjectMapper.Map<Country, CountryDto>(country);
         }
         public async Task DeleteCountry(Guid id)

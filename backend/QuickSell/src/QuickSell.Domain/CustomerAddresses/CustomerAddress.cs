@@ -2,15 +2,16 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
+using QuickSell.Tools;
 
 namespace QuickSell.CustomerAddresses
 {
 
-    public  class CustomerAddress : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class CustomerAddress : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields
     {
         
         [StringLength(64,MinimumLength=0)]
-        public string AddressCode { get; set; }
+        public string Code { get; set; }
         [StringLength(256,MinimumLength=0)]
         public string Road { get; set; }
         [StringLength(256,MinimumLength=0)]
@@ -35,7 +36,7 @@ namespace QuickSell.CustomerAddresses
         public CustomerAddress
         (
             Guid id
-          ,string addressCode 
+          ,string code 
           ,string road 
           ,string street 
           ,string buildingName 
@@ -54,7 +55,7 @@ namespace QuickSell.CustomerAddresses
 
         {
                Id = id;
-                AddressCode=addressCode;
+                Code=code;
                 Road=road;
                 Street=street;
                 BuildingName=buildingName;

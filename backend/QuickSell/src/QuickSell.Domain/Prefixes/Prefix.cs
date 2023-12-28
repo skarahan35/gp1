@@ -2,11 +2,12 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
+using QuickSell.Tools;
 
 namespace QuickSell.Prefixes
 {
 
-    public  class Prefix : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class Prefix : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields
     {
         
         [StringLength(64,MinimumLength=0)]

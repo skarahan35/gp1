@@ -2,11 +2,12 @@ using System;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
+using QuickSell.Tools;
 
 namespace QuickSell.EndUsers
 {
 
-    public  class EndUser : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class EndUser : FullAuditedAggregateRoot<Guid>, IMultiTenant,INameControlFields
     {
         
         [StringLength(64,MinimumLength=1)]

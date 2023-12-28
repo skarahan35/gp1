@@ -6,7 +6,7 @@ using QuickSell.Tools;
 namespace QuickSell.StockUnits
 {
 
-    public  class StockUnit : FullAuditedAggregateRoot<Guid>, IMultiTenant,IControlFields
+    public  class StockUnit : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields, INameControlFields
     {
         
         [StringLength(64,MinimumLength=1)]

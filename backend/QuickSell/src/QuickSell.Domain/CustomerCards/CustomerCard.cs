@@ -12,11 +12,12 @@ using QuickSell.CustomerAddresses;
 using QuickSell.MovementHeaders;
 using QuickSell.CustomerTypes;
 using QuickSell.CustomerGroups;
+using QuickSell.Tools;
 
 namespace QuickSell.CustomerCards
 {
     
-    public  class CustomerCard : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class CustomerCard : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields, INameControlFields
     {
         
         [StringLength(128,MinimumLength=0)]

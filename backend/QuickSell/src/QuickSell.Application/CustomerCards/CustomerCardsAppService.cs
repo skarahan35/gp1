@@ -11,6 +11,10 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
 using Volo.Abp.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
+using QuickSell.Localization;
+using Microsoft.Extensions.Localization;
+using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.CustomerCards
 {
@@ -19,14 +23,17 @@ namespace QuickSell.CustomerCards
         private readonly ICustomerCardRepository _customerCardRepository;
         private readonly CustomerCardManager _customerCardManager;
         private readonly IDataFilter _dataFilter;
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
     
         public CustomerCardsAppService(ICustomerCardRepository customerCardRepository,
                                        CustomerCardManager customerCardManager,
-                                       IDataFilter dataFilter)
+                                       IDataFilter dataFilter,
+                                       IStringLocalizer<QuickSellResource> localizer)
         {
             _customerCardRepository = customerCardRepository;
             _customerCardManager= customerCardManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
 
         public async Task<LoadResult> GetListCustomerCard(DataSourceLoadOptions loadOptions)
@@ -75,8 +82,15 @@ namespace QuickSell.CustomerCards
                 return customerCard;
             }
         }
+        public async Task CustomerCardValidation(CustomerCardDto input)
+        {
+            var qry = await _customerCardRepository.GetQueryableAsync();
+            await Validation<CustomerCard, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<CustomerCard, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+        }
         public async Task<CustomerCardDto> AddCustomerCard(CustomerCardDto input)
         {
+            await CustomerCardValidation(input);
             var customerCard = await _customerCardManager.CreateAsync(
               input.Code,
               input.Name,
@@ -94,9 +108,30 @@ namespace QuickSell.CustomerCards
         public async Task<CustomerCardDto> UpdateCustomerCard(Guid id, IDictionary<string, object> input)
         {
             var customerCard = await _customerCardRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(customerCard, input);
-            await _customerCardRepository.UpdateAsync(updated);
-            return ObjectMapper.Map<CustomerCard, CustomerCardDto>(updated);
+            var customerCardDto = ObjectMapper.Map<CustomerCard, CustomerCardDto>(customerCard);
+            await DevExtremeUpdate.Update(customerCardDto, input);
+
+            return await UpdateCustomerCard(customerCardDto.Id, customerCardDto);
+        }
+        public async Task<CustomerCardDto> UpdateCustomerCard(Guid id, CustomerCardDto input)
+        {
+            await CustomerCardValidation(input);
+            var customerCard = await _customerCardManager.UpdateAsync(
+                id,
+                input.Code,
+                input.Name,
+                input.CustomerTypeID,
+                input.CustomerGroupID,
+                input.TaxOffice,
+                input.PhoneNumber,
+                input.AuthorizedPerson,
+                input.EMail,
+                input.TaxNo,
+                input.RiskLimit
+            );
+            await _customerCardRepository.UpdateAsync(customerCard);
+
+            return ObjectMapper.Map<CustomerCard, CustomerCardDto>(customerCard);
         }
         public async Task DeleteCustomerCard(Guid id)
         {

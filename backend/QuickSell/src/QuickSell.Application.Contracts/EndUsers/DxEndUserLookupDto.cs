@@ -1,14 +1,13 @@
-using QuickSell.Tools;
-using System;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace QuickSell.EndUsers
 {
-
-    public class EndUserDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, INameControlFields
+    public class DxEndUserLookupDto
     {
-
+        public Guid Id { get; set; }
         public string? UserName { get; set; }
         public string? Name { get; set; }
         public string? SurName { get; set; }
@@ -16,9 +15,5 @@ namespace QuickSell.EndUsers
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public string? Password { get; set; }
-        public string? ConcurrencyStamp { get; set; } 
-
     }
 }
-
-

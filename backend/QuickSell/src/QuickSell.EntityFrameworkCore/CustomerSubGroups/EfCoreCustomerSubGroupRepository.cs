@@ -9,20 +9,10 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using QuickSell.EntityFrameworkCore;
 
-/// <summary>
-   ///  Code Generator ile üretilen abstract siniflarda özellestirme yapilabilmesi için abstract 
-   ///  sinifi kalitim alinarak özelleştirme yapilmasi gerekmektedir.
-   ///  Code Generator tekrar calistirildiğinda yapilan özellestirmeler kaybolacaktir!!! 
-
-   ///  In order to be able to customize the abstract classes produced with Code Generator,
-   ///  it is necessary to inherit the abstract class and customize it.
-   ///  Restarting Code Generator, any customizations will be lost!!!
-   /// </summary>
-
 
 namespace QuickSell.CustomerSubGroups
 {
-    public abstract class EfCoreCustomerSubGroupRepository : EfCoreRepository<QuickSellDbContext, CustomerSubGroup , Guid>, ICustomerSubGroupRepository
+    public class EfCoreCustomerSubGroupRepository : EfCoreRepository<QuickSellDbContext, CustomerSubGroup, Guid>, ICustomerSubGroupRepository
     {
         public EfCoreCustomerSubGroupRepository(IDbContextProvider<QuickSellDbContext> dbContextProvider) : base(dbContextProvider)
         {
