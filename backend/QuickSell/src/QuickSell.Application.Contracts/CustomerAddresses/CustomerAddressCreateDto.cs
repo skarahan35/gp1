@@ -14,7 +14,7 @@ namespace QuickSell.CustomerAddresses
     public class CustomerAddressCreateDto
     {
 
-        public string AddressCode { get; set; }
+        public string Code { get; set; }
         public string Road { get; set; }
         public string Street { get; set; }
         public string BuildingName { get; set; }

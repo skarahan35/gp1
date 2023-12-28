@@ -24,7 +24,7 @@ namespace QuickSell.CustomerAddresses
         public async Task<List<CustomerAddress>> GetListAsync(
              string filterText = null
             ,string sorting = null
-            ,string addressCode= null 
+            ,string code= null 
             ,string road= null 
             ,string street= null 
             ,string buildingName= null 
@@ -38,17 +38,14 @@ namespace QuickSell.CustomerAddresses
             ,CancellationToken cancellationToken = default)
         {
             var query = ApplyFilter((await GetQueryableAsync()),filterText,
-               addressCode
-,
-               road
-,
-               street
-,
-               buildingName
-            ,buildingNoMin 
-            ,buildingNoMax 
-            ,postCodeMin 
-            ,postCodeMax 
+               code,
+               road,
+               street,
+               buildingName,
+               buildingNoMin,
+               buildingNoMax,
+               postCodeMin,
+               postCodeMax 
             );
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CustomerAddressConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
@@ -58,7 +55,7 @@ namespace QuickSell.CustomerAddresses
 
         public async Task<long> GetCountAsync(
          string filterText = null
-          ,string addressCode= null 
+          ,string code= null 
           ,string road= null 
           ,string street= null 
           ,string buildingName= null 
@@ -69,14 +66,16 @@ namespace QuickSell.CustomerAddresses
            ,CancellationToken cancellationToken = default
             )
         {
-         var query = ApplyFilter((await GetDbSetAsync()), filterText,addressCode
-,road
-,street
-,buildingName
-           ,buildingNoMin 
-           ,buildingNoMax 
-           ,postCodeMin 
-           ,postCodeMax 
+         var query = ApplyFilter((await GetDbSetAsync()),
+             filterText,
+             code,
+             road,
+             street,
+             buildingName,
+             buildingNoMin,
+             buildingNoMax,
+             postCodeMin,
+             postCodeMax 
          );
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -85,7 +84,7 @@ namespace QuickSell.CustomerAddresses
         protected virtual IQueryable<CustomerAddress> ApplyFilter(
             IQueryable<CustomerAddress> query,
             string filterText = null
-          ,string addressCode= null  
+          ,string code= null  
           ,string road= null  
           ,string street= null  
           ,string buildingName= null  
@@ -97,7 +96,7 @@ namespace QuickSell.CustomerAddresses
         {
             return query
             .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.AddressCode.Contains(filterText)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Code.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Road.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Street.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.BuildingName.Contains(filterText)) 
@@ -106,7 +105,7 @@ namespace QuickSell.CustomerAddresses
             .WhereIf(postCodeMin.HasValue, e => e.PostCode >= postCodeMin.Value)
             .WhereIf(postCodeMax.HasValue, e => e.PostCode >= postCodeMax.Value)
 
-            .WhereIf(!string.IsNullOrWhiteSpace(addressCode),e => e.AddressCode.Contains(addressCode)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(code),e => e.Code.Contains(code)) 
             .WhereIf(!string.IsNullOrWhiteSpace(road),e => e.Road.Contains(road)) 
             .WhereIf(!string.IsNullOrWhiteSpace(street),e => e.Street.Contains(street)) 
             .WhereIf(!string.IsNullOrWhiteSpace(buildingName),e => e.BuildingName.Contains(buildingName)) 

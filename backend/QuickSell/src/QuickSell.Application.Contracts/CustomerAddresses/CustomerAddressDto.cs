@@ -7,13 +7,14 @@ using QuickSell.CustomerCards;
 using QuickSell.Districts;
 using QuickSell.Cities;
 using QuickSell.Countries;
+using QuickSell.Tools;
 
 namespace QuickSell.CustomerAddresses
 {
 
-    public class CustomerAddressDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class CustomerAddressDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, ICodeControlFields
     {
-        public string AddressCode { get; set; }
+        public string Code { get; set; }
         public string Road { get; set; }
         public string Street { get; set; }
         public string BuildingName { get; set; }

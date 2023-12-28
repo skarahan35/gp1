@@ -4,18 +4,15 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
-using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
-using QuickSell.Permissions;
-using QuickSell.Cities;
 using QuickSell.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
 using Volo.Abp.Data;
+using QuickSell.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace QuickSell.Cities
 {
@@ -24,14 +21,17 @@ namespace QuickSell.Cities
         private readonly ICityRepository _cityRepository;
         private readonly CityManager _cityManager;
         private readonly IDataFilter _dataFilter;
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
     
         public CitiesAppService(ICityRepository cityRepository,
                                 CityManager cityManager,
-                                IDataFilter dataFilter)
+                                IDataFilter dataFilter,
+                                IStringLocalizer<QuickSellResource> localizer)
         {
             _cityRepository = cityRepository;
             _cityManager= cityManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
         public async Task<LoadResult> GetListCity(DataSourceLoadOptions loadOptions)
         {
@@ -63,19 +63,41 @@ namespace QuickSell.Cities
                 return city;
             }
         }
+        public async Task CityValidation(CityDto input)
+        {
+            var qry = await _cityRepository.GetQueryableAsync();
+            await Validation<City, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<City, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+        }
         public async Task<CityDto> AddCity(CityDto input)
         {
+            await CityValidation(input);
             var city = await _cityManager.CreateAsync(
               input.Code,
               input.Name
           );
+            
             return ObjectMapper.Map<City, CityDto>(city);
         }
+        
         public async Task<CityDto> UpdateCity(Guid id, IDictionary<string, object> input)
         {
             var city = await _cityRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(city, input);
-            await _cityRepository.UpdateAsync(updated);
+            var cityDto = ObjectMapper.Map<City, CityDto>(city);
+            await DevExtremeUpdate.Update(cityDto, input);
+
+            return await UpdateCity(cityDto.Id, cityDto);
+        }
+        public async Task<CityDto> UpdateCity(Guid id, CityDto input)
+        {
+            await CityValidation(input);
+            var city = await _cityManager.UpdateAsync(
+                id,
+                input.Code,
+              input.Name
+            );
+            await _cityRepository.UpdateAsync(city);
+
             return ObjectMapper.Map<City, CityDto>(city);
         }
         public async Task DeleteCity(Guid id)

@@ -1,3 +1,4 @@
+using QuickSell.Tools;
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -5,7 +6,7 @@ using Volo.Abp.Domain.Entities;
 namespace QuickSell.CustomerCards
 {
 
-    public class CustomerCardDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class CustomerCardDto: FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, ICodeControlFields, INameControlFields
     {
         public string? Code { get; set; }
         public string? Name { get; set; }

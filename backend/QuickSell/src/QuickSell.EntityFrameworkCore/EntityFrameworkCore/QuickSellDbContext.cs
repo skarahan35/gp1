@@ -129,7 +129,7 @@ namespace QuickSell.EntityFrameworkCore
                 builder.Entity<CustomerAddress>(e=>{
 
                   e.Property(e => e.CustomerCardId); 
-                  e.Property(e => e.AddressCode); 
+                  e.Property(e => e.Code); 
                   e.Property(e => e.Road); 
                   e.Property(e => e.Street); 
                   e.Property(e => e.BuildingName); 

@@ -9,10 +9,12 @@ using Volo.Abp;
 
 
 using QuickSell.CustomerCards;
+using QuickSell.Tools;
+
 namespace QuickSell.CustomerGroups
 {
     
-    public  class CustomerGroup : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class CustomerGroup : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields, INameControlFields
     {
         
         [StringLength(64,MinimumLength=0)]

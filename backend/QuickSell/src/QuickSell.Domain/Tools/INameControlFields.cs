@@ -4,8 +4,8 @@ using System.Text;
 
 namespace QuickSell.Tools
 {
-    public interface IControlFields:ITool
+    public interface INameControlFields : IToolName
     {
-        public Guid Id { get;}
+        public Guid Id { get; }
     }
 }
