@@ -18,9 +18,9 @@ namespace QuickSell.CustomerCards
         public Guid? CustomerGroupID { get; set; }
         public string TaxOffice { get; set; }
         public int? TaxNo { get; set; }
-        public string TCNumber { get; set; }
-        public string AuthorizedPerson { get; set; }
-        public string EMail { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? AuthorizedPerson { get; set; }
+        public string? EMail { get; set; }
         public decimal? RiskLimit { get; set; }
         public string? ConcurrencyStamp { get; set; }
     }

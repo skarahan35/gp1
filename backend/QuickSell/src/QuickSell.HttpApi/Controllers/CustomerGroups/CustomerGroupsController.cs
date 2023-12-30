@@ -19,7 +19,7 @@ namespace QuickSell.Controllers.CustomerGroups
 
         public CustomerGroupsController(ICustomerGroupsAppService customerGroupsAppService)
         {
-        _customerGroupsAppService = customerGroupsAppService;
+            _customerGroupsAppService = customerGroupsAppService;
         }
         [HttpPost]
         [Route("200401")]

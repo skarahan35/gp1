@@ -9,14 +9,10 @@ using Volo.Abp.Application.Services;
 using QuickSell.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using Volo.Abp.Data;
-using System.Linq;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
-using Volo.Abp.Domain.Repositories;
 using Microsoft.Extensions.Localization;
 using QuickSell.Localization;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using System.Security.Cryptography.X509Certificates;
 
 namespace QuickSell.StockUnits
 {
@@ -46,6 +42,7 @@ namespace QuickSell.StockUnits
                                 {
                                     Id = stkunt.Id,
                                     Code = stkunt.Code,
+                                    InternationalCode = stkunt.InternationalCode,
                                     Name = stkunt.Name
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
@@ -62,6 +59,7 @@ namespace QuickSell.StockUnits
                                   {
                                       Id = stkunt.Id,
                                       Code = stkunt.Code,
+                                      InternationalCode = stkunt.InternationalCode,
                                       Name = stkunt.Name,
                                   }).FirstOrDefault();
                 return stockUnits;
@@ -69,13 +67,15 @@ namespace QuickSell.StockUnits
         }
         public async Task StockUnitValidation(StockUnitDto input)
         {
-            var a = await _stockUnitRepository.GetQueryableAsync();
-            await Validation<StockUnit, QuickSellResource>.CodeControl(input, a.Where(x => x.Code == input.Code), _localizer);
+            var qry = await _stockUnitRepository.GetQueryableAsync();
+            await Validation<StockUnit, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<StockUnit, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
         }
         public async Task<StockUnitDto> AddStockUnit(StockUnitDto input) 
         {
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
+              input.InternationalCode,
               input.Name
               );
             await StockUnitValidation(input);
@@ -84,14 +84,29 @@ namespace QuickSell.StockUnits
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
             var stockUnit = await _stockUnitRepository.GetAsync(id);
-            var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
+            //var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
             //todo frontendden dönen code alaný Code olarak dönüþtürülecek
-            await StockUnitValidation(inputDto);
-            var updated = await DevExtremeUpdate.Update(stockUnit, input);
+            var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
+            await DevExtremeUpdate.Update(stockUnitDto, input);
 
-            await _stockUnitRepository.UpdateAsync(updated);
+            return await BPUpdateEmployees(stockUnitDto.Id, stockUnitDto);
 
-            return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
+            //await _stockUnitRepository.UpdateAsync(updated);
+             
+            //return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
+        }
+        public async Task<StockUnitDto> BPUpdateEmployees(Guid id, StockUnitDto input)
+        {
+            await StockUnitValidation(input);
+            var stockUnit = await _stockUnitManager.UpdateAsync(
+                id,
+                input.Code,
+                input.InternationalCode,
+                input.Name
+            );
+            await _stockUnitRepository.UpdateAsync(stockUnit);
+
+            return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
         public async Task DeleteStockUnit(Guid id)
         {

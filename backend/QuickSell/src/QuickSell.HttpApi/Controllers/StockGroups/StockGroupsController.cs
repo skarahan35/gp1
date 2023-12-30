@@ -20,9 +20,9 @@ namespace  QuickSell.Controllers.StockGroups
         
 
         public StockGroupsController(IStockGroupsAppService stockGroupsAppService)
-       {
-        _stockGroupsAppService = stockGroupsAppService;
-       }
+        {
+            _stockGroupsAppService = stockGroupsAppService;
+        }
         [HttpPost]
         [Route("100401")]
         public async Task<StockGroupDto> AddStockGroup(StockGroupDto input)

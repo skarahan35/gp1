@@ -26,7 +26,7 @@ namespace QuickSell.CustomerCards
              string code = null,
              string name = null, 
              string taxOffice = null, 
-             string tCNumber = null, 
+             string phoneNumber = null, 
              string authorizedPerson = null, 
              string eMail = null,
              int? taxNoMin = null, 
@@ -41,7 +41,7 @@ namespace QuickSell.CustomerCards
                code,
                name,
                taxOffice,
-               tCNumber,
+               phoneNumber,
                authorizedPerson,
                eMail
             ,taxNoMin 
@@ -60,7 +60,7 @@ namespace QuickSell.CustomerCards
          string code = null, 
          string name = null, 
          string taxOffice = null,
-         string tCNumber = null, 
+         string phoneNumber = null, 
          string authorizedPerson = null,
          string eMail = null,
          int? taxNoMin = null, 
@@ -72,7 +72,7 @@ namespace QuickSell.CustomerCards
          var query = ApplyFilter((await GetDbSetAsync()), filterText,code
            ,name
            ,taxOffice
-           ,tCNumber
+           ,phoneNumber
            ,authorizedPerson
            ,eMail
            ,taxNoMin 
@@ -90,7 +90,7 @@ namespace QuickSell.CustomerCards
           ,string code= null  
           ,string name= null  
           ,string taxOffice= null  
-          ,string tCNumber= null  
+          ,string phoneNumber = null  
           ,string authorizedPerson= null  
           ,string eMail= null  
           ,int? taxNoMin= null 
@@ -104,7 +104,7 @@ namespace QuickSell.CustomerCards
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Code.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Name.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.TaxOffice.Contains(filterText)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.TCNumber.Contains(filterText)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.PhoneNumber.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.AuthorizedPerson.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.EMail.Contains(filterText)) 
             .WhereIf(taxNoMin.HasValue, e => e.TaxNo >= taxNoMin.Value)
@@ -115,7 +115,7 @@ namespace QuickSell.CustomerCards
             .WhereIf(!string.IsNullOrWhiteSpace(code),e => e.Code.Contains(code)) 
             .WhereIf(!string.IsNullOrWhiteSpace(name),e => e.Name.Contains(name)) 
             .WhereIf(!string.IsNullOrWhiteSpace(taxOffice),e => e.TaxOffice.Contains(taxOffice)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(tCNumber),e => e.TCNumber.Contains(tCNumber)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(phoneNumber),e => e.PhoneNumber.Contains(phoneNumber)) 
             .WhereIf(!string.IsNullOrWhiteSpace(authorizedPerson),e => e.AuthorizedPerson.Contains(authorizedPerson)) 
             .WhereIf(!string.IsNullOrWhiteSpace(eMail),e => e.EMail.Contains(eMail)) 
          ;

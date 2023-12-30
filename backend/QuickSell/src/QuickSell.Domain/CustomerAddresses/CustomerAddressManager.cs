@@ -20,7 +20,7 @@ namespace QuickSell.CustomerAddresses
         }
 
         public async Task<CustomerAddress> CreateAsync(
-              string addressCode, 
+              string code, 
               string road, 
               string street, 
               string buildingName, 
@@ -35,7 +35,7 @@ namespace QuickSell.CustomerAddresses
 
             var customerAddress = new CustomerAddress(
              GuidGenerator.Create(),
-               addressCode, 
+               code, 
                road, 
                street, 
                buildingName, 
@@ -52,7 +52,7 @@ namespace QuickSell.CustomerAddresses
 
         public async Task<CustomerAddress> UpdateAsync(
            Guid id,
-          string addressCode, 
+          string code, 
           string road, 
           string street, 
           string buildingName, 
@@ -73,7 +73,7 @@ namespace QuickSell.CustomerAddresses
 
             var customerAddress = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-                customerAddress.AddressCode=addressCode;
+                customerAddress.Code=code;
                 customerAddress.Road=road;
                 customerAddress.Street=street;
                 customerAddress.BuildingName=buildingName;

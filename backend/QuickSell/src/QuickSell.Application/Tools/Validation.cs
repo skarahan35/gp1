@@ -7,7 +7,8 @@ using Volo.Abp;
 
 namespace QuickSell.Tools
 {
-    public class Validation<ENT, TResource> where ENT : class,IControlFields
+    public class Validation<ENT, TResource> where ENT : class
+        //,ICodeControlFields,INameControlFields
     {
         //private IStringLocalizer<QuickSellResource> _localizer;
 
@@ -41,9 +42,9 @@ namespace QuickSell.Tools
         //        throw new UserFriendlyException(string.Format(_localizer["Code:Null"]));
         //    }
         //}
-        public static async Task<bool> CodeControl(ITool input, IQueryable<ENT?> qry, IStringLocalizer<TResource> localizer)
+        public static async Task<bool> CodeControl(IToolCode input, IQueryable<ENT?> qry, IStringLocalizer<TResource> localizer)
         {
-            if (await qry.AnyAsync((ENT x) => x.Code == input.Code && x.Id != input.Id))
+            if (await qry.AnyAsync((ENT x) => ((ICodeControlFields)x).Code == input.Code && ((ICodeControlFields)x).Id != input.Id))
             {
                 throw new UserFriendlyException(string.Format(localizer["Code:AlreadyExist"]));
             }
@@ -53,6 +54,18 @@ namespace QuickSell.Tools
             }
             return true;
         }
-        
+
+        public static async Task<bool> NameControl(IToolName input, IQueryable<ENT?> qry, IStringLocalizer<TResource> localizer)
+        {
+            if (await qry.AnyAsync((ENT x) => ((INameControlFields)x).Name == input.Name && ((INameControlFields)x).Id != input.Id))
+            {
+                throw new UserFriendlyException(string.Format(localizer["Name:AlreadyExist"]));
+            }
+            else if (input.Name.IsNullOrWhiteSpace())
+            {
+                throw new UserFriendlyException(string.Format(localizer["Name:Null"]));
+            }
+            return true;
+        }
     }
 }

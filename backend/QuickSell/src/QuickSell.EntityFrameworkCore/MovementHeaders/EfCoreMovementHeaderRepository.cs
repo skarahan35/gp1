@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using QuickSell.EntityFrameworkCore;
-
-
+using QuickSell.Shared;
 
 namespace QuickSell.MovementHeaders
 {
@@ -35,11 +34,11 @@ namespace QuickSell.MovementHeaders
             ,int? vAtAmountMin= null 
             ,int? vAtAmountMax= null 
             ,int? totalAmountMin= null 
-            ,int? totalAmountMax= null 
-            
+            ,int? totalAmountMax= null             
             ,int maxResultCount = int.MaxValue
             ,int skipCount = 0
-            ,CancellationToken cancellationToken = default)
+            , PaymentType? paymentType = null
+            , CancellationToken cancellationToken = default)
         {
             var query = ApplyFilter((await GetQueryableAsync()),filterText,
                typeCode
@@ -53,6 +52,7 @@ namespace QuickSell.MovementHeaders
             ,vAtAmountMax 
             ,totalAmountMin 
             ,totalAmountMax 
+            ,paymentType 
             );
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? MovementHeaderConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
@@ -73,7 +73,8 @@ namespace QuickSell.MovementHeaders
           ,int? vAtAmountMax= null 
           ,int? totalAmountMin= null 
           ,int? totalAmountMax= null 
-           ,CancellationToken cancellationToken = default
+          , PaymentType? paymentType = null
+          , CancellationToken cancellationToken = default
             )
         {
          var query = ApplyFilter((await GetDbSetAsync()), filterText,typeCode
@@ -87,6 +88,7 @@ namespace QuickSell.MovementHeaders
            ,vAtAmountMax 
            ,totalAmountMin 
            ,totalAmountMax 
+           ,paymentType 
          );
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -106,7 +108,7 @@ namespace QuickSell.MovementHeaders
           ,int? vAtAmountMax= null 
           ,int? totalAmountMin= null 
           ,int? totalAmountMax= null 
-)
+          ,PaymentType? paymentType= null )
         {
             return query
             .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
@@ -122,26 +124,10 @@ namespace QuickSell.MovementHeaders
             .WhereIf(totalAmountMin.HasValue, e => e.TotalAmount >= totalAmountMin.Value)
             .WhereIf(totalAmountMax.HasValue, e => e.TotalAmount >= totalAmountMax.Value)
 
-            .WhereIf(!string.IsNullOrWhiteSpace(typeCode),e => e.TypeCode.Contains(typeCode)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(typeCode),e => e.TypeCode.Contains(typeCode))
+            .WhereIf(paymentType.HasValue, e => e.PaymentType == paymentType.Value)
          ;
         }
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
 
     }
 }

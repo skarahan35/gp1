@@ -21,7 +21,7 @@ namespace QuickSell.CustomerCards
          ,string code= null 
          ,string name= null 
          ,string taxOffice= null 
-         ,string tCNumber= null 
+         ,string phoneNumber = null 
          ,string authorizedPerson= null 
          ,string eMail= null 
          ,int? taxNoMin= null 
@@ -38,7 +38,7 @@ namespace QuickSell.CustomerCards
           string code= null , 
           string name= null , 
           string taxOffice= null , 
-          string tCNumber= null , 
+          string phoneNumber = null , 
           string authorizedPerson= null , 
           string eMail= null , 
           int? taxNoMin= null , 

@@ -16,6 +16,9 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using Volo.Abp.Data;
 using QuickSell.Tools;
+using QuickSell.Localization;
+using Microsoft.Extensions.Localization;
+using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.CustomerGroups
 {
@@ -24,14 +27,18 @@ namespace QuickSell.CustomerGroups
         private readonly ICustomerGroupRepository _customerGroupRepository;
         private readonly CustomerGroupManager _customerGroupManager;
         private readonly IDataFilter _dataFilter;
-    
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
+
+
         public CustomerGroupsAppService(ICustomerGroupRepository customerGroupRepository,
                                         CustomerGroupManager customerGroupManager,
-                                        IDataFilter dataFilter)
+                                        IDataFilter dataFilter,
+                                        IStringLocalizer<QuickSellResource> localizer)
         {
             _customerGroupRepository = customerGroupRepository;
             _customerGroupManager= customerGroupManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
         public async Task<LoadResult> GetListCustomerGroup(DataSourceLoadOptions loadOptions)
         {
@@ -63,8 +70,15 @@ namespace QuickSell.CustomerGroups
                 return customerGroup;
             }
         }
+        public async Task CustomerGroupValidation(CustomerGroupDto input)
+        {
+            var qry = await _customerGroupRepository.GetQueryableAsync();
+            await Validation<CustomerGroup, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<CustomerGroup, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+        }
         public async Task<CustomerGroupDto> AddCustomerGroup(CustomerGroupDto input)
         {
+            await CustomerGroupValidation(input);
             var customerGroup = await _customerGroupManager.CreateAsync(
               input.Code,
               input.Name
@@ -74,9 +88,22 @@ namespace QuickSell.CustomerGroups
         public async Task<CustomerGroupDto> UpdateCustomerGroup(Guid id, IDictionary<string, object> input)
         {
             var customerGroup = await _customerGroupRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(customerGroup, input);
-            await _customerGroupRepository.UpdateAsync(updated);
-            return ObjectMapper.Map<CustomerGroup, CustomerGroupDto>(updated);
+            var customerGroupDto = ObjectMapper.Map<CustomerGroup, CustomerGroupDto>(customerGroup);
+            await DevExtremeUpdate.Update(customerGroupDto, input);
+
+            return await UpdateCustomerGroup(customerGroupDto.Id, customerGroupDto);
+        }
+        public async Task<CustomerGroupDto> UpdateCustomerGroup(Guid id, CustomerGroupDto input)
+        {
+            await CustomerGroupValidation(input);
+            var customerGroup = await _customerGroupManager.UpdateAsync(
+                id,
+                input.Code,
+                input.Name
+            );
+            await _customerGroupRepository.UpdateAsync(customerGroup);
+
+            return ObjectMapper.Map<CustomerGroup, CustomerGroupDto>(customerGroup);
         }
         public async Task DeleteCustomerGroup(Guid id)
         {

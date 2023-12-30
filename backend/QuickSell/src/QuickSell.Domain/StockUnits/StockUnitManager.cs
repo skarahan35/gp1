@@ -21,6 +21,7 @@ namespace QuickSell.StockUnits
 
         public async Task<StockUnit> CreateAsync(
               string? code, 
+              string? internationalCode, 
               string? name
         )
         {
@@ -28,6 +29,7 @@ namespace QuickSell.StockUnits
             var stockUnit = new StockUnit(
              GuidGenerator.Create(),
                code, 
+               internationalCode, 
                name 
              );
 
@@ -37,6 +39,7 @@ namespace QuickSell.StockUnits
         public async Task<StockUnit> UpdateAsync(
            Guid id,
           string? code, 
+          string? internationalCode, 
           string? name, 
             [CanBeNull] string concurrencyStamp = null
         )
@@ -48,6 +51,7 @@ namespace QuickSell.StockUnits
             var stockUnit = await AsyncExecuter.FirstOrDefaultAsync(query);
 
                 stockUnit.Code=code;
+                stockUnit.InternationalCode=internationalCode;
                 stockUnit.Name=name;
 
          stockUnit.SetConcurrencyStampIfNotNull(concurrencyStamp);

@@ -7,6 +7,7 @@ using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
+using QuickSell.Shared;
 
 namespace QuickSell.MovementHeaders
 {
@@ -26,7 +27,10 @@ namespace QuickSell.MovementHeaders
               int? firstAmount, 
               int? discountAmount, 
               int? vAtAmount, 
-              int? totalAmount
+              int? totalAmount,
+              Guid? addressID,
+              PaymentType? paymentType
+
         )
         {
 
@@ -38,7 +42,9 @@ namespace QuickSell.MovementHeaders
                firstAmount, 
                discountAmount, 
                vAtAmount, 
-               totalAmount
+               totalAmount,
+               addressID,
+               paymentType
              );
 
             return await _movementHeaderRepository.InsertAsync(movementHeader);
@@ -53,6 +59,8 @@ namespace QuickSell.MovementHeaders
           int? discountAmount, 
           int? vAtAmount, 
           int? totalAmount, 
+          Guid? addressId, 
+          PaymentType? paymentType, 
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -69,6 +77,8 @@ namespace QuickSell.MovementHeaders
                  movementHeader.DiscountAmount=discountAmount;
                  movementHeader.VATAmount=vAtAmount;
                  movementHeader.TotalAmount=totalAmount;
+                 movementHeader.AddressID=addressId;
+                 movementHeader.PaymentType=paymentType;
 
          movementHeader.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _movementHeaderRepository.UpdateAsync(movementHeader);

@@ -9,6 +9,8 @@ using System.Linq;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
 using QuickSell.Shared;
+using Microsoft.Extensions.Localization;
+using QuickSell.Localization;
 
 namespace QuickSell.CustomerTypes
 {
@@ -17,12 +19,14 @@ namespace QuickSell.CustomerTypes
         private readonly ICustomerTypeRepository _customerTypeRepository;
         private readonly CustomerTypeManager _customerTypeManager;
         private readonly IDataFilter _dataFilter;
-    
-        public CustomerTypesAppService(ICustomerTypeRepository customerTypeRepository,CustomerTypeManager customerTypeManager,IDataFilter dataFilter)
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
+
+        public CustomerTypesAppService(ICustomerTypeRepository customerTypeRepository,CustomerTypeManager customerTypeManager,IDataFilter dataFilter, IStringLocalizer<QuickSellResource> localizer )
         {
             _customerTypeRepository = customerTypeRepository;
             _customerTypeManager= customerTypeManager;
             _dataFilter = dataFilter;
+            _localizer = localizer;
         }
 
         public async Task<LoadResult> GetListCustomerType(DataSourceLoadOptions loadOptions)
@@ -55,6 +59,12 @@ namespace QuickSell.CustomerTypes
                 return customerTypes;
             }
         }
+        public async Task CustomertTypeValidation(CustomerTypeDto input)
+        {
+            var qry = await _customerTypeRepository.GetQueryableAsync();
+            await Validation<CustomerType, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<CustomerType, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+        }
         public async Task<CustomerTypeDto> AddCustomerType(CustomerTypeDto input)
         {
             var customerType = await _customerTypeManager.CreateAsync(
@@ -66,9 +76,22 @@ namespace QuickSell.CustomerTypes
         public async Task<CustomerTypeDto> UpdateCustomerType(Guid id, IDictionary<string, object> input)
         {
             var customerType = await _customerTypeRepository.GetAsync(id);
-            var updated = await DevExtremeUpdate.Update(customerType, input);
-            await _customerTypeRepository.UpdateAsync(updated);
-            return ObjectMapper.Map<CustomerType, CustomerTypeDto>(updated);
+            var customerTypeDto = ObjectMapper.Map<CustomerType, CustomerTypeDto>(customerType);
+            await DevExtremeUpdate.Update(customerTypeDto, input);
+
+            return await UpdateCustomerType(customerTypeDto.Id, customerTypeDto);
+        }
+        public async Task<CustomerTypeDto> UpdateCustomerType(Guid id, CustomerTypeDto input)
+        {
+            await CustomertTypeValidation(input);
+            var customerType = await _customerTypeManager.UpdateAsync(
+                id,
+                input.Code,
+                input.Name
+            );
+            await _customerTypeRepository.UpdateAsync(customerType);
+
+            return ObjectMapper.Map<CustomerType, CustomerTypeDto>(customerType);
         }
         public async Task DeleteCustomerType(Guid id)
         {

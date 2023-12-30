@@ -1,3 +1,4 @@
+using QuickSell.Shared;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -31,7 +32,8 @@ namespace QuickSell.MovementHeaders
          ,int? totalAmountMax= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
-         ,CancellationToken cancellationToken = default      
+         , PaymentType? paymentType = null
+         , CancellationToken cancellationToken = default      
        );
 
        Task<long> GetCountAsync(
@@ -47,6 +49,7 @@ namespace QuickSell.MovementHeaders
           int? vAtAmountMax= null ,
           int? totalAmountMin= null , 
           int? totalAmountMax= null ,
+          PaymentType? paymentType = null,
         CancellationToken cancellationToken = default);
 
         

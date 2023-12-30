@@ -17,9 +17,9 @@ namespace  QuickSell.Controllers.StockUnits
     {
         private readonly IStockUnitsAppService _stockUnitsAppService;
         public StockUnitsController(IStockUnitsAppService stockUnitsAppService)
-       {
-        _stockUnitsAppService = stockUnitsAppService;
-       }
+        {
+            _stockUnitsAppService = stockUnitsAppService;
+        }
         [HttpPost]
         [Route("100301")]
         public async Task<StockUnitDto> AddStockUnit(StockUnitDto input)
