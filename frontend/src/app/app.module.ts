@@ -9,7 +9,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { DenemeComponent } from './deneme/deneme.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { DxDataGridModule } from 'devextreme-angular';
+import { DxDataGridModule, DxTabPanelModule } from 'devextreme-angular';
 import { StockTypeComponent } from './stock/stock-type/stock-type.component';
 import { StockUnitComponent } from './stock/stock-unit/stock-unit.component';
 import { StockGroupComponent } from './stock/stock-group/stock-group.component';
@@ -53,6 +53,7 @@ import { CompanyComponent } from './companies/company/company.component';
     BreadcrumbModule,
     AppRoutingModule,
     DxDataGridModule,
+    DxTabPanelModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
