@@ -14,6 +14,7 @@ import { DistrictsComponent } from './locations/districts/districts.component';
 import { CustomerCardComponent } from './customer/customer-card/customer-card.component';
 import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
 import { CompanyComponent } from './companies/company/company.component';
+import { MovementComponent } from './movements/movement/movement.component';
 
 const routes: Routes = [
   {
@@ -70,6 +71,10 @@ const routes: Routes = [
   {
     path: 'companies/company',
     component: CompanyComponent
+  },
+  {
+    path: 'movements/movement',
+    component: MovementComponent
   }
 ];
 

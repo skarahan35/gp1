@@ -34,9 +34,9 @@ export class CitiesComponent {
     this.dataSource = new CustomStore({
       key: 'id',
       load: () => this.sendRequest('https://localhost:44369/700204'),
-      insert: (values) => this.sendRequest('https://localhost:44369/700201', 'POST', values),
-      update: (key, values) => this.sendRequest(`https://localhost:44369/700202/${key}`, 'PUT', values),
-      remove: (key) => this.sendRequest(`https://localhost:44369/700203/${key}`, 'DELETE'),
+      // insert: (values) => this.sendRequest('https://localhost:44369/700201', 'POST', values),
+      // update: (key, values) => this.sendRequest(`https://localhost:44369/700202/${key}`, 'PUT', values),
+      // remove: (key) => this.sendRequest(`https://localhost:44369/700203/${key}`, 'DELETE'),
     });
     this.successButtonOptions = {
       type: 'success',
@@ -66,15 +66,6 @@ export class CitiesComponent {
       case 'GET':
         this.result = this.http.get(url, httpOptions);
         break;
-      case 'PUT':
-        this.result = this.http.put(url, data, httpOptions);
-        break;
-      case 'POST':
-        this.result = this.http.post(url, data, httpOptions);
-        break;
-      case 'DELETE':
-        this.result = this.http.delete(url, httpOptions);
-        break;
     }
   
     return lastValueFrom(this.result)
@@ -82,28 +73,6 @@ export class CitiesComponent {
         if (method === 'GET') {
           return data.data;
         } 
-        else if (method === 'POST') {
-          // Başarılı kayıt durumunda toastr ile uyarı mesajı göster
-          this.toastr.success('Data saved successfully', 'Success', {
-            closeButton: true,
-            timeOut: 5000
-          });
-          return data;
-        } 
-        else if (method  === 'PUT'){
-          this.toastr.success('Data updated successfully', 'Success', {
-            closeButton: true,
-            timeOut: 5000
-          });
-          return data;
-        }
-        else if (method === 'DELETE'){
-          this.toastr.success('Data deleted successfully', 'Success', {
-            closeButton: true,
-            timeOut: 5000
-          });
-          return data;
-        }
         else {
           return data;
         }
@@ -122,5 +91,76 @@ export class CitiesComponent {
 
   clearRequests() {
     this.requests = [];
+  }
+  onRowInserting(e: any) {
+    e.cancel = true
+    try {
+      this.http.post('https://localhost:44369/700201', e.data).subscribe(
+        (res: any) => {
+          this.toastr.success('Data saved successfully', 'Success', {
+            closeButton: true,
+            timeOut: 5000
+          });
+          this.http.get('https://localhost:44369/700204').subscribe((res:any) => {
+            this.dataSource = res.data
+          })
+          e.component.cancelEditData();
+        },
+        (error: any) => {
+          console.error('An error occurred:', error);
+          Swal.fire('Error', error.error.error.message, 'error');
+          throw error;
+        }
+      );
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+
+  onRowUpdating(e:any){
+    e.cancel = true
+    try {
+      this.http.put('https://localhost:44369/700202/' + e.key, e.newData).subscribe((res:any) => {
+        this.toastr.success('Data updated successfully', 'Success', {
+          closeButton: true,
+          timeOut: 5000
+        });
+        this.http.get('https://localhost:44369/700204').subscribe((res:any) => {
+            this.dataSource = res.data
+          })
+        e.component.cancelEditData();
+      },
+      (error:any) => {
+        console.error('An error occured:', error);
+        Swal.fire('Error', error.error.error.message, 'error');
+        throw error;
+      });
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  }
+
+  onRowRemoving(e:any) {
+    e.cancel = true
+    try {
+      this.http.delete('https://localhost:44369/700203/' + e.key).subscribe((res:any) => {
+        debugger
+        this.toastr.success('Data removed successfully', 'Success', {
+          closeButton: true,
+          timeOut:5000
+        });
+        this.http.get('https://localhost:44369/700204').subscribe((res:any) => {
+            this.dataSource = res.data
+          })
+        e.component.cancelEditData();
+      },
+      (error:any) => {
+        console.error('An error occured:', error);
+        Swal.fire('Error', error.error.error.message, 'error');
+        throw error;
+      })
+    } catch (error) {
+      console.error('An error occured:', error);
+    }
   }
 }

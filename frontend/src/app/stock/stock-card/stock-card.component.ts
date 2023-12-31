@@ -40,9 +40,6 @@ export class StockCardComponent {
     this.dataSource = new CustomStore({
       key: 'id',
       load: () => this.sendRequest('https://localhost:44369/100104'),
-      // insert: (values) => this.sendRequest('https://localhost:44369/100101', 'POST', values),
-      // update: (key, values) => this.sendRequest(`https://localhost:44369/100102/${key}`, 'PUT', values),
-      // remove: (key) => this.sendRequest(`https://localhost:44369/100103/${key}`, 'DELETE'),
     });
     this.successButtonOptions = {
       type: 'success',
@@ -83,15 +80,6 @@ export class StockCardComponent {
         case 'GET':
           this.result = this.http.get(url, httpOptions);
           break;
-        // case 'PUT':
-        //   this.result = this.http.put(url, data, httpOptions);
-        //   break;
-        // case 'POST':
-        //   this.result = this.http.post(url, data, httpOptions);
-        //   break;
-        // case 'DELETE':
-        //   this.result = this.http.delete(url, httpOptions);
-        //   break;
       }
   
       return lastValueFrom(this.result)
@@ -99,26 +87,6 @@ export class StockCardComponent {
           if (method === 'GET') {
             return data.data;
            } 
-           //else if (method === 'POST') {
-          //   // Başarılı kayıt durumunda toastr ile uyarı mesajı göster
-          //   this.toastr.success('Data saved successfully', 'Success', {
-          //     closeButton: true,
-          //     timeOut: 5000
-          //   });
-          //   return data;
-          // } else if (method === 'PUT') {
-          //   this.toastr.success('Data updated successfully', 'Success', {
-          //     closeButton: true,
-          //     timeOut: 5000
-          //   });
-          //   return data;
-          // } else if (method === 'DELETE') {
-          //   this.toastr.success('Data deleted successfully', 'Success', {
-          //     closeButton: true,
-          //     timeOut: 5000
-          //   });
-          //   return data;
-          // } 
           else {
             return data;
           }
@@ -129,7 +97,6 @@ export class StockCardComponent {
           // throw e && e.error && e.error.Message;
         });
     } catch (error) {
-      // Handle the error or log it as needed
       console.error('An error occurred:', error);
     }
   }

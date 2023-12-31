@@ -8,11 +8,11 @@ import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-districts',
-  templateUrl: './districts.component.html',
-  styleUrls: ['./districts.component.css']
+  selector: 'app-movement',
+  templateUrl: './movement.component.html',
+  styleUrls: ['./movement.component.css']
 })
-export class DistrictsComponent {
+export class MovementComponent {
   successButtonOptions: any;
   cancelButtonOptions: any;
   copyButtonOptions: any;
@@ -25,7 +25,6 @@ export class DistrictsComponent {
   displayMode = 'full';
 
   showPageSizeSelector = true;
-
   showInfo = true;
   dataSource:any;
   showNavButtons = true;
@@ -34,10 +33,7 @@ export class DistrictsComponent {
   constructor(private http: HttpClient, private toastr:ToastrService) {
     this.dataSource = new CustomStore({
       key: 'id',
-      load: () => this.sendRequest('https://localhost:44369/700304'),
-      // insert: (values) => this.sendRequest('https://localhost:44369/700301', 'POST', values),
-      // update: (key, values) => this.sendRequest(`https://localhost:44369/700302/${key}`, 'PUT', values),
-      // remove: (key) => this.sendRequest(`https://localhost:44369/700303/${key}`, 'DELETE'),
+      load: () => this.sendRequest('https://localhost:44369/100104'),
     });
     this.successButtonOptions = {
       type: 'success',
@@ -57,31 +53,37 @@ export class DistrictsComponent {
       },
     };
   }
-
   sendRequest(url: string, method = 'GET', data: any = {}): any {
-    this.logRequest(method, url, data);
-    const httpParams = new HttpParams({ fromObject: data });
-    const httpOptions = { withCredentials: false, body: httpParams };
+    try {
+      this.logRequest(method, url, data);
+      const httpParams = new HttpParams({ fromObject: data });
+      const httpOptions = { withCredentials: false, body: httpParams };
   
-    switch (method) {
-      case 'GET':
-        this.result = this.http.get(url, httpOptions);
-        break;
+      switch (method) {
+        case 'GET':
+          this.result = this.http.get(url, httpOptions);
+          break;
+      }
+  
+      return lastValueFrom(this.result)
+        .then((data: any) => {
+          if (method === 'GET') {
+            return data.data;
+           } 
+          else {
+            return data;
+          }
+        })
+        .catch((e) => {
+          Swal.fire('Error', e.error.error.message, 'error');
+          // e.error.error.message
+          // throw e && e.error && e.error.Message;
+        });
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
-  
-    return lastValueFrom(this.result)
-      .then((data: any) => {
-        if (method === 'GET') {
-          return data.data;
-        } 
-        else {
-          return data;
-        }
-      })
-      .catch((e) => {
-        Swal.fire('Error', e.error.error.message, 'error')
-      });
   }
+  
   logRequest(method: string, url: string, data: any): void {
     const args = Object.keys(data || {}).map((key) => `${key}=${data[key]}`).join(' ');
 
@@ -93,16 +95,17 @@ export class DistrictsComponent {
   clearRequests() {
     this.requests = [];
   }
+
   onRowInserting(e: any) {
     e.cancel = true
     try {
-      this.http.post('https://localhost:44369/700301', e.data).subscribe(
+      this.http.post('https://localhost:44369/100101', e.data).subscribe(
         (res: any) => {
           this.toastr.success('Data saved successfully', 'Success', {
             closeButton: true,
             timeOut: 5000
           });
-          this.http.get('https://localhost:44369/700304').subscribe((res:any) => {
+          this.http.get('https://localhost:44369/100104').subscribe((res:any) => {
             this.dataSource = res.data
           })
           e.component.cancelEditData();
@@ -121,12 +124,12 @@ export class DistrictsComponent {
   onRowUpdating(e:any){
     e.cancel = true
     try {
-      this.http.put('https://localhost:44369/700302/' + e.key, e.newData).subscribe((res:any) => {
+      this.http.put('https://localhost:44369/100102/' + e.key, e.newData).subscribe((res:any) => {
         this.toastr.success('Data updated successfully', 'Success', {
           closeButton: true,
           timeOut: 5000
         });
-        this.http.get('https://localhost:44369/700304').subscribe((res:any) => {
+        this.http.get('https://localhost:44369/100104').subscribe((res:any) => {
             this.dataSource = res.data
           })
         e.component.cancelEditData();
@@ -144,13 +147,13 @@ export class DistrictsComponent {
   onRowRemoving(e:any) {
     e.cancel = true
     try {
-      this.http.delete('https://localhost:44369/700303/' + e.key).subscribe((res:any) => {
+      this.http.delete('https://localhost:44369/100103/' + e.key).subscribe((res:any) => {
         debugger
         this.toastr.success('Data removed successfully', 'Success', {
           closeButton: true,
           timeOut:5000
         });
-        this.http.get('https://localhost:44369/700304').subscribe((res:any) => {
+        this.http.get('https://localhost:44369/100104').subscribe((res:any) => {
             this.dataSource = res.data
           })
         e.component.cancelEditData();

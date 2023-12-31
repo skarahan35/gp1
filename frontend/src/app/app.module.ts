@@ -27,6 +27,7 @@ import { DistrictsComponent } from './locations/districts/districts.component';
 import { CustomerCardComponent } from './customer/customer-card/customer-card.component';
 import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
 import { CompanyComponent } from './companies/company/company.component';
+import { MovementComponent } from './movements/movement/movement.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { CompanyComponent } from './companies/company/company.component';
     DistrictsComponent,
     CustomerCardComponent,
     CustomerAddressComponent,
-    CompanyComponent
+    CompanyComponent,
+    MovementComponent
   ],
   imports: [
     BrowserModule,

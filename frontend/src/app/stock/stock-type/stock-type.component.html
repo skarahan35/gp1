@@ -12,7 +12,14 @@
       id="gridContainer"
       [dataSource]="dataSource"
       keyExpr="id"
+      (onRowInserting)="onRowInserting($event)"
+      (onRowUpdating)="onRowUpdating($event)"
+      (onRowRemoving)="onRowRemoving($event)"
       [showBorders]="true"
+      height="800px"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
         [allowColumnReordering]="true"
         [columnHidingEnabled]="true"
         [filterRow]="{ visible: true, applyFilter: 'auto' }"
@@ -52,7 +59,7 @@
           title="Stock Type"
           [showTitle]="true"
           [width]="500"
-          [height]="350"
+          [height]="300"
         >
         <dxi-toolbar-item
         toolbar="bottom"
@@ -78,8 +85,12 @@
         </dxo-form>
       </dxo-editing>
   
-      <dxi-column dataField="code" dataType="string"></dxi-column>
-      <dxi-column dataField="name" dataType="string"></dxi-column>
+      <dxi-column dataField="code" dataType="string">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataField="name" dataType="string">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
       <dxi-column dataField="condition" dataType="boolean"> </dxi-column>
     </dx-data-grid>
   </div>
