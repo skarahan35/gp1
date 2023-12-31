@@ -1,1 +1,167 @@
-<p>movement works!</p>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item">Movements</li>
+      <li class="breadcrumb-item active" aria-current="page">Stock Movement</li>
+    </ol>
+  </nav>
+  
+  <div id="data-grid-demo">
+      <dx-data-grid
+      #targetDataGrid
+        id="gridContainer"
+        width="1400px"
+        height="800px"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+          
+          (onRowInserting)="onRowInserting($event)"
+          (onRowUpdating)="onRowUpdating($event)"
+          (onRowRemoving)="onRowRemoving($event)"
+          [allowColumnReordering]="true"
+          [columnAutoWidth]="true"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
+          [filterRow]="{ visible: true, applyFilter: 'auto' }"
+          [headerFilter]="{ visible: true }"
+          [groupPanel]="{ visible: true }"
+          [searchPanel]="{ visible: true }"
+          [selection]="{ mode: 'multiple' }"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="false"
+          
+      >
+      <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
+    <dxo-paging [pageSize]="10"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [displayMode]="displayMode"
+      [showPageSizeSelector]="showPageSizeSelector"
+      [showInfo]="showInfo"
+      [showNavigationButtons]="showNavButtons"
+    >
+    </dxo-pager>
+      <dxo-filter-panel [visible]="true"> </dxo-filter-panel>
+        <dxo-paging [enabled]="true"></dxo-paging>
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+      ></dxo-export>
+        <dxo-editing
+          mode="popup"
+          [allowUpdating]="true"
+          [allowAdding]="true"
+          [allowDeleting]="true"
+          [useIcons]="true"
+        >
+          <dxo-popup
+            title="Stock Movement"
+            [showTitle]="true"
+            [width]="1300"
+            [height]="900"
+          >
+          <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="successButtonOptions"
+        >
+        </dxi-toolbar-item>
+        <dxi-toolbar-item
+          toolbar="bottom"
+          widget="dxButton"
+          location="after"
+          [options]="cancelButtonOptions"
+        >
+        </dxi-toolbar-item>
+          </dxo-popup>
+          <dxo-form>
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+              <dxi-item dataField="typeCode" [colCount]="1">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-item>
+              <dxi-item dataField="receiptNo" [colCount]="1">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-item>
+              <dxi-item dataField="customerCardID" [colCount]="1"></dxi-item>
+              <!-- <dxi-item dataField="firstAmount" [colCount]="1"></dxi-item>
+              <dxi-item dataField="discountAmount" [colCount]="1"></dxi-item>
+              <dxi-item dataField="vatAmount" [colCount]="1"></dxi-item>
+              <dxi-item dataField="totalAmount" [colCount]="1"></dxi-item> -->
+              <dxi-item dataField="addressID" ></dxi-item>
+              <dxi-item dataField="paymentType"></dxi-item>
+            </dxi-item>
+            <dxi-item itemtype="group" [colSpan]="2">
+                <dx-data-grid
+                    #targetDataGrid
+                    id="gridContainer"
+                    width="1250px"
+                    height="450"
+                    [dataSource]="dataSource"
+                    keyExpr="id"
+                    [showBorders]="true"
+                    [allowColumnReordering]="true"
+          [columnAutoWidth]="true"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
+          [filterRow]="{ visible: true, applyFilter: 'auto' }"
+          [headerFilter]="{ visible: true }"
+          [groupPanel]="{ visible: true }"
+          [searchPanel]="{ visible: true }"
+          [selection]="{ mode: 'multiple' }"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="false">
+                    <dxo-editing
+                    mode="batch"
+                    [allowUpdating]="true"
+                    [allowAdding]="true"
+                    [allowDeleting]="true"
+                    [useIcons]="true"
+                  ></dxo-editing>
+                      <dxi-column dataField="stockCardID" dataType="string" caption="Stock" [width]="100">
+                          <dxo-lookup [dataSource]="stockCardLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+                          <dxi-validation-rule type="required"></dxi-validation-rule>
+                      </dxi-column>
+                      <dxi-column dataField="quantity" [setCellValue]="setCellValueQuantity" dataType="number" caption="Quantity" [width]="120">
+                          <dxi-validation-rule type="required"></dxi-validation-rule>
+                      </dxi-column>
+                      <dxi-column dataField="price" [setCellValue]="setCellValuePrice" dataType="number" caption="Price" [width]="120">
+                          <dxi-validation-rule type="required"></dxi-validation-rule>
+                      </dxi-column>
+                      <dxi-column dataField="amount" [allowEditing]="false" dataType="number" caption="Amount" [width]="120"></dxi-column>
+                      <dxi-column dataField="discountRate" [setCellValue]="setCellValueDiscountRate" dataType="number" caption="Discount Rate" [width]="180">
+                      </dxi-column>
+                      <dxi-column dataField="discountAmount" [allowEditing]="false" dataType="number" caption="Discount Amount" [width]="200 ">
+                      </dxi-column>
+                      <dxi-column dataField="vatRate" [setCellValue]="setCellValueVATRate"  dataType="number" caption="VAT Rate" [width]="120">
+                    </dxi-column>
+                    <dxi-column dataField="vatAmount" dataType="number" caption="VAT Amount" [width]="150">
+                    </dxi-column>
+                    <dxi-column dataField="finalAmount" dataType="number" [allowEditing]="false" caption="Fınal Amount" [width]="150"></dxi-column>
+                </dx-data-grid>
+            </dxi-item>
+          </dxo-form>
+        </dxo-editing>
+    
+        <dxi-column dataField="typeCode" caption="Type Code" dataType="string" [visible]="true" [width]="250">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column caption="Receipt No" dataField="receiptNo" dataType="string" [visible]="true" [width]="250">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="customerCardID" dataType="string" caption="Customer" [width]="250">
+            <dxo-lookup [dataSource]="customerCardLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="addressID" caption="Address" [width]="250">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="paymentType" caption="Payment Type" [width]="230">
+            <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+      </dx-data-grid>
+    </div>
