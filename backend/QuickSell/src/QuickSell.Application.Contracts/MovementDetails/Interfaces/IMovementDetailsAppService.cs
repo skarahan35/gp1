@@ -18,6 +18,7 @@ namespace QuickSell.MovementDetails
         Task<MovementDetailDto> AddMovementDetail(MovementDetailDto input);
         Task<MovementDetailDto> UpdateMovementDetail(Guid id, IDictionary<string, object> input);
         Task DeleteMovementDetail(Guid id);
+        Task<List<MovementDetail>> GetHeaderId(Guid id);
 
     }
 }
