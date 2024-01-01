@@ -190,7 +190,7 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.VATAmount); 
                   e.Property(e => e.HeaderId); 
                 e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardID).IsRequired();
-                e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.HeaderId).IsRequired();
+                e.HasOne<MovementHeader>().WithMany().HasForeignKey(x => x.HeaderId).IsRequired();
                       });
                 builder.Entity<Company>(e=>{
 
