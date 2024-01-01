@@ -194,5 +194,18 @@ namespace QuickSell.MovementHeaders
           }
   
         }
+        public async Task<List<LookupDto<int>>> PaymentTypeLookup()
+        {
+            var operationType = typeof(PaymentType).GetEnumValues().Cast<object>().ToDictionary(o => (int)o, v => v.ToString());
+            var lookupdata = new List<LookupDto<int>>();
+
+            foreach (var item in operationType)
+            {
+                var displayName = Enum.GetName(typeof(PaymentType), item.Key);
+                lookupdata.Add(new LookupDto<int> { Id = item.Key, DisplayName = displayName });
+            }
+
+            return lookupdata;
+        }
     }
 }

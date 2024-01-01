@@ -56,5 +56,11 @@ namespace QuickSell.Controllers.MovementHeaders
         {
             await _movementHeadersAppService.SaveMovement(input);
         }
+        [HttpGet]
+        [Route("300107")]
+        public async Task<List<LookupDto<int>>> PaymentTypeLookup()
+        {
+            return await _movementHeadersAppService.PaymentTypeLookup();
+        }
     }
 }
