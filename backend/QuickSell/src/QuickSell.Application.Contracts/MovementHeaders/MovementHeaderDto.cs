@@ -5,10 +5,15 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
 using QuickSell.CustomerCards;
 using QuickSell.Shared;
+using QuickSell.MovementDetails;
 
 namespace QuickSell.MovementHeaders
 {
-
+    public class MovementDTO
+    {
+        public MovementHeaderDto Header { get; set; }
+        public List<DataChange> Details { get; set; }
+    }
     public class MovementHeaderDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
         public string? TypeCode { get; set; }

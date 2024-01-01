@@ -4,18 +4,17 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
-using Microsoft.AspNetCore.Authorization;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
-using QuickSell.Permissions;
-using QuickSell.MovementHeaders;
 using QuickSell.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
 using Volo.Abp.Data;
+using Microsoft.Extensions.Logging;
+using Volo.Abp.Uow;
+using QuickSell.MovementDetails;
+using Newtonsoft.Json;
 
 namespace QuickSell.MovementHeaders
 {
@@ -23,15 +22,24 @@ namespace QuickSell.MovementHeaders
     {
         private readonly IMovementHeaderRepository _movementHeaderRepository;
         private readonly MovementHeaderManager _movementHeaderManager;
+        private readonly IMovementDetailsRepository _movementDetailRepository;
+        private readonly MovementDetailsManager _movementDetailsManager;
+        private readonly MovementDetailsAppService _movementDetailsAppService;
         private readonly IDataFilter _dataFilter;
     
         public MovementHeadersAppService(IMovementHeaderRepository movementHeaderRepository,
                                          MovementHeaderManager movementHeaderManager,
-                                         IDataFilter dataFilter)
+                                         IDataFilter dataFilter,
+                                         IMovementDetailsRepository movementDetailRepository,
+                                         MovementDetailsManager movementDetailsManager,
+                                         MovementDetailsAppService movementDetailsAppService)
         {
             _movementHeaderRepository = movementHeaderRepository;
             _movementHeaderManager= movementHeaderManager;
             _dataFilter= dataFilter;
+            _movementDetailRepository= movementDetailRepository;
+            _movementDetailsManager = movementDetailsManager;
+            _movementDetailsAppService = movementDetailsAppService;
         }
 
         public async Task<LoadResult> GetListMovementHeader(DataSourceLoadOptions loadOptions)
@@ -103,6 +111,88 @@ namespace QuickSell.MovementHeaders
         public async Task DeleteMovementHeader(Guid id)
         {
             await _movementHeaderRepository.DeleteAsync(id);
+        }
+        public static MovementHeader MapToEntityHeader(MovementHeaderDto headerDto)
+        {
+
+            var headerEntity = new MovementHeader
+            {
+                // Özellikleri kopyalama
+                TypeCode = headerDto.TypeCode,
+                ReceiptNo = headerDto.ReceiptNo,
+                CustomerCardID = headerDto.CustomerCardID,
+                FirstAmount = headerDto.FirstAmount,
+                DiscountAmount = headerDto.DiscountAmount,
+                VATAmount = headerDto.VATAmount,
+                TotalAmount = headerDto.TotalAmount,
+                AddressID = headerDto.AddressID,
+                PaymentType = headerDto.PaymentType,
+            };
+
+            return headerEntity;
+        }
+        public static MovementDetail MapToEntityDetail(MovementDetailDto detailDto)
+        {
+
+            var detailEntity = new MovementDetail
+            {
+                // Özellikleri kopyalama
+                TypeCode = detailDto.TypeCode,
+                ReceiptNo = detailDto.ReceiptNo,
+                StockCardID = detailDto.StockCardID,
+                Quantity = detailDto.Quantity,
+                Price = detailDto.Price,
+                DiscountRate = detailDto.DiscountRate,
+                DiscountAmount = detailDto.DiscountAmount,
+                VATRate = detailDto.VATRate,
+                VATAmount = detailDto.VATAmount,
+                HeaderId = detailDto.HeaderId
+            };
+
+            return detailEntity;
+        }
+        public async void SaveMovement(MovementDTO input, string type)
+        {
+          var headerEntity = MapToEntityHeader(input.Header);
+          var savedHeader = await _movementHeaderRepository.InsertAsync(headerEntity);
+          //unitOfWork.SaveChanges();
+
+          // Kaydedilen MovementHeader'ýn ID'sini al
+          var headerId = savedHeader.Id;
+
+          // MovementDetails'ý alýnan MovementHeaderId ile kaydet
+          foreach (var detail in input.Details)
+          {
+                MovementDetailDto movementDetail = new MovementDetailDto();
+                JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
+                movementDetail.HeaderId = headerId;
+                if (detail.Type == "Insert")
+                {
+                    //MovementDetailDto movementDetail = new MovementDetailDto();
+                    //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
+                    //movementDetail.HeaderId = headerId;
+                    await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                    //var detailEntity = MapToEntityDetail(movementDetail);
+                    //await _movementDetailRepository.InsertAsync(detailEntity);
+                }
+                else if (detail.Type == "Delete")
+                {
+                    var qry = await _movementDetailRepository.GetQueryableAsync();
+                    qry = qry.Where(x=> x.HeaderId == headerId);
+                    await _movementDetailsAppService.DeleteMovementDetail(movementDetail.Id); 
+                    //var detailEntity = MapToEntityDetail(movementDetail);
+                    //await _movementDetailRepository.DeleteAsync(detailEntity);
+                }
+                else if (detail.Type == "Update")
+                {
+                    //MovementDetailDto movementDetail = new MovementDetailDto();
+                    //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
+                    //movementDetail.HeaderId = headerId;
+                    await _movementDetailsAppService.DeleteMovementDetail(headerId);
+                    await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                }
+          }
+  
         }
     }
 }

@@ -44,7 +44,8 @@ namespace QuickSell.MovementDetails
                                     DiscountRate = mvmnt.DiscountRate,
                                     DiscountAmount = mvmnt.DiscountAmount,
                                     VATRate = mvmnt.VATRate,
-                                    VATAmount = mvmnt.VATAmount
+                                    VATAmount = mvmnt.VATAmount,
+                                    HeaderId = mvmnt.HeaderId
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
         }
@@ -67,7 +68,8 @@ namespace QuickSell.MovementDetails
                                       DiscountRate = mvmnt.DiscountRate,
                                       DiscountAmount = mvmnt.DiscountAmount,
                                       VATRate = mvmnt.VATRate,
-                                      VATAmount = mvmnt.VATAmount
+                                      VATAmount = mvmnt.VATAmount,
+                                      HeaderId = mvmnt.HeaderId
                                   }).FirstOrDefault();
                 return movementDetail;
             }
@@ -83,7 +85,8 @@ namespace QuickSell.MovementDetails
               input.DiscountRate,
               input.DiscountAmount,
               input.VATRate,
-              input.VATAmount
+              input.VATAmount,
+              input.HeaderId
           );
             return ObjectMapper.Map<MovementDetail, MovementDetailDto>(movementDetail);
         }
