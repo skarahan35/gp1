@@ -69,9 +69,11 @@ namespace QuickSell.Prefixes
         {
             var qry = await _prefixRepository.GetQueryableAsync();
             await Validation<Prefix, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
+            await Validation<Prefix, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
         }
         public async Task<PrefixDto> AddPrefix(PrefixDto input)
         {
+            await PrefixValidation(input);
             var prefix = await _prefixManager.CreateAsync(
               input.Code,
               input.Name,
@@ -87,9 +89,9 @@ namespace QuickSell.Prefixes
             var prefixDto = ObjectMapper.Map<Prefix, PrefixDto>(prefix);
             await DevExtremeUpdate.Update(prefixDto, input);
 
-            return await BPUpdateEmployees(prefixDto.Id, prefixDto);
+            return await BPUpdatePrefix(prefixDto.Id, prefixDto);
         }
-        public async Task<PrefixDto> BPUpdateEmployees(Guid id, PrefixDto input)
+        public async Task<PrefixDto> BPUpdatePrefix(Guid id, PrefixDto input)
         {
             await PrefixValidation(input);
             var prefix = await _prefixManager.UpdateAsync(
