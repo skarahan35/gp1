@@ -12,7 +12,14 @@
         id="gridContainer"
         [dataSource]="dataSource"
         keyExpr="id"
+        (onRowInserting)="onRowInserting($event)"
+        (onRowUpdating)="onRowUpdating($event)"
+        (onRowRemoving)="onRowRemoving($event)"
         [showBorders]="true"
+        height="800px"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
           [allowColumnReordering]="true"
           [columnHidingEnabled]="true"
           [filterRow]="{ visible: true, applyFilter: 'auto' }"
@@ -79,10 +86,10 @@
         </dxo-editing>
     
         
-        <dxi-column dataField="stockCardID" dataType="string">
+        <dxi-column dataField="stockCardID" caption="Stock Card" dataType="string">
             <dxo-lookup [dataSource]="stockCardLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
         <dxi-column dataField="price" dataType="decimal"></dxi-column>
-        <dxi-column dataField="priceType" dataType="number"></dxi-column>
+        <dxi-column dataField="priceType" caption="Price Type" dataType="string"></dxi-column>
       </dx-data-grid>
     </div>

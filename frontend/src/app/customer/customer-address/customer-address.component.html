@@ -12,6 +12,13 @@
         id="gridContainer"
         [dataSource]="dataSource"
         keyExpr="id"
+        height="800px"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
+        (onRowInserting)="onRowInserting($event)"
+        (onRowUpdating)="onRowUpdating($event)"
+        (onRowRemoving)="onRowRemoving($event)"
         [showBorders]="true"
           [allowColumnReordering]="true"
           [columnHidingEnabled]="true"
@@ -85,23 +92,23 @@
           </dxo-form>
         </dxo-editing>
 
-        <dxi-column dataField="customerCardID" dataType="string">
+        <dxi-column dataField="customerCardID" caption="Customer" dataType="string">
             <dxo-lookup [dataSource]="customerCardLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
         
-        <dxi-column dataField="addressCode" dataType="string"></dxi-column>
-        <dxi-column dataField="road" dataType="string"></dxi-column>
-        <dxi-column dataField="street" dataType="string"></dxi-column>
-        <dxi-column dataField="buildingName" dataType="string"></dxi-column>
-        <dxi-column dataField="buildingNo" dataType="string"></dxi-column>
-        <dxi-column dataField="postCode" dataType="number"></dxi-column>
-        <dxi-column dataField="districtID" dataType="string">
+        <dxi-column dataField="addressCode" caption="Address Code" dataType="string"></dxi-column>
+        <dxi-column dataField="road" caption="Road" dataType="string"></dxi-column>
+        <dxi-column dataField="street" caption="Street" dataType="string"></dxi-column>
+        <dxi-column dataField="buildingName" caption="Building Name" dataType="string"></dxi-column>
+        <dxi-column dataField="buildingNo" caption="Building No" dataType="string"></dxi-column>
+        <dxi-column dataField="postCode" caption="Post Code" dataType="number"></dxi-column>
+        <dxi-column dataField="districtID" caption="District" dataType="string">
             <dxo-lookup [dataSource]="districtLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-        <dxi-column dataField="cityID" dataType="string">
+        <dxi-column dataField="cityID" caption="City" dataType="string">
             <dxo-lookup [dataSource]="cityLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-        <dxi-column dataField="countryID" dataType="string">
+        <dxi-column dataField="countryID" caption="Country" dataType="string">
             <dxo-lookup [dataSource]="countryLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
       </dx-data-grid>

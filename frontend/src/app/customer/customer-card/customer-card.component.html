@@ -6,15 +6,24 @@
     </ol>
   </nav>
   
-  <div id="data-grid-demo">
+  <div id="data-grid-demo" >
       <dx-data-grid
+      width="1400px"
+      
       #targetDataGrid
         id="gridContainer"
         [dataSource]="dataSource"
         keyExpr="id"
         [showBorders]="true"
           [allowColumnReordering]="true"
-          [columnHidingEnabled]="true"
+          (onRowInserting)="onRowInserting($event)"
+          (onRowUpdating)="onRowUpdating($event)"
+          (onRowRemoving)="onRowRemoving($event)"
+          [columnAutoWidth]="true"
+          height="800px"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
           [filterRow]="{ visible: true, applyFilter: 'auto' }"
           [headerFilter]="{ visible: true }"
           [groupPanel]="{ visible: true }"
@@ -24,7 +33,7 @@
           [remoteOperations]="false"
           
       >
-      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
     <dxo-pager
       [visible]="true"
@@ -85,20 +94,24 @@
           </dxo-form>
         </dxo-editing>
     
-        <dxi-column dataField="code" dataType="string"></dxi-column>
-        <dxi-column dataField="name" dataType="string"></dxi-column>
-        <dxi-column dataField="customerTypeID" dataType="string">
+        <dxi-column dataField="code" dataType="string" [visible]="true" [width]="150">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="name" dataType="string" [visible]="true" [width]="150">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="customerTypeID" caption="Customer Type" dataType="string" [visible]="true" [width]="250">
             <dxo-lookup [dataSource]="customerTypeLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
     
-        <dxi-column dataField="customerGroupID" dataType="string">
+        <dxi-column dataField="customerGroupID" caption="Customer Group" dataType="string" [visible]="true" [width]="250">
             <dxo-lookup [dataSource]="customerGroupLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-        <dxi-column dataField="taxOffice" dataType="string"></dxi-column>
-        <dxi-column dataField="taxNo" dataType="number"></dxi-column>
-        <dxi-column dataField="tCNumber" dataType="number"></dxi-column>
-        <dxi-column dataField="authorizedPerson" dataType="string"></dxi-column>
-        <dxi-column dataField="eMail" dataType="string"></dxi-column>
-        <dxi-column dataField="riskLimit" dataType="decimal"></dxi-column>
+        <dxi-column dataField="taxOffice" dataType="string" caption="Tax Office" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="taxNo" dataType="number" caption="Tax No" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="tCNumber" dataType="number" caption="TC Number" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="authorizedPerson" caption="Authorized Person" dataType="string" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="eMail" dataType="string" caption="EMail" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="riskLimit" caption="Risk Limit" dataType="decimal" [visible]="true" [width]="150"></dxi-column>
       </dx-data-grid>
     </div>

@@ -8,13 +8,22 @@
   
   <div id="data-grid-demo">
       <dx-data-grid
+      
       #targetDataGrid
         id="gridContainer"
+        width="1400px"
+        height="800px"
         [dataSource]="dataSource"
         keyExpr="id"
         [showBorders]="true"
           [allowColumnReordering]="true"
-          [columnHidingEnabled]="true"
+          (onRowInserting)="onRowInserting($event)"
+          (onRowUpdating)="onRowUpdating($event)"
+          (onRowRemoving)="onRowRemoving($event)"
+          [columnAutoWidth]="true"
+          [allowColumnResizing]="true"
+          columnResizingMode="nextColumn"
+          [columnMinWidth]="100"
           [filterRow]="{ visible: true, applyFilter: 'auto' }"
           [headerFilter]="{ visible: true }"
           [groupPanel]="{ visible: true }"
@@ -24,7 +33,7 @@
           [remoteOperations]="false"
           
       >
-      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
     <dxo-pager
       [visible]="true"
@@ -51,8 +60,8 @@
           <dxo-popup
             title="Stock Card"
             [showTitle]="true"
-            [width]="500"
-            [height]="850"
+            [width]="1000"
+            [height]="600"
           >
           <dxi-toolbar-item
           toolbar="bottom"
@@ -70,48 +79,59 @@
         </dxi-toolbar-item>
           </dxo-popup>
           <dxo-form>
-            <dxi-item itemType="group" [colCount]="1" [colSpan]="2">
-              <dxi-item dataField="code" [colCount]="2"></dxi-item>
-              <dxi-item dataField="name" [colCount]="2"></dxi-item>
-              <dxi-item dataField="stockTypeID" [colCount]="2"></dxi-item>
-              <dxi-item dataField="stockUnitID" [colCount]="2"></dxi-item>
-              <dxi-item dataField="stockGroupID" [colCount]="2"></dxi-item>
-              <dxi-item dataField="transferredQuantity" [colCount]="2"></dxi-item>
-              <dxi-item dataField="availableQuantity" [colCount]="2"></dxi-item>
-              <dxi-item dataField="totalEntryQuantity" [colCount]="2"></dxi-item>
-              <dxi-item dataField="totalOutputQuantity" [colCount]="2"></dxi-item>
-              <dxi-item dataField="vATRate" [colCount]="2"></dxi-item>
-              <dxi-item dataField="discountRate" [colCount]="2"></dxi-item>
-              <dxi-item dataField="currencyType" [colCount]="2"></dxi-item>
-              <dxi-item dataField="price1" [colCount]="2"></dxi-item>
-              <dxi-item dataField="price2" [colCount]="2"></dxi-item>
-              <dxi-item dataField="price3" [colCount]="2"></dxi-item>
+            <dxi-item itemType="group" caption="Entry">
+              <dxi-item dataField="code" [colCount]="1">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-item>
+              <dxi-item dataField="name" [colCount]="1">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-item>
+              <dxi-item dataField="stockTypeID" [colCount]="1"></dxi-item>
+              <dxi-item dataField="stockUnitID" [colCount]="1"></dxi-item>
+              <dxi-item dataField="stockGroupID" [colCount]="1"></dxi-item>
+              <dxi-item dataField="vatRate" [colCount]="1"></dxi-item>
+              <dxi-item dataField="discountRate" [colCount]="1"></dxi-item>
             </dxi-item>
+            <dxi-item itemType="group" caption="Information">
+              <dxi-item dataField="transferredQuantity" [colCount]="1"></dxi-item>
+              <dxi-item dataField="availableQuantity" [colCount]="1"></dxi-item>
+              <dxi-item dataField="totalEntryQuantity" [colCount]="1"></dxi-item>
+              <dxi-item dataField="totalOutputQuantity" [colCount]="1"></dxi-item>
+              <dxi-item dataField="price1" [colCount]="1"></dxi-item>
+              <dxi-item dataField="price2" [colCount]="1"></dxi-item>
+              <dxi-item dataField="price3" [colCount]="1"></dxi-item>
+              <dxi-item dataField="currencyType" [colCount]="1"></dxi-item>
+            </dxi-item>
+          
           </dxo-form>
         </dxo-editing>
     
-        <dxi-column dataField="code" dataType="string"></dxi-column>
-        <dxi-column dataField="name" dataType="string"></dxi-column>
-        <dxi-column dataField="stockTypeID" dataType="string">
+        <dxi-column dataField="code" dataType="string" [visible]="true" [width]="150">,
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="name" dataType="string" [visible]="true" [width]="150">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        <dxi-column dataField="stockTypeID" caption="Stock Type" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockTypeLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
     
-        <dxi-column dataField="stockUnitID" dataType="string">
+        <dxi-column dataField="stockUnitID" caption="Stock Unit" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockUnitLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
     
-        <dxi-column dataField="stockGroupID" dataType="string">
+        <dxi-column dataField="stockGroupID" caption="Stock Group" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockGroupLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-        <dxi-column dataField="transferredQuantity" dataType="decimal"></dxi-column>
-        <dxi-column dataField="availableQuantity" dataType="decimal"></dxi-column>
-        <dxi-column dataField="totalEntryQuantity" dataType="decimal"></dxi-column>
-        <dxi-column dataField="totalOutputQuantity" dataType="decimal"></dxi-column>
-        <dxi-column dataField="vATRate" dataType="number"></dxi-column>
-        <dxi-column dataField="discountRate" dataType="number"></dxi-column>
-        <dxi-column dataField="currencyType" dataType="string"></dxi-column>
-        <dxi-column dataField="price1" dataType="decimal"></dxi-column>
-        <dxi-column dataField="price2" dataType="decimal"></dxi-column>
-        <dxi-column dataField="price3" dataType="decimal"></dxi-column>
+        <dxi-column dataField="vatRate" caption="VAT Rate" dataType="number" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="discountRate" caption="Discount Rate" dataType="number" [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="transferredQuantity" caption="Transferred Quantity" dataType="number" [allowEditing]="false" [visible]="true" [width]="250"></dxi-column>
+        <dxi-column dataField="availableQuantity" caption="Available Quantity" dataType="number" [allowEditing]="false" [visible]="true" [width]="250"></dxi-column>
+        <dxi-column dataField="totalEntryQuantity" caption="Total Entry Quantity" dataType="number" [allowEditing]="false" [visible]="true" [width]="250"></dxi-column>
+        <dxi-column dataField="totalOutputQuantity" caption="Total Output Quantity" dataType="number" [allowEditing]="false" [visible]="true" [width]="250"></dxi-column>
+        <dxi-column dataField="currencyType" caption="Currency Type" dataType="string" [allowEditing]="false" [visible]="true" [width]="200"></dxi-column>
+        <dxi-column dataField="price1" caption="Price 1" dataType="number" [allowEditing]="false" [visible]="true"></dxi-column>
+        <dxi-column dataField="price2" caption="Price 2" dataType="number" [allowEditing]="false" [visible]="true"></dxi-column>
+        <dxi-column dataField="price3" caption="Price 3" dataType="number" [allowEditing]="false" [visible]="true"></dxi-column>
       </dx-data-grid>
     </div>
