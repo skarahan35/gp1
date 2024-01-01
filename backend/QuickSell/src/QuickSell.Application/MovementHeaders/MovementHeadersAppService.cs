@@ -204,7 +204,7 @@ namespace QuickSell.MovementHeaders
                       //var detailEntity = MapToEntityDetail(movementDetail);
                       //await _movementDetailRepository.InsertAsync(detailEntity);
                   }
-                  else if (detail.Type == "Delete")
+                  else if (detail.Type == "remove")
                   {
                       var qry = await _movementDetailRepository.GetQueryableAsync();
                       qry = qry.Where(x=> x.HeaderId == headerId);
@@ -212,7 +212,7 @@ namespace QuickSell.MovementHeaders
                       //var detailEntity = MapToEntityDetail(movementDetail);
                       //await _movementDetailRepository.DeleteAsync(detailEntity);
                   }
-                  else if (detail.Type == "Update")
+                  else if (detail.Type == "update")
                   {
                       await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
 
