@@ -175,7 +175,7 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.AddressID); 
                   e.Property(e => e.PaymentType); 
                 e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.CustomerCardID).IsRequired();
-                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.AddressID).IsRequired();
+                e.HasOne<CustomerCard>().WithMany().HasForeignKey(x => x.AddressID);
                       });
                 builder.Entity<MovementDetail>(e=>{
 

@@ -19,6 +19,7 @@ namespace QuickSell.MovementHeaders
         Task<MovementHeaderDto> UpdateMovementHeader(Guid id, IDictionary<string, object> input);
         Task DeleteMovementHeader(Guid id);
         Task SaveMovement(MovementDTO input);
+        Task<List<LookupDto<int>>> PaymentTypeLookup();
     }
 }
 
