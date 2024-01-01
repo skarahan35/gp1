@@ -77,6 +77,7 @@ namespace QuickSell.Districts
         }
         public async Task<DistrictDto> AddDistrict(DistrictDto input)
         {
+            await DistrictValidation(input);
             var district = await _districtManager.CreateAsync(
               input.Code,
               input.Name

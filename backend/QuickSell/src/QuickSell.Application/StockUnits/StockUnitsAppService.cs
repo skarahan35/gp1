@@ -73,27 +73,21 @@ namespace QuickSell.StockUnits
         }
         public async Task<StockUnitDto> AddStockUnit(StockUnitDto input) 
         {
+            await StockUnitValidation(input);
             var stockUnit = await _stockUnitManager.CreateAsync(
               input.Code,
               input.InternationalCode,
               input.Name
               );
-            await StockUnitValidation(input);
             return ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
         }
         public async Task<StockUnitDto> UpdateStockUnit(Guid id, IDictionary<string, object> input)
         {
             var stockUnit = await _stockUnitRepository.GetAsync(id);
-            //var inputDto = ObjectMapper.Map<IDictionary<string, object>, StockUnitDto>(input);
-            //todo frontendden dönen code alaný Code olarak dönüþtürülecek
             var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
             await DevExtremeUpdate.Update(stockUnitDto, input);
 
             return await BPUpdateEmployees(stockUnitDto.Id, stockUnitDto);
-
-            //await _stockUnitRepository.UpdateAsync(updated);
-             
-            //return ObjectMapper.Map<StockUnit, StockUnitDto>(updated);
         }
         public async Task<StockUnitDto> BPUpdateEmployees(Guid id, StockUnitDto input)
         {

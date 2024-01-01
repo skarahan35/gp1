@@ -67,6 +67,7 @@ namespace QuickSell.CustomerTypes
         }
         public async Task<CustomerTypeDto> AddCustomerType(CustomerTypeDto input)
         {
+            await CustomertTypeValidation(input);
             var customerType = await _customerTypeManager.CreateAsync(
               input.Code,
               input.Name

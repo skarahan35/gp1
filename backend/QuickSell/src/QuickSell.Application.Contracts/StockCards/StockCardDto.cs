@@ -6,11 +6,12 @@ using Volo.Abp.Domain.Entities;
 using QuickSell.StockTypes;
 using QuickSell.StockUnits;
 using QuickSell.StockGroups;
+using QuickSell.Tools;
 
 namespace QuickSell.StockCards
 {
 
-    public class StockCardDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class StockCardDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, ICodeControlFields, INameControlFields
     {
         public string? Code { get; set; }
         public string? Name { get; set; }

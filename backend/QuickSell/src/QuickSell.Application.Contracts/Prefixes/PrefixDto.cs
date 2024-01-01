@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Entities;
 namespace QuickSell.Prefixes
 {
 
-    public class PrefixDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, ICodeControlFields
+    public class PrefixDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, ICodeControlFields, INameControlFields
     {
         
         public string? Code { get; set; }

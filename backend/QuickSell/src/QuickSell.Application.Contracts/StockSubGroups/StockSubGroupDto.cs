@@ -1,3 +1,4 @@
+using QuickSell.Tools;
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -5,7 +6,7 @@ using Volo.Abp.Domain.Entities;
 namespace QuickSell.StockSubGroups
 {
 
-    public class StockSubGroupDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
+    public class StockSubGroupDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp,ICodeControlFields,INameControlFields
     {
         
         public string? Code { get; set; }
