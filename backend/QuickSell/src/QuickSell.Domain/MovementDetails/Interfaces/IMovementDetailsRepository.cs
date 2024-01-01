@@ -33,6 +33,10 @@ namespace QuickSell.MovementDetails
          ,decimal? vAtRateMax= null 
          ,decimal? vAtAmountMin= null 
          ,decimal? vAtAmountMax= null 
+         ,decimal? firstAmountMin= null 
+         ,decimal? firstAmountMax= null 
+         ,decimal? totalAmountMin= null 
+         ,decimal? totalAmountMax= null 
          ,int maxResultCount = int.MaxValue
          ,int skipCount = 0
          ,CancellationToken cancellationToken = default      
@@ -55,6 +59,10 @@ namespace QuickSell.MovementDetails
           decimal? vAtRateMax= null ,
           decimal? vAtAmountMin= null , 
           decimal? vAtAmountMax= null ,
+          decimal? firstAmountMin = null,
+          decimal? firstAmountMax = null,
+          decimal? totalAmountMin = null,
+          decimal? totalAmountMax = null,
         CancellationToken cancellationToken = default);
 
         

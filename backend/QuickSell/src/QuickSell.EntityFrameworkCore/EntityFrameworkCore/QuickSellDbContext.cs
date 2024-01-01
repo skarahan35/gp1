@@ -188,6 +188,8 @@ namespace QuickSell.EntityFrameworkCore
                   e.Property(e => e.DiscountAmount); 
                   e.Property(e => e.VATRate); 
                   e.Property(e => e.VATAmount); 
+                  e.Property(e => e.FirstAmount); 
+                  e.Property(e => e.TotalAmount); 
                   e.Property(e => e.HeaderId); 
                 e.HasOne<StockCard>().WithMany().HasForeignKey(x => x.StockCardID).IsRequired();
                 e.HasOne<MovementHeader>().WithMany().HasForeignKey(x => x.HeaderId).IsRequired();

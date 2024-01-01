@@ -10,18 +10,22 @@ namespace QuickSell.MovementDetails
              
         public int? ReceiptNoMin { get; set; } 
         public int? ReceiptNoMax { get; set; } 
-        public int? QuantityMin { get; set; } 
-        public int? QuantityMax { get; set; } 
-        public int? PriceMin { get; set; } 
-        public int? PriceMax { get; set; } 
-        public int? DiscountRateMin { get; set; } 
-        public int? DiscountRateMax { get; set; } 
-        public int? DiscountAmountMin { get; set; } 
-        public int? DiscountAmountMax { get; set; } 
-        public int? VATRateMin { get; set; } 
-        public int? VATRateMax { get; set; } 
-        public int? VATAmountMin { get; set; } 
-        public int? VATAmountMax { get; set; } 
+        public decimal? QuantityMin { get; set; } 
+        public decimal? QuantityMax { get; set; } 
+        public decimal? PriceMin { get; set; } 
+        public decimal? PriceMax { get; set; } 
+        public decimal? DiscountRateMin { get; set; } 
+        public decimal? DiscountRateMax { get; set; } 
+        public decimal? DiscountAmountMin { get; set; } 
+        public decimal? DiscountAmountMax { get; set; } 
+        public decimal? VATRateMin { get; set; } 
+        public decimal? VATRateMax { get; set; } 
+        public decimal? VATAmountMin { get; set; } 
+        public decimal? VATAmountMax { get; set; }
+        public decimal? FirstAmountMin { get; set; }
+        public decimal? FirstAmountMax { get; set; }
+        public decimal? TotalAmountMin { get; set; }
+        public decimal? TotalAmountMax { get; set; }
         public GetMovementDetailInput()
         {
 

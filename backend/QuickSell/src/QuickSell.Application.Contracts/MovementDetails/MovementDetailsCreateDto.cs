@@ -19,6 +19,8 @@ namespace QuickSell.MovementDetails
         public decimal? DiscountAmount { get; set; }
         public decimal? VATRate { get; set; }
         public decimal? VATAmount { get; set; }
+        public decimal? FirstAmount { get; set; }
+        public decimal? TotalAmount { get; set; }
         public Guid? HeaderId { get; set; }
     }
 }

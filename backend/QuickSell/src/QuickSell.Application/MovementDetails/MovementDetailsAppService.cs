@@ -45,6 +45,8 @@ namespace QuickSell.MovementDetails
                                     DiscountAmount = mvmnt.DiscountAmount,
                                     VATRate = mvmnt.VATRate,
                                     VATAmount = mvmnt.VATAmount,
+                                    FirstAmount = mvmnt.FirstAmount,
+                                    TotalAmount = mvmnt.TotalAmount,
                                     HeaderId = mvmnt.HeaderId
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
@@ -69,6 +71,8 @@ namespace QuickSell.MovementDetails
                                       DiscountAmount = mvmnt.DiscountAmount,
                                       VATRate = mvmnt.VATRate,
                                       VATAmount = mvmnt.VATAmount,
+                                      FirstAmount = mvmnt.FirstAmount,
+                                      TotalAmount = mvmnt.TotalAmount,
                                       HeaderId = mvmnt.HeaderId
                                   }).FirstOrDefault();
                 return movementDetail;
@@ -86,6 +90,8 @@ namespace QuickSell.MovementDetails
               input.DiscountAmount,
               input.VATRate,
               input.VATAmount,
+              input.FirstAmount,
+              input.TotalAmount,
               input.HeaderId
           );
             return ObjectMapper.Map<MovementDetail, MovementDetailDto>(movementDetail);
@@ -110,6 +116,8 @@ namespace QuickSell.MovementDetails
                 input.DiscountAmount,
                 input.VATRate,
                 input.VATAmount,
+                input.FirstAmount,
+                input.TotalAmount,
                 input.HeaderId
             );
             await _movementDetailsRepository.UpdateAsync(movementDetail);

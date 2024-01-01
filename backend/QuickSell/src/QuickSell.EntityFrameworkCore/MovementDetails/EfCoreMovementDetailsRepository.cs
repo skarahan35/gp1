@@ -37,7 +37,11 @@ namespace QuickSell.MovementDetails
              decimal? vAtRateMin = null, 
              decimal? vAtRateMax = null, 
              decimal? vAtAmountMin = null, 
-             decimal? vAtAmountMax = null, 
+             decimal? vAtAmountMax = null,
+             decimal? firstAmountMin = null,
+             decimal? firstAmountMax = null,
+             decimal? totalAmountMin = null,
+             decimal? totalAmountMax = null,
              int maxResultCount = int.MaxValue,
              int skipCount = 0, 
              CancellationToken cancellationToken = default)
@@ -58,6 +62,10 @@ namespace QuickSell.MovementDetails
             ,vAtRateMax 
             ,vAtAmountMin 
             ,vAtAmountMax 
+            ,firstAmountMin
+            ,firstAmountMax
+            ,totalAmountMin
+            ,totalAmountMax
             );
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? MovementDetailsConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
@@ -82,6 +90,10 @@ namespace QuickSell.MovementDetails
          decimal? vAtRateMax = null, 
          decimal? vAtAmountMin = null, 
          decimal? vAtAmountMax = null,
+         decimal? firstAmountMin = null,
+         decimal? firstAmountMax = null,
+         decimal? totalAmountMin = null,
+         decimal? totalAmountMax = null,
          CancellationToken cancellationToken = default)
         {
          var query = ApplyFilter((await GetDbSetAsync()), filterText,typeCode
@@ -99,6 +111,10 @@ namespace QuickSell.MovementDetails
            ,vAtRateMax 
            ,vAtAmountMin 
            ,vAtAmountMax 
+           ,firstAmountMin
+           ,firstAmountMax
+           ,totalAmountMin
+           ,totalAmountMax
          );
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -121,7 +137,11 @@ namespace QuickSell.MovementDetails
           ,decimal? vAtRateMin= null 
           ,decimal? vAtRateMax= null 
           ,decimal? vAtAmountMin= null 
-          ,decimal? vAtAmountMax= null 
+          ,decimal? vAtAmountMax= null
+          , decimal? firstAmountMin = null
+          , decimal? firstAmountMax = null
+          , decimal? totalAmountMin = null
+          , decimal? totalAmountMax = null
 )
         {
             return query
@@ -141,6 +161,10 @@ namespace QuickSell.MovementDetails
             .WhereIf(vAtRateMax.HasValue, e => e.VATRate >= vAtRateMax.Value)
             .WhereIf(vAtAmountMin.HasValue, e => e.VATAmount >= vAtAmountMin.Value)
             .WhereIf(vAtAmountMax.HasValue, e => e.VATAmount >= vAtAmountMax.Value)
+            .WhereIf(firstAmountMin.HasValue, e => e.FirstAmount >= firstAmountMin.Value)
+            .WhereIf(firstAmountMax.HasValue, e => e.FirstAmount >= firstAmountMax.Value)
+            .WhereIf(totalAmountMin.HasValue, e => e.TotalAmount >= totalAmountMin.Value)
+            .WhereIf(totalAmountMax.HasValue, e => e.TotalAmount >= totalAmountMax.Value)
             .WhereIf(!string.IsNullOrWhiteSpace(typeCode),e => e.TypeCode.Contains(typeCode)) ;
         }
     }
