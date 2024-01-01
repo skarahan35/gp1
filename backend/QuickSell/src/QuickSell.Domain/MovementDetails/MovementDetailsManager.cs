@@ -26,6 +26,8 @@ namespace QuickSell.MovementDetails
               decimal? discountAmount,
               decimal? vAtRate,
               decimal? vAtAmount,
+              decimal? firstAmount,
+              decimal? totalAmount,
               Guid? headerId
               
         )
@@ -42,6 +44,8 @@ namespace QuickSell.MovementDetails
                discountAmount, 
                vAtRate, 
                vAtAmount,
+               firstAmount,
+               totalAmount,
                headerId
              );
 
@@ -58,7 +62,9 @@ namespace QuickSell.MovementDetails
           decimal? discountRate,
           decimal? discountAmount,
           decimal? vAtRate,
-          decimal? vAtAmount, 
+          decimal? vAtAmount,
+          decimal? firstAmount,
+          decimal? totalAmount,
           Guid? headerId, 
             [CanBeNull] string concurrencyStamp = null
         )
@@ -78,6 +84,8 @@ namespace QuickSell.MovementDetails
                  movementDetails.DiscountAmount=discountAmount;
                  movementDetails.VATRate=vAtRate;
                  movementDetails.VATAmount=vAtAmount;
+                 movementDetails.FirstAmount=firstAmount;
+                 movementDetails.TotalAmount=totalAmount;
                  movementDetails.HeaderId=headerId;
 
          movementDetails.SetConcurrencyStampIfNotNull(concurrencyStamp);
