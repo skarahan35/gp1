@@ -50,5 +50,11 @@ namespace QuickSell.Controllers.StockCards
         {
             return await _stockCardsAppService.UpdateStockCard(id, input);
         }
+        [HttpGet]
+        [Route("100106")]
+        public async Task<List<LookupDto<int>>> CurrencyTypeLookup()
+        {
+            return await _stockCardsAppService.CurrencyTypeLookup();
+        }
     }
 }
