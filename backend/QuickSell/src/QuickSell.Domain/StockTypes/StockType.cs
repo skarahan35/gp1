@@ -9,12 +9,13 @@ using Volo.Abp;
 
 
 using QuickSell.StockCards;
+using QuickSell.Tools;
 
 
 namespace QuickSell.StockTypes
 {
     
-    public  class StockType : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class StockType : FullAuditedAggregateRoot<Guid>, IMultiTenant,ICodeControlFields,INameControlFields
     {
         
         [StringLength(64,MinimumLength=1)]

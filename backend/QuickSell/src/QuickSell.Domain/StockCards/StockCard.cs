@@ -13,11 +13,12 @@ using QuickSell.MovementDetails;
 using QuickSell.StockTypes;
 using QuickSell.StockUnits;
 using QuickSell.StockGroups;
+using QuickSell.Tools;
 
 namespace QuickSell.StockCards
 {
     
-    public  class StockCard : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public  class StockCard : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICodeControlFields, INameControlFields
     {
         
         [StringLength(64,MinimumLength=0)]
