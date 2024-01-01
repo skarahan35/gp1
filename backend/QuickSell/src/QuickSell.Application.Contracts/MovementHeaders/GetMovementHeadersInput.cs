@@ -10,14 +10,14 @@ namespace QuickSell.MovementHeaders
              
         public int? ReceiptNoMin { get; set; } 
         public int? ReceiptNoMax { get; set; } 
-        public int? FirstAmountMin { get; set; } 
-        public int? FirstAmountMax { get; set; } 
-        public int? DiscountAmountMin { get; set; } 
-        public int? DiscountAmountMax { get; set; } 
-        public int? VATAmountMin { get; set; } 
-        public int? VATAmountMax { get; set; } 
-        public int? TotalAmountMin { get; set; } 
-        public int? TotalAmountMax { get; set; } 
+        public decimal? FirstAmountMin { get; set; } 
+        public decimal? FirstAmountMax { get; set; } 
+        public decimal? DiscountAmountMin { get; set; } 
+        public decimal? DiscountAmountMax { get; set; } 
+        public decimal? VATAmountMin { get; set; } 
+        public decimal? VATAmountMax { get; set; } 
+        public decimal? TotalAmountMin { get; set; } 
+        public decimal? TotalAmountMax { get; set; } 
         public GetMovementHeadersInput()
         {
 

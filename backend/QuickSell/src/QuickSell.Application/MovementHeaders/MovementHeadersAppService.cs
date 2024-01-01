@@ -236,5 +236,18 @@ namespace QuickSell.MovementHeaders
 
             return lookupdata;
         }
+        public async Task<List<LookupDto<int>>> TypeEnumLookup()
+        {
+            var operationType = typeof(TypeEnum).GetEnumValues().Cast<object>().ToDictionary(o => (int)o, v => v.ToString());
+            var lookupdata = new List<LookupDto<int>>();
+
+            foreach (var item in operationType)
+            {
+                var displayName = Enum.GetName(typeof(TypeEnum), item.Key);
+                lookupdata.Add(new LookupDto<int> { Id = item.Key, DisplayName = displayName });
+            }
+
+            return lookupdata;
+        }
     }
 }
