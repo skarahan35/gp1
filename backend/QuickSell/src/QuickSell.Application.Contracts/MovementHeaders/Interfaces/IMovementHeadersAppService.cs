@@ -18,6 +18,7 @@ namespace QuickSell.MovementHeaders
         Task<MovementHeaderDto> AddMovementHeader(MovementHeaderDto input);
         Task<MovementHeaderDto> UpdateMovementHeader(Guid id, IDictionary<string, object> input);
         Task DeleteMovementHeader(Guid id);
+        Task SaveMovement(MovementDTO input, string type)
     }
 }
 
