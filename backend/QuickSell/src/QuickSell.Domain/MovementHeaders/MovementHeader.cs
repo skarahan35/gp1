@@ -7,6 +7,7 @@ using QuickSell.Shared;
 namespace QuickSell.MovementHeaders
 {
 
+
     public  class MovementHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         

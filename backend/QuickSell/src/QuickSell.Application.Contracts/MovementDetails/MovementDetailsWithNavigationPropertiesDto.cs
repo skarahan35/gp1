@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
 using Volo.Abp;
 using QuickSell.StockCards;
+using QuickSell.MovementHeaders;
 
 namespace QuickSell.MovementDetails
 {
@@ -16,6 +17,7 @@ namespace QuickSell.MovementDetails
         public MovementDetailDto  MovementDetail  {get; set;}
         
         public StockCardDto StockCard { get; set; }
+        public MovementHeaderDto MovementHeader { get; set; }
         
        
 

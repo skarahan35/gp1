@@ -25,7 +25,8 @@ namespace QuickSell.MovementDetails
               decimal? discountRate,
               decimal? discountAmount,
               decimal? vAtRate,
-              decimal? vAtAmount 
+              decimal? vAtAmount,
+              Guid? headerId
               
         )
         {
@@ -40,7 +41,8 @@ namespace QuickSell.MovementDetails
                discountRate, 
                discountAmount, 
                vAtRate, 
-               vAtAmount
+               vAtAmount,
+               headerId
              );
 
             return await _movementDetailsRepository.InsertAsync(movementDetail);
@@ -57,6 +59,7 @@ namespace QuickSell.MovementDetails
           decimal? discountAmount,
           decimal? vAtRate,
           decimal? vAtAmount, 
+          Guid? headerId, 
             [CanBeNull] string concurrencyStamp = null
         )
         {
@@ -75,6 +78,7 @@ namespace QuickSell.MovementDetails
                  movementDetails.DiscountAmount=discountAmount;
                  movementDetails.VATRate=vAtRate;
                  movementDetails.VATAmount=vAtAmount;
+                 movementDetails.HeaderId=headerId;
 
          movementDetails.SetConcurrencyStampIfNotNull(concurrencyStamp);
             return await _movementDetailsRepository.UpdateAsync(movementDetails);
