@@ -18,6 +18,7 @@ namespace QuickSell.CustomerAddresses
         Task<CustomerAddressDto> AddCustomerAddress(CustomerAddressDto input);
         Task<CustomerAddressDto> UpdateCustomerAddress(Guid id, IDictionary<string, object> input);
         Task DeleteCustomerAddress(Guid id);
+        Task<List<CustomerAddress>> GetCustomerId(Guid id);
     }
 }
 
