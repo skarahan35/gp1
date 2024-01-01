@@ -20,6 +20,7 @@ namespace QuickSell.MovementHeaders
         Task DeleteMovementHeader(Guid id);
         Task SaveMovement(MovementDTO input);
         Task<List<LookupDto<int>>> PaymentTypeLookup();
+        Task<List<LookupDto<int>>> TypeEnumLookup();
     }
 }
 

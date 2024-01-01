@@ -15,10 +15,10 @@ namespace QuickSell.MovementHeaders
         public string? TypeCode { get; set; }
         public int? ReceiptNo { get; set; }
         public Guid? CustomerCardID { get; set; }
-        public int? FirstAmount { get; set; }
-        public int? DiscountAmount { get; set; }
-        public int? VATAmount { get; set; }
-        public int? TotalAmount { get; set; }  
+        public decimal? FirstAmount { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? VATAmount { get; set; }
+        public decimal? TotalAmount { get; set; }  
         public Guid? AddressID { get; set; }  
         public PaymentType? PaymentType { get; set; }  
 
@@ -37,10 +37,10 @@ namespace QuickSell.MovementHeaders
           ,string? typeCode 
           ,int? receiptNo
           , Guid? customerCardID
-          , int? firstAmount
-          ,int? discountAmount
-          ,int? vAtAmount
-          ,int? totalAmount
+          , decimal? firstAmount
+          , decimal? discountAmount
+          , decimal? vAtAmount
+          , decimal? totalAmount
           ,Guid? addressID
           ,PaymentType? paymentType
           
