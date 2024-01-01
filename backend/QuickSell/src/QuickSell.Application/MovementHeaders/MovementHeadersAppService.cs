@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
-using QuickSell.Shared;
 using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Data;
 using QuickSell.Tools;
 using Volo.Abp.Data;
-using Microsoft.Extensions.Logging;
-using Volo.Abp.Uow;
 using QuickSell.MovementDetails;
 using Newtonsoft.Json;
+using Volo.Abp.ObjectMapping;
+using QuickSell.Shared;
 
 namespace QuickSell.MovementHeaders
 {
@@ -108,6 +107,24 @@ namespace QuickSell.MovementHeaders
             await _movementHeaderRepository.UpdateAsync(updated);
             return ObjectMapper.Map<MovementHeader, MovementHeaderDto>(updated);
         }
+        public async Task<MovementHeaderDto> UpdateMovementHeaders(Guid id, MovementHeaderDto input)
+        {
+            var movementHeader = await _movementHeaderManager.UpdateAsync(
+                id,
+                input.TypeCode,
+                input.ReceiptNo,
+                input.CustomerCardID,
+                input.FirstAmount,
+                input.DiscountAmount,
+                input.VATAmount,
+                input.TotalAmount,
+                input.AddressID,
+                input.PaymentType
+            );
+            await _movementHeaderRepository.UpdateAsync(movementHeader);
+
+            return ObjectMapper.Map<MovementHeader, MovementHeaderDto>(movementHeader);
+        }
         public async Task DeleteMovementHeader(Guid id)
         {
             await _movementHeaderRepository.DeleteAsync(id);
@@ -131,67 +148,79 @@ namespace QuickSell.MovementHeaders
 
             return headerEntity;
         }
-        public static MovementDetail MapToEntityDetail(MovementDetailDto detailDto)
-        {
+        //public static MovementDetail MapToEntityDetail(MovementDetailDto detailDto)
+        //{
 
-            var detailEntity = new MovementDetail
-            {
-                // Özellikleri kopyalama
-                TypeCode = detailDto.TypeCode,
-                ReceiptNo = detailDto.ReceiptNo,
-                StockCardID = detailDto.StockCardID,
-                Quantity = detailDto.Quantity,
-                Price = detailDto.Price,
-                DiscountRate = detailDto.DiscountRate,
-                DiscountAmount = detailDto.DiscountAmount,
-                VATRate = detailDto.VATRate,
-                VATAmount = detailDto.VATAmount,
-                HeaderId = detailDto.HeaderId
-            };
+        //    var detailEntity = new MovementDetail
+        //    {
+        //        // Özellikleri kopyalama
+        //        TypeCode = detailDto.TypeCode,
+        //        ReceiptNo = detailDto.ReceiptNo,
+        //        StockCardID = detailDto.StockCardID,
+        //        Quantity = detailDto.Quantity,
+        //        Price = detailDto.Price,
+        //        DiscountRate = detailDto.DiscountRate,
+        //        DiscountAmount = detailDto.DiscountAmount,
+        //        VATRate = detailDto.VATRate,
+        //        VATAmount = detailDto.VATAmount,
+        //        HeaderId = detailDto.HeaderId
+        //    };
 
-            return detailEntity;
-        }
+        //    return detailEntity;
+        //}
         public async Task SaveMovement(MovementDTO input)
         {
-          var headerEntity = MapToEntityHeader(input.Header);
-          var savedHeader = await _movementHeaderRepository.InsertAsync(headerEntity);
-          //unitOfWork.SaveChanges();
+            var headerId = Guid.Empty;
+            if (input.Header.Id == Guid.Empty)
+            {
+                var savedHeader = await AddMovementHeader(input.Header);
+                headerId = savedHeader.Id;
+                //var headerEntity = MapToEntityHeader(input.Header);
+                //var savedHeader = await _movementHeaderRepository.InsertAsync(headerEntity);
+            }
+            else
+            {
+                var savedHeader = await UpdateMovementHeaders(input.Header.Id,input.Header);
+                headerId = savedHeader.Id;
+            }
+            
+            //unitOfWork.SaveChanges();
 
-          // Kaydedilen MovementHeader'ýn ID'sini al
-          var headerId = savedHeader.Id;
+            // Kaydedilen MovementHeader'ýn ID'sini al
+            
 
-          // MovementDetails'ý alýnan MovementHeaderId ile kaydet
-          foreach (var detail in input.Details)
-          {
-                MovementDetailDto movementDetail = new MovementDetailDto();
-                JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
-                movementDetail.HeaderId = headerId;
-                if (detail.Type == "insert")
-                {
-                    //MovementDetailDto movementDetail = new MovementDetailDto();
-                    //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
-                    //movementDetail.HeaderId = headerId;
-                    await _movementDetailsAppService.AddMovementDetail(movementDetail);
-                    //var detailEntity = MapToEntityDetail(movementDetail);
-                    //await _movementDetailRepository.InsertAsync(detailEntity);
-                }
-                else if (detail.Type == "Delete")
-                {
-                    var qry = await _movementDetailRepository.GetQueryableAsync();
-                    qry = qry.Where(x=> x.HeaderId == headerId);
-                    await _movementDetailsAppService.DeleteMovementDetail(movementDetail.Id); 
-                    //var detailEntity = MapToEntityDetail(movementDetail);
-                    //await _movementDetailRepository.DeleteAsync(detailEntity);
-                }
-                else if (detail.Type == "Update")
-                {
-                    //MovementDetailDto movementDetail = new MovementDetailDto();
-                    //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
-                    //movementDetail.HeaderId = headerId;
-                    await _movementDetailsAppService.DeleteMovementDetail(headerId);
-                    await _movementDetailsAppService.AddMovementDetail(movementDetail);
-                }
-          }
+            // MovementDetails'ý alýnan MovementHeaderId ile kaydet
+            foreach (var detail in input.Details)
+            {
+                  MovementDetailDto movementDetail = new MovementDetailDto();
+                  JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
+                  movementDetail.HeaderId = headerId;
+                  if (detail.Type == "insert")
+                  {
+                      //MovementDetailDto movementDetail = new MovementDetailDto();
+                      //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
+                      //movementDetail.HeaderId = headerId;
+                      await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                      //var detailEntity = MapToEntityDetail(movementDetail);
+                      //await _movementDetailRepository.InsertAsync(detailEntity);
+                  }
+                  else if (detail.Type == "Delete")
+                  {
+                      var qry = await _movementDetailRepository.GetQueryableAsync();
+                      qry = qry.Where(x=> x.HeaderId == headerId);
+                      await _movementDetailsAppService.DeleteMovementDetail(movementDetail.Id); 
+                      //var detailEntity = MapToEntityDetail(movementDetail);
+                      //await _movementDetailRepository.DeleteAsync(detailEntity);
+                  }
+                  else if (detail.Type == "Update")
+                  {
+                      await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+
+                      
+                      //await _movementDetailsAppService.DeleteMovementDetail(headerId);
+                      //await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                  }
+            }
   
         }
         public async Task<List<LookupDto<int>>> PaymentTypeLookup()

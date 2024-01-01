@@ -87,9 +87,9 @@ namespace QuickSell.StockUnits
             var stockUnitDto = ObjectMapper.Map<StockUnit, StockUnitDto>(stockUnit);
             await DevExtremeUpdate.Update(stockUnitDto, input);
 
-            return await BPUpdateEmployees(stockUnitDto.Id, stockUnitDto);
+            return await UpdateStockUnit(stockUnitDto.Id, stockUnitDto);
         }
-        public async Task<StockUnitDto> BPUpdateEmployees(Guid id, StockUnitDto input)
+        public async Task<StockUnitDto> UpdateStockUnit(Guid id, StockUnitDto input)
         {
             await StockUnitValidation(input);
             var stockUnit = await _stockUnitManager.UpdateAsync(
