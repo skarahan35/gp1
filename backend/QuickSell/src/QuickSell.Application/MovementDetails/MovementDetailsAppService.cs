@@ -97,6 +97,25 @@ namespace QuickSell.MovementDetails
             await _movementDetailsRepository.UpdateAsync(updated);
             return ObjectMapper.Map<MovementDetail, MovementDetailDto>(updated);
         }
+        public async Task<MovementDetailDto> UpdateMovementDetails(Guid id, MovementDetailDto input)
+        {
+            var movementDetail = await _movementDetailsManager.UpdateAsync(
+                id,
+                input.TypeCode,
+                input.ReceiptNo,
+                input.StockCardID,
+                input.Quantity,
+                input.Price,
+                input.DiscountRate,
+                input.DiscountAmount,
+                input.VATRate,
+                input.VATAmount,
+                input.HeaderId
+            );
+            await _movementDetailsRepository.UpdateAsync(movementDetail);
+
+            return ObjectMapper.Map<MovementDetail, MovementDetailDto>(movementDetail);
+        }
         public async Task DeleteMovementDetail(Guid id)
         {
             await _movementDetailsRepository.DeleteAsync(id);
