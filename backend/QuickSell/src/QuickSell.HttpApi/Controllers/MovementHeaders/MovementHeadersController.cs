@@ -63,7 +63,7 @@ namespace QuickSell.Controllers.MovementHeaders
             return await _movementHeadersAppService.PaymentTypeLookup();
         }
         [HttpGet]
-        [Route("300108")]
+        [Route("300109")]
         public async Task<List<LookupDto<int>>> TypeEnumLookup()
         {
             return await _movementHeadersAppService.TypeEnumLookup();
