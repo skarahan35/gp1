@@ -166,7 +166,7 @@ namespace QuickSell.MovementHeaders
                 MovementDetailDto movementDetail = new MovementDetailDto();
                 JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
                 movementDetail.HeaderId = headerId;
-                if (detail.Type == "Insert")
+                if (detail.Type == "insert")
                 {
                     //MovementDetailDto movementDetail = new MovementDetailDto();
                     //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
