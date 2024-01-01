@@ -101,5 +101,12 @@ namespace QuickSell.MovementDetails
         {
             await _movementDetailsRepository.DeleteAsync(id);
         }
+        public async Task<List<MovementDetail>> GetHeaderId(Guid id)
+        {
+            var qry = await _movementDetailsRepository.GetQueryableAsync();
+            var result = qry.Where(x => x.HeaderId == id).ToList();
+
+            return result;
+        }
     }
 }

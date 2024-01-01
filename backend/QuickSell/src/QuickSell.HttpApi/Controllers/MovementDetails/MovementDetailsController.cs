@@ -55,5 +55,11 @@ namespace  QuickSell.Controllers.MovementDetails
         {
             return await _movementDetailsAppService.UpdateMovementDetail(id, input);
         }
+        [HttpGet]
+        [Route("300208/{id}")]
+        public async Task<List<MovementDetail>> GetHeaderId(Guid id)
+        {
+            return await _movementDetailsAppService.GetHeaderId(id);
+        }
     }
 }
