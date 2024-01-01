@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Entities;
 namespace QuickSell.EndUsers
 {
 
-    public class EndUserDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp, INameControlFields
+    public class EndUserDto:FullAuditedEntityDto<Guid>, IHasConcurrencyStamp
     {
 
         public string? UserName { get; set; }

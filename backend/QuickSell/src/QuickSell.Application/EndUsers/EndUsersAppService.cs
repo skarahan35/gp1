@@ -71,11 +71,6 @@ namespace QuickSell.EndUsers
                 return EndUsers;
             }
         }
-        public async Task EndUserValidation(EndUserDto input)
-        {
-            var qry = await _endUserRepository.GetQueryableAsync();
-            await Validation<EndUser, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
-        }
         public async Task<EndUserDto> AddEndUser(EndUserDto input)
         {
             var EndUser = await _endUserManager.CreateAsync(
@@ -87,7 +82,6 @@ namespace QuickSell.EndUsers
               input.Address,
               input.Password
               );
-            await EndUserValidation(input);
             return ObjectMapper.Map<EndUser, EndUserDto>(EndUser);
         }
         public async Task<EndUserDto> UpdateEndUser(Guid id, IDictionary<string, object> input)
@@ -100,7 +94,6 @@ namespace QuickSell.EndUsers
         }
         public async Task<EndUserDto> BPUpdateEmployees(Guid id, EndUserDto input)
         {
-            await EndUserValidation(input);
             var EndUser = await _endUserManager.UpdateAsync(
                 id,
                 input.UserName,

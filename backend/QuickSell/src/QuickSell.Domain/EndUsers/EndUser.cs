@@ -7,7 +7,7 @@ using QuickSell.Tools;
 namespace QuickSell.EndUsers
 {
 
-    public  class EndUser : FullAuditedAggregateRoot<Guid>, IMultiTenant,INameControlFields
+    public  class EndUser : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         
         [StringLength(64,MinimumLength=1)]
