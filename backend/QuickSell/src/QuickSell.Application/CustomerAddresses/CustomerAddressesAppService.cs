@@ -140,6 +140,13 @@ namespace QuickSell.CustomerAddresses
         {
             await _customerAddressRepository.DeleteAsync(id);
         }
+        public async Task<List<CustomerAddress>> GetCustomerId(Guid id)
+        {
+            var qry = await _customerAddressRepository.GetQueryableAsync();
+            var result = qry.Where(x => x.CustomerCardId == id).ToList();
+
+            return result;
+        }
 
     }
 }

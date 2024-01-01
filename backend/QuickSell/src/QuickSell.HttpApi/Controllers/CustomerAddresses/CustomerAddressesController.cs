@@ -12,8 +12,8 @@ using QuickSell.Shared;
 
 namespace  QuickSell.Controllers.CustomerAddresses
 {
-    
-    public class CustomerAddressesController : AbpController,ICustomerAddressesAppService
+
+    public class CustomerAddressesController : AbpController, ICustomerAddressesAppService
     {
         private readonly ICustomerAddressesAppService _customerAddressesAppService;
 
@@ -54,6 +54,11 @@ namespace  QuickSell.Controllers.CustomerAddresses
         {
             return await _customerAddressesAppService.UpdateCustomerAddress(id, input);
         }
-
+        [HttpGet]
+        [Route("200206/{id}")]
+        public async Task<List<CustomerAddress>> GetCustomerId(Guid id)
+        {
+            return await _customerAddressesAppService.GetCustomerId(id);
+        }
     }
 }
