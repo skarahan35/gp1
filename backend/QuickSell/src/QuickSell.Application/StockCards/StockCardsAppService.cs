@@ -117,5 +117,18 @@ namespace QuickSell.StockCards
         {
             await _stockCardRepository.DeleteAsync(id);
         }
+        public async Task<List<LookupDto<int>>> CurrencyTypeLookup()
+        {
+            var operationType = typeof(CurrencyTypeEnum).GetEnumValues().Cast<object>().ToDictionary(o => (int)o, v => v.ToString());
+            var lookupdata = new List<LookupDto<int>>();
+
+            foreach (var item in operationType)
+            {
+                var displayName = Enum.GetName(typeof(CurrencyTypeEnum), item.Key);
+                lookupdata.Add(new LookupDto<int> { Id = item.Key, DisplayName = displayName });
+            }
+
+            return lookupdata;
+        }
     }
 }

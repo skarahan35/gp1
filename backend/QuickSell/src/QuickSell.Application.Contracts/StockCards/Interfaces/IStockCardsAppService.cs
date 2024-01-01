@@ -18,6 +18,7 @@ namespace QuickSell.StockCards
         Task<StockCardDto> AddStockCard(StockCardDto input);
         Task<StockCardDto> UpdateStockCard(Guid id, IDictionary<string, object> input);
         Task DeleteStockCard(Guid id);
+        Task<List<LookupDto<int>>> CurrencyTypeLookup();
     }
 }
 

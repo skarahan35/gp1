@@ -151,7 +151,7 @@ namespace QuickSell.MovementHeaders
 
             return detailEntity;
         }
-        public async Task SaveMovement(MovementDTO input, string type)
+        public async Task SaveMovement(MovementDTO input)
         {
           var headerEntity = MapToEntityHeader(input.Header);
           var savedHeader = await _movementHeaderRepository.InsertAsync(headerEntity);

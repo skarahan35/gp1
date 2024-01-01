@@ -50,10 +50,11 @@ namespace QuickSell.Controllers.MovementHeaders
         {
             return await _movementHeadersAppService.UpdateMovementHeader(id, input);
         }
-
-        public async Task SaveMovement(MovementDTO input, string type)
+        [HttpPost]
+        [Route("300106")]
+        public async Task SaveMovement(MovementDTO input)
         {
-            await _movementHeadersAppService.SaveMovement(input, type);
+            await _movementHeadersAppService.SaveMovement(input);
         }
     }
 }
