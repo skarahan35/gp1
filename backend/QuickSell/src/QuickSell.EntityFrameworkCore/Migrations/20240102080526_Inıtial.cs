@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace QuickSell.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inıtial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,6 +81,29 @@ namespace QuickSell.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CustomerSubGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerSubGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CustomerTypes",
                 columns: table => new
                 {
@@ -127,6 +150,59 @@ namespace QuickSell.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EndUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    SurName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EMail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: true),
+                    Address = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EndUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prefixes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Parameter = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
+                    BeUsed = table.Column<bool>(type: "boolean", nullable: true),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prefixes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StockGroups",
                 columns: table => new
                 {
@@ -147,6 +223,29 @@ namespace QuickSell.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StockGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockSubGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockSubGroups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,6 +278,7 @@ namespace QuickSell.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    InternationalCode = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
@@ -204,11 +304,10 @@ namespace QuickSell.Migrations
                     Code = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     CustomerTypeID = table.Column<Guid>(type: "uuid", nullable: false),
-                    AddressID = table.Column<Guid>(type: "uuid", nullable: true),
                     CustomerGroupID = table.Column<Guid>(type: "uuid", nullable: false),
                     TaxOffice = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     TaxNo = table.Column<int>(type: "integer", nullable: true),
-                    TCNumber = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: false),
                     AuthorizedPerson = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     EMail = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     RiskLimit = table.Column<decimal>(type: "numeric", nullable: true),
@@ -315,10 +414,10 @@ namespace QuickSell.Migrations
                     TotalOutputQuantity = table.Column<decimal>(type: "numeric", nullable: true),
                     VATRate = table.Column<int>(type: "integer", nullable: true),
                     DiscountRate = table.Column<int>(type: "integer", nullable: true),
-                    CurrencyType = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    Price1 = table.Column<decimal>(type: "numeric", nullable: true),
-                    Price2 = table.Column<decimal>(type: "numeric", nullable: true),
-                    Price3 = table.Column<decimal>(type: "numeric", nullable: true),
+                    CurrencyType = table.Column<int>(type: "integer", maxLength: 64, nullable: true),
+                    Price1 = table.Column<decimal>(type: "numeric(12,6)", nullable: true),
+                    Price2 = table.Column<decimal>(type: "numeric(12,6)", nullable: true),
+                    Price3 = table.Column<decimal>(type: "numeric(12,6)", nullable: true),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
@@ -358,20 +457,16 @@ namespace QuickSell.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CustomerCardID = table.Column<Guid>(type: "uuid", nullable: false),
-                    AddressCode = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Code = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     Road = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Street = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     BuildingName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     BuildingNo = table.Column<int>(type: "integer", nullable: true),
                     PostCode = table.Column<int>(type: "integer", nullable: true),
-                    DistrictID = table.Column<Guid>(type: "uuid", nullable: false),
-                    CityID = table.Column<Guid>(type: "uuid", nullable: false),
-                    CountryID = table.Column<Guid>(type: "uuid", nullable: false),
-                    CustomerCardId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DistrictId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CityId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CountryId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CustomerCardId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DistrictId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CountryId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
@@ -387,26 +482,26 @@ namespace QuickSell.Migrations
                 {
                     table.PrimaryKey("PK_CustomerAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomerAddresses_Cities_CityID",
-                        column: x => x.CityID,
+                        name: "FK_CustomerAddresses_Cities_CityId",
+                        column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerAddresses_Countries_CountryID",
-                        column: x => x.CountryID,
+                        name: "FK_CustomerAddresses_Countries_CountryId",
+                        column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerAddresses_CustomerCards_CustomerCardID",
-                        column: x => x.CustomerCardID,
+                        name: "FK_CustomerAddresses_CustomerCards_CustomerCardId",
+                        column: x => x.CustomerCardId,
                         principalTable: "CustomerCards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerAddresses_Districts_DistrictID",
-                        column: x => x.DistrictID,
+                        name: "FK_CustomerAddresses_Districts_DistrictId",
+                        column: x => x.DistrictId,
                         principalTable: "Districts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -418,12 +513,14 @@ namespace QuickSell.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TypeCode = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
-                    ReceiptNo = table.Column<int>(type: "integer", nullable: true),
+                    ReceiptNo = table.Column<int>(type: "integer", precision: 10, nullable: true),
                     CustomerCardID = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstAmount = table.Column<int>(type: "integer", nullable: true),
-                    DiscountAmount = table.Column<int>(type: "integer", nullable: true),
-                    VATAmount = table.Column<int>(type: "integer", nullable: true),
-                    TotalAmount = table.Column<int>(type: "integer", nullable: true),
+                    FirstAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    VATAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    AddressID = table.Column<Guid>(type: "uuid", nullable: true),
+                    PaymentType = table.Column<int>(type: "integer", nullable: true),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
@@ -439,45 +536,14 @@ namespace QuickSell.Migrations
                 {
                     table.PrimaryKey("PK_MovementHeaders", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_MovementHeaders_CustomerCards_AddressID",
+                        column: x => x.AddressID,
+                        principalTable: "CustomerCards",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_MovementHeaders_CustomerCards_CustomerCardID",
                         column: x => x.CustomerCardID,
                         principalTable: "CustomerCards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MovementDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TypeCode = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
-                    ReceiptNo = table.Column<int>(type: "integer", nullable: true),
-                    StockCardID = table.Column<Guid>(type: "uuid", nullable: false),
-                    Quantity = table.Column<decimal>(type: "numeric", nullable: true),
-                    Price = table.Column<decimal>(type: "numeric", nullable: true),
-                    DiscountRate = table.Column<decimal>(type: "numeric", nullable: true),
-                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: true),
-                    VATRate = table.Column<decimal>(type: "numeric", nullable: true),
-                    VATAmount = table.Column<decimal>(type: "numeric", nullable: true),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MovementDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MovementDetails_StockCards_StockCardID",
-                        column: x => x.StockCardID,
-                        principalTable: "StockCards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -488,7 +554,7 @@ namespace QuickSell.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     StockCardID = table.Column<Guid>(type: "uuid", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: true),
+                    Price = table.Column<decimal>(type: "numeric(12,6)", nullable: true),
                     PriceType = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
@@ -512,6 +578,51 @@ namespace QuickSell.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "MovementDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TypeCode = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    ReceiptNo = table.Column<int>(type: "integer", precision: 10, nullable: true),
+                    StockCardID = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantity = table.Column<decimal>(type: "numeric", nullable: true),
+                    Price = table.Column<decimal>(type: "numeric(12,6)", nullable: true),
+                    DiscountRate = table.Column<decimal>(type: "numeric", nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    VATRate = table.Column<decimal>(type: "numeric", nullable: true),
+                    VATAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    FirstAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    HeaderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovementDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MovementDetails_MovementHeaders_HeaderId",
+                        column: x => x.HeaderId,
+                        principalTable: "MovementHeaders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovementDetails_StockCards_StockCardID",
+                        column: x => x.StockCardID,
+                        principalTable: "StockCards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_CityID",
                 table: "Companies",
@@ -528,24 +639,24 @@ namespace QuickSell.Migrations
                 column: "DistrictID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAddresses_CityID",
+                name: "IX_CustomerAddresses_CityId",
                 table: "CustomerAddresses",
-                column: "CityID");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAddresses_CountryID",
+                name: "IX_CustomerAddresses_CountryId",
                 table: "CustomerAddresses",
-                column: "CountryID");
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAddresses_CustomerCardID",
+                name: "IX_CustomerAddresses_CustomerCardId",
                 table: "CustomerAddresses",
-                column: "CustomerCardID");
+                column: "CustomerCardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAddresses_DistrictID",
+                name: "IX_CustomerAddresses_DistrictId",
                 table: "CustomerAddresses",
-                column: "DistrictID");
+                column: "DistrictId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerCards_CustomerGroupID",
@@ -558,9 +669,19 @@ namespace QuickSell.Migrations
                 column: "CustomerTypeID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovementDetails_HeaderId",
+                table: "MovementDetails",
+                column: "HeaderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MovementDetails_StockCardID",
                 table: "MovementDetails",
                 column: "StockCardID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovementHeaders_AddressID",
+                table: "MovementHeaders",
+                column: "AddressID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovementHeaders_CustomerCardID",
@@ -598,13 +719,22 @@ namespace QuickSell.Migrations
                 name: "CustomerAddresses");
 
             migrationBuilder.DropTable(
+                name: "CustomerSubGroups");
+
+            migrationBuilder.DropTable(
+                name: "EndUsers");
+
+            migrationBuilder.DropTable(
                 name: "MovementDetails");
 
             migrationBuilder.DropTable(
-                name: "MovementHeaders");
+                name: "Prefixes");
 
             migrationBuilder.DropTable(
                 name: "StockPrices");
+
+            migrationBuilder.DropTable(
+                name: "StockSubGroups");
 
             migrationBuilder.DropTable(
                 name: "Cities");
@@ -616,16 +746,13 @@ namespace QuickSell.Migrations
                 name: "Districts");
 
             migrationBuilder.DropTable(
-                name: "CustomerCards");
+                name: "MovementHeaders");
 
             migrationBuilder.DropTable(
                 name: "StockCards");
 
             migrationBuilder.DropTable(
-                name: "CustomerGroups");
-
-            migrationBuilder.DropTable(
-                name: "CustomerTypes");
+                name: "CustomerCards");
 
             migrationBuilder.DropTable(
                 name: "StockGroups");
@@ -635,6 +762,12 @@ namespace QuickSell.Migrations
 
             migrationBuilder.DropTable(
                 name: "StockUnits");
+
+            migrationBuilder.DropTable(
+                name: "CustomerGroups");
+
+            migrationBuilder.DropTable(
+                name: "CustomerTypes");
         }
     }
 }

@@ -1,5 +1,6 @@
 using Volo.Abp.Application.Dtos;
 using System;
+using QuickSell.Shared;
 
 namespace QuickSell.StockCards
 {
@@ -8,7 +9,7 @@ namespace QuickSell.StockCards
         public string FilterText { get; set; }
         public string  Code { get; set; } 
         public string  Name { get; set; } 
-        public string  CurrencyType { get; set; } 
+        public CurrencyTypeEnum? CurrencyType { get; set; } 
              
         public int? TransferredQuantityMin { get; set; } 
         public int? TransferredQuantityMax { get; set; } 

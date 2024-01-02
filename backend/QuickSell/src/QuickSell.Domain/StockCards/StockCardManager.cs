@@ -7,6 +7,7 @@ using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Data;
+using QuickSell.Shared;
 
 namespace QuickSell.StockCards
 {
@@ -25,7 +26,7 @@ namespace QuickSell.StockCards
               Guid? stockTypeID,
               Guid? stockUnitID,
               Guid? stockGroupID,
-              string currencyType, 
+              CurrencyTypeEnum? currencyType, 
               decimal? transferredQuantity, 
               decimal? availableQuantity, 
               decimal? totalEntryQuantity, 
@@ -68,7 +69,7 @@ namespace QuickSell.StockCards
           Guid? stockTypeID,
           Guid? stockUnitID,
           Guid? stockGroupID,
-          string currencyType, 
+          CurrencyTypeEnum? currencyType, 
           decimal? transferredQuantity, 
           decimal? availableQuantity, 
           decimal? totalEntryQuantity, 

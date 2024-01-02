@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickSell.Shared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace QuickSell.StockCards
         public decimal? TotalOutputQuantity { get; set; }
         public int? VATRate { get; set; }
         public int? DiscountRate { get; set; }
-        public string? CurrencyType { get; set; }
+        public CurrencyTypeEnum? CurrencyType { get; set; }
         public decimal? Price1 { get; set; }
         public decimal? Price2 { get; set; }
         public decimal? Price3 { get; set; }

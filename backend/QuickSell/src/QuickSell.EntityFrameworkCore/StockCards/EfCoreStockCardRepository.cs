@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using QuickSell.EntityFrameworkCore;
+using QuickSell.Shared;
 
 
 namespace QuickSell.StockCards
@@ -26,7 +27,7 @@ namespace QuickSell.StockCards
              string sorting = null, 
              string? code = null,
              string? name = null,
-             string currencyType = null,
+             CurrencyTypeEnum? currencyType = null,
              decimal? transferredQuantityMin = null, 
              decimal? transferredQuantityMax = null, 
              decimal? availableQuantityMin = null, 
@@ -84,7 +85,7 @@ namespace QuickSell.StockCards
          string filterText = null,
          string? code = null, 
          string? name = null,
-         string currencyType = null, 
+         CurrencyTypeEnum? currencyType = null, 
          decimal? transferredQuantityMin = null,
          decimal? transferredQuantityMax = null, 
          decimal? availableQuantityMin = null,
@@ -136,7 +137,7 @@ namespace QuickSell.StockCards
             string filterText = null
           ,string code= null  
           ,string name= null  
-          ,string currencyType= null  
+          , CurrencyTypeEnum? currencyType = null  
           ,decimal? transferredQuantityMin= null 
           ,decimal? transferredQuantityMax= null 
           ,decimal? availableQuantityMin= null 
@@ -159,9 +160,8 @@ namespace QuickSell.StockCards
         {
             return query
             .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Code.Contains(filterText)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.Name.Contains(filterText)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.CurrencyType.Contains(filterText)) 
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText))
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Name.Contains(filterText))
             .WhereIf(transferredQuantityMin.HasValue, e => e.TransferredQuantity >= transferredQuantityMin.Value)
             .WhereIf(transferredQuantityMax.HasValue, e => e.TransferredQuantity >= transferredQuantityMax.Value)
             .WhereIf(availableQuantityMin.HasValue, e => e.AvailableQuantity >= availableQuantityMin.Value)
@@ -180,9 +180,9 @@ namespace QuickSell.StockCards
             .WhereIf(price2Max.HasValue, e => e.Price2 >= price2Max.Value)
             .WhereIf(price3Min.HasValue, e => e.Price3 >= price3Min.Value)
             .WhereIf(price3Max.HasValue, e => e.Price3 >= price3Max.Value)
-            .WhereIf(!string.IsNullOrWhiteSpace(code),e => e.Code.Contains(code)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(name),e => e.Name.Contains(name)) 
-            .WhereIf(!string.IsNullOrWhiteSpace(currencyType),e => e.CurrencyType.Contains(currencyType));
+            .WhereIf(!string.IsNullOrWhiteSpace(code), e => e.Code.Contains(code))
+            .WhereIf(!string.IsNullOrWhiteSpace(name), e => e.Name.Contains(name))
+            .WhereIf(currencyType.HasValue, e => e.CurrencyType == currencyType.Value);
         }
     }
 }
