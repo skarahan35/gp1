@@ -125,11 +125,11 @@ namespace QuickSell.StockCards
             var stockCardDto = ObjectMapper.Map<StockCard, StockCardDto>(stockCard);
             await DevExtremeUpdate.Update(stockCardDto, input);
 
-            return await BPUpdateStockCard(stockCardDto.Id, stockCardDto);
+            return await BPUpdateStockCards(stockCardDto.Id, stockCardDto);
         }
-        public async Task<StockCardDto> BPUpdateStockCard(Guid id, StockCardDto input)
+        public async Task<StockCardDto> BPUpdateStockCards(Guid? id, StockCardDto input)
         {
-            await StockCardValidation(input);
+            //await StockCardValidation(input);
             var stockCard = await _stockCardManager.UpdateAsync(
               id,
               input.Code,

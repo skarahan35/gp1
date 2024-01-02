@@ -14,6 +14,9 @@ using QuickSell.MovementDetails;
 using Newtonsoft.Json;
 using Volo.Abp.ObjectMapping;
 using QuickSell.Shared;
+using QuickSell.StockCards;
+using Microsoft.Extensions.Localization;
+using QuickSell.Localization;
 
 namespace QuickSell.MovementHeaders
 {
@@ -24,14 +27,18 @@ namespace QuickSell.MovementHeaders
         private readonly IMovementDetailsRepository _movementDetailRepository;
         private readonly MovementDetailsManager _movementDetailsManager;
         private readonly MovementDetailsAppService _movementDetailsAppService;
+        private readonly StockCardsAppService _stockCardsAppService;
         private readonly IDataFilter _dataFilter;
-    
+        private readonly IStringLocalizer<QuickSellResource> _localizer;
+
         public MovementHeadersAppService(IMovementHeaderRepository movementHeaderRepository,
                                          MovementHeaderManager movementHeaderManager,
                                          IDataFilter dataFilter,
                                          IMovementDetailsRepository movementDetailRepository,
                                          MovementDetailsManager movementDetailsManager,
-                                         MovementDetailsAppService movementDetailsAppService)
+                                         MovementDetailsAppService movementDetailsAppService,
+                                         StockCardsAppService stockCardsAppService,
+                                         IStringLocalizer<QuickSellResource> localizer)
         {
             _movementHeaderRepository = movementHeaderRepository;
             _movementHeaderManager= movementHeaderManager;
@@ -39,6 +46,8 @@ namespace QuickSell.MovementHeaders
             _movementDetailRepository= movementDetailRepository;
             _movementDetailsManager = movementDetailsManager;
             _movementDetailsAppService = movementDetailsAppService;
+            _stockCardsAppService = stockCardsAppService;
+            _localizer= localizer;
         }
 
         public async Task<LoadResult> GetListMovementHeader(DataSourceLoadOptions loadOptions)
@@ -148,26 +157,6 @@ namespace QuickSell.MovementHeaders
 
             return headerEntity;
         }
-        //public static MovementDetail MapToEntityDetail(MovementDetailDto detailDto)
-        //{
-
-        //    var detailEntity = new MovementDetail
-        //    {
-        //        // Özellikleri kopyalama
-        //        TypeCode = detailDto.TypeCode,
-        //        ReceiptNo = detailDto.ReceiptNo,
-        //        StockCardID = detailDto.StockCardID,
-        //        Quantity = detailDto.Quantity,
-        //        Price = detailDto.Price,
-        //        DiscountRate = detailDto.DiscountRate,
-        //        DiscountAmount = detailDto.DiscountAmount,
-        //        VATRate = detailDto.VATRate,
-        //        VATAmount = detailDto.VATAmount,
-        //        HeaderId = detailDto.HeaderId
-        //    };
-
-        //    return detailEntity;
-        //}
         public async Task SaveMovement(MovementDTO input)
         {
             var headerId = Guid.Empty;
@@ -175,50 +164,110 @@ namespace QuickSell.MovementHeaders
             {
                 var savedHeader = await AddMovementHeader(input.Header);
                 headerId = savedHeader.Id;
-                //var headerEntity = MapToEntityHeader(input.Header);
-                //var savedHeader = await _movementHeaderRepository.InsertAsync(headerEntity);
             }
             else
             {
                 var savedHeader = await UpdateMovementHeaders(input.Header.Id,input.Header);
                 headerId = savedHeader.Id;
             }
-            
-            //unitOfWork.SaveChanges();
-
-            // Kaydedilen MovementHeader'ýn ID'sini al
-            
-
-            // MovementDetails'ý alýnan MovementHeaderId ile kaydet
             foreach (var detail in input.Details)
             {
                   MovementDetailDto movementDetail = new MovementDetailDto();
                   JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
                   movementDetail.HeaderId = headerId;
+                  var data = await _stockCardsAppService.GetStockCardByID(movementDetail.StockCardID);
+                  var updateDto = new StockCardDto
+                  {
+                      Code = data.Code,
+                      Name = data.Name,
+                      StockTypeID = data.StockTypeID,
+                      StockUnitID = data.StockUnitID,
+                      StockGroupID = data.StockGroupID,
+                      TransferredQuantity = data.TransferredQuantity,
+                      AvailableQuantity = data.AvailableQuantity,
+                      TotalEntryQuantity = data.TotalEntryQuantity,
+                      TotalOutputQuantity = data.TotalOutputQuantity,
+                      VATRate = data.VATRate,
+                      DiscountRate = data.DiscountRate,
+                      CurrencyType = data.CurrencyType,
+                      Price1 = data.Price1,
+                      Price2 = data.Price2,
+                      Price3 = data.Price3,
+                  };
                   if (detail.Type == "insert")
                   {
-                      //MovementDetailDto movementDetail = new MovementDetailDto();
-                      //JsonConvert.PopulateObject(detail.Data.ToString() ?? string.Empty, movementDetail);
-                      //movementDetail.HeaderId = headerId;
-                      await _movementDetailsAppService.AddMovementDetail(movementDetail);
-                      //var detailEntity = MapToEntityDetail(movementDetail);
-                      //await _movementDetailRepository.InsertAsync(detailEntity);
+                    if (input.Header.TypeCode == TypeEnum.Sales)
+                    {
+                        if (updateDto.AvailableQuantity >= 0)
+                        {
+                            updateDto.AvailableQuantity = updateDto.AvailableQuantity - movementDetail.Quantity;
+                            await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                            await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                        }
+                        else
+                        {
+                            throw new UserFriendlyException(string.Format(_localizer["InsufficientStock"]));
+                        }
+                    }
+                    else if (input.Header.TypeCode == TypeEnum.Purchase)
+                    {
+                       updateDto.AvailableQuantity = updateDto.AvailableQuantity + movementDetail.Quantity;
+                       await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                       await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                   
+                    }
+                    
                   }
                   else if (detail.Type == "remove")
                   {
                       var qry = await _movementDetailRepository.GetQueryableAsync();
                       qry = qry.Where(x=> x.HeaderId == headerId);
                       await _movementDetailsAppService.DeleteMovementDetail(movementDetail.Id); 
-                      //var detailEntity = MapToEntityDetail(movementDetail);
-                      //await _movementDetailRepository.DeleteAsync(detailEntity);
                   }
                   else if (detail.Type == "update")
                   {
-                      await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                    if (input.Header.TypeCode == TypeEnum.Sales)
+                    {
+                        var qry = await _movementDetailRepository.GetQueryableAsync();
+                        var oldData = qry.Where(qry => qry.HeaderId == movementDetail.HeaderId && qry.StockCardID == movementDetail.StockCardID).FirstOrDefault();
+                        if (movementDetail.Quantity != oldData.Quantity)
+                        {
+                            updateDto.AvailableQuantity = updateDto.AvailableQuantity + oldData.Quantity - movementDetail.Quantity;
+                            if (updateDto.AvailableQuantity >= 0)
+                            {
+                                await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                                await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                            }
+                            else
+                            {
+                                throw new UserFriendlyException(string.Format(_localizer["InsufficientStock"]));
+                            }
 
-                      
-                      //await _movementDetailsAppService.DeleteMovementDetail(headerId);
-                      //await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                        }
+                        else
+                        {
+                            await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                        }
+                    }
+                    else if (input.Header.TypeCode == TypeEnum.Purchase)
+                    {
+                        var qry = await _movementDetailRepository.GetQueryableAsync();
+                        var oldData = qry.Where(qry => qry.HeaderId == movementDetail.HeaderId && qry.StockCardID == movementDetail.StockCardID).FirstOrDefault();
+                        if (movementDetail.Quantity != oldData.Quantity)
+                        {
+                            updateDto.AvailableQuantity = updateDto.AvailableQuantity + oldData.Quantity + movementDetail.Quantity;
+                            
+                            await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                            await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                            
+                        }
+                        else
+                        {
+                            await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                        }
+                    }
+                    
+                    
                   }
             }
   

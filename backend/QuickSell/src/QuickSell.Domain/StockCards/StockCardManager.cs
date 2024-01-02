@@ -63,7 +63,7 @@ namespace QuickSell.StockCards
         }
 
         public async Task<StockCard> UpdateAsync(
-           Guid id,
+           Guid? id,
           string? code, 
           string? name,
           Guid? stockTypeID,

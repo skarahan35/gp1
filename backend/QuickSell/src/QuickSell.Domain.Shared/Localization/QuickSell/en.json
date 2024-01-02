@@ -4,6 +4,7 @@
     "MyAccount": "My account",
     "SamplePageMessage": "A sample page for the QuickSell module",
     "Code:AlreadyExist": "This code already exists",
-    "Code:Null": "Code field cannot be empty"
+    "Code:Null": "Code field cannot be empty",
+    "InsufficientStock": "Insufficient Stock"
   }
 }

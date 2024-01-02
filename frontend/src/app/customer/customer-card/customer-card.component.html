@@ -5,11 +5,11 @@
       <li class="breadcrumb-item active" aria-current="page">Customer Card</li>
     </ol>
   </nav>
-  
+
   <div id="data-grid-demo" >
       <dx-data-grid
       width="1400px"
-      
+
       #targetDataGrid
         id="gridContainer"
         [dataSource]="dataSource"
@@ -31,7 +31,7 @@
           [selection]="{ mode: 'multiple' }"
           [rowAlternationEnabled]="true"
           [remoteOperations]="false"
-          
+
       >
       <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
@@ -93,7 +93,7 @@
             </dxi-item>
           </dxo-form>
         </dxo-editing>
-    
+
         <dxi-column dataField="code" dataType="string" [visible]="true" [width]="150">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
@@ -103,7 +103,7 @@
         <dxi-column dataField="customerTypeID" caption="Customer Type" dataType="string" [visible]="true" [width]="250">
             <dxo-lookup [dataSource]="customerTypeLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-    
+
         <dxi-column dataField="customerGroupID" caption="Customer Group" dataType="string" [visible]="true" [width]="250">
             <dxo-lookup [dataSource]="customerGroupLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
