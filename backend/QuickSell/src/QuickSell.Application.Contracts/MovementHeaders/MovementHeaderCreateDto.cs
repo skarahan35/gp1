@@ -11,7 +11,7 @@ namespace QuickSell.MovementHeaders
 
     public class MovementHeaderCreateDto
     {
-        public string? TypeCode { get; set; }
+        public TypeEnum? TypeCode { get; set; }
         public int? ReceiptNo { get; set; }
         public Guid? CustomerCardID { get; set; }
         public decimal? FirstAmount { get; set; }

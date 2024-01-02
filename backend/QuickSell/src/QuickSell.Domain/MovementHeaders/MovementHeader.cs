@@ -12,7 +12,7 @@ namespace QuickSell.MovementHeaders
     {
         
         [StringLength(64,MinimumLength=0)]
-        public string? TypeCode { get; set; }
+        public TypeEnum? TypeCode { get; set; }
         public int? ReceiptNo { get; set; }
         public Guid? CustomerCardID { get; set; }
         public decimal? FirstAmount { get; set; }
@@ -34,7 +34,7 @@ namespace QuickSell.MovementHeaders
         public MovementHeader
         (
             Guid id
-          ,string? typeCode 
+          , TypeEnum? typeCode 
           ,int? receiptNo
           , Guid? customerCardID
           , decimal? firstAmount

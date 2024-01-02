@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace QuickSell.Migrations
 {
     /// <inheritdoc />
-    public partial class Inıtial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -512,7 +512,7 @@ namespace QuickSell.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TypeCode = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    TypeCode = table.Column<int>(type: "integer", maxLength: 64, nullable: true),
                     ReceiptNo = table.Column<int>(type: "integer", precision: 10, nullable: true),
                     CustomerCardID = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstAmount = table.Column<decimal>(type: "numeric", nullable: true),
