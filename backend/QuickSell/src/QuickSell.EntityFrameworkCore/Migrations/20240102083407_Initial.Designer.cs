@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace QuickSell.Migrations
 {
     [DbContext(typeof(QuickSellDbContext))]
-    [Migration("20240102080526_Inıtial")]
-    partial class Inıtial
+    [Migration("20240102083407_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1012,9 +1012,9 @@ namespace QuickSell.Migrations
                     b.Property<decimal?>("TotalAmount")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("TypeCode")
+                    b.Property<int?>("TypeCode")
                         .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("VATAmount")
                         .HasColumnType("numeric");

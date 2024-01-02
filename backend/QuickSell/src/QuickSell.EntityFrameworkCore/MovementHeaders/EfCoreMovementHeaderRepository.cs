@@ -24,7 +24,7 @@ namespace QuickSell.MovementHeaders
         public async Task<List<MovementHeader>> GetListAsync(
              string filterText = null
             ,string sorting = null
-            ,string typeCode= null 
+            , TypeEnum? typeCode = null 
             ,int? receiptNoMin= null 
             ,int? receiptNoMax= null 
             ,decimal? firstAmountMin= null 
@@ -62,7 +62,7 @@ namespace QuickSell.MovementHeaders
 
         public async Task<long> GetCountAsync(
          string filterText = null
-          ,string typeCode= null 
+          , TypeEnum? typeCode = null 
           ,int? receiptNoMin= null 
           ,int? receiptNoMax= null 
           ,decimal? firstAmountMin= null 
@@ -97,7 +97,7 @@ namespace QuickSell.MovementHeaders
         protected virtual IQueryable<MovementHeader> ApplyFilter(
             IQueryable<MovementHeader> query,
             string filterText = null
-          ,string typeCode= null  
+          , TypeEnum? typeCode = null  
           ,int? receiptNoMin= null 
           ,int? receiptNoMax= null 
           ,decimal? firstAmountMin= null 
@@ -112,7 +112,6 @@ namespace QuickSell.MovementHeaders
         {
             return query
             .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => true)
-            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.TypeCode.Contains(filterText)) 
             .WhereIf(receiptNoMin.HasValue, e => e.ReceiptNo >= receiptNoMin.Value)
             .WhereIf(receiptNoMax.HasValue, e => e.ReceiptNo >= receiptNoMax.Value)
             .WhereIf(firstAmountMin.HasValue, e => e.FirstAmount >= firstAmountMin.Value)
@@ -124,8 +123,8 @@ namespace QuickSell.MovementHeaders
             .WhereIf(totalAmountMin.HasValue, e => e.TotalAmount >= totalAmountMin.Value)
             .WhereIf(totalAmountMax.HasValue, e => e.TotalAmount >= totalAmountMax.Value)
 
-            .WhereIf(!string.IsNullOrWhiteSpace(typeCode),e => e.TypeCode.Contains(typeCode))
             .WhereIf(paymentType.HasValue, e => e.PaymentType == paymentType.Value)
+            .WhereIf(typeCode.HasValue, e => e.TypeCode == typeCode.Value)
          ;
         }
 

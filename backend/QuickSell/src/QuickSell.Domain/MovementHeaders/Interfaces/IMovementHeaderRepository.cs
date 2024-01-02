@@ -19,7 +19,7 @@ namespace QuickSell.MovementHeaders
       Task<List< MovementHeader>> GetListAsync(
          string filterText = null
          ,string sorting = null
-         ,string typeCode= null 
+         , TypeEnum? typeCode = null 
          ,int? receiptNoMin= null 
          ,int? receiptNoMax= null 
          ,decimal? firstAmountMin= null 
@@ -38,7 +38,7 @@ namespace QuickSell.MovementHeaders
 
        Task<long> GetCountAsync(
         string filterText = null,
-          string typeCode= null , 
+          TypeEnum? typeCode = null , 
           int? receiptNoMin= null , 
           int? receiptNoMax= null ,
           decimal? firstAmountMin= null ,

@@ -21,7 +21,7 @@ namespace QuickSell.MovementHeaders
         }
 
         public async Task<MovementHeader> CreateAsync(
-              string typeCode, 
+              TypeEnum? typeCode, 
               int? receiptNo,
               Guid? customerCardID,
               decimal? firstAmount,
@@ -52,7 +52,7 @@ namespace QuickSell.MovementHeaders
 
         public async Task<MovementHeader> UpdateAsync(
            Guid id,
-          string typeCode, 
+          TypeEnum? typeCode, 
           int? receiptNo,
           Guid? customerCardID,
           decimal? firstAmount,

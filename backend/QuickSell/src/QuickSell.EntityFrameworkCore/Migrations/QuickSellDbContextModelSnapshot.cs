@@ -1009,9 +1009,9 @@ namespace QuickSell.Migrations
                     b.Property<decimal?>("TotalAmount")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("TypeCode")
+                    b.Property<int?>("TypeCode")
                         .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("VATAmount")
                         .HasColumnType("numeric");

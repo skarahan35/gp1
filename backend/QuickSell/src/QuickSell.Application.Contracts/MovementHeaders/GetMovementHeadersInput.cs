@@ -1,12 +1,13 @@
 using Volo.Abp.Application.Dtos;
 using System;
+using QuickSell.Shared;
 
 namespace QuickSell.MovementHeaders
 {
     public class GetMovementHeadersInput : PagedAndSortedResultRequestDto
     {
         public string FilterText { get; set; }
-        public string  TypeCode { get; set; } 
+        public TypeEnum? TypeCode { get; set; } 
              
         public int? ReceiptNoMin { get; set; } 
         public int? ReceiptNoMax { get; set; } 
