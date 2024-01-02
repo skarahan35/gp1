@@ -7,6 +7,7 @@ using QuickSell.StockTypes;
 using QuickSell.StockUnits;
 using QuickSell.StockGroups;
 using QuickSell.Tools;
+using QuickSell.Shared;
 
 namespace QuickSell.StockCards
 {
@@ -24,7 +25,7 @@ namespace QuickSell.StockCards
         public decimal? TotalOutputQuantity { get; set; }
         public int? VATRate { get; set; }
         public int? DiscountRate { get; set; }
-        public string? CurrencyType { get; set; }
+        public CurrencyTypeEnum? CurrencyType { get; set; }
         public decimal? Price1 { get; set; }
         public decimal? Price2 { get; set; }
         public decimal? Price3 { get; set; }

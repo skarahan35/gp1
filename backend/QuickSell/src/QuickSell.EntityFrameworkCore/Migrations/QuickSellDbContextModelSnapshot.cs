@@ -1123,10 +1123,9 @@ namespace QuickSell.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CreatorId");
 
-                    b.Property<string>("CurrencyType")
-                        .IsRequired()
+                    b.Property<int?>("CurrencyType")
                         .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("DeleterId")
                         .HasColumnType("uuid")

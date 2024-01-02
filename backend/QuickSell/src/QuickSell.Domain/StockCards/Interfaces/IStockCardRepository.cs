@@ -1,3 +1,4 @@
+using QuickSell.Shared;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -20,7 +21,7 @@ namespace QuickSell.StockCards
          ,string sorting = null
          ,string? code= null 
          ,string? name= null 
-         ,string currencyType= null 
+         , CurrencyTypeEnum? currencyType = null 
          ,decimal? transferredQuantityMin= null 
          ,decimal? transferredQuantityMax= null 
          ,decimal? availableQuantityMin= null 
@@ -47,8 +48,8 @@ namespace QuickSell.StockCards
        Task<long> GetCountAsync(
         string filterText = null,
           string? code= null , 
-          string? name= null , 
-          string currencyType= null , 
+          string? name= null ,
+          CurrencyTypeEnum? currencyType = null , 
           decimal? transferredQuantityMin= null , 
           decimal? transferredQuantityMax= null ,
           decimal? availableQuantityMin= null , 

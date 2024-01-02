@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace QuickSell.Migrations
 {
     [DbContext(typeof(QuickSellDbContext))]
-    [Migration("20240101110749_AddedHeaderId")]
-    partial class AddedHeaderId
+    [Migration("20240102080526_Inıtial")]
+    partial class Inıtial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -877,6 +877,9 @@ namespace QuickSell.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
 
+                    b.Property<decimal?>("FirstAmount")
+                        .HasColumnType("numeric");
+
                     b.Property<Guid?>("HeaderId")
                         .IsRequired()
                         .HasColumnType("uuid");
@@ -913,6 +916,9 @@ namespace QuickSell.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("TenantId");
 
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("TypeCode")
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
@@ -938,7 +944,6 @@ namespace QuickSell.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("AddressID")
-                        .IsRequired()
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -968,16 +973,16 @@ namespace QuickSell.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletionTime");
 
-                    b.Property<int?>("DiscountAmount")
-                        .HasColumnType("integer");
+                    b.Property<decimal?>("DiscountAmount")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("ExtraProperties")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
 
-                    b.Property<int?>("FirstAmount")
-                        .HasColumnType("integer");
+                    b.Property<decimal?>("FirstAmount")
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -1004,15 +1009,15 @@ namespace QuickSell.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("TenantId");
 
-                    b.Property<int?>("TotalAmount")
-                        .HasColumnType("integer");
+                    b.Property<decimal?>("TotalAmount")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("TypeCode")
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<int?>("VATAmount")
-                        .HasColumnType("integer");
+                    b.Property<decimal?>("VATAmount")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -1121,10 +1126,9 @@ namespace QuickSell.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CreatorId");
 
-                    b.Property<string>("CurrencyType")
-                        .IsRequired()
+                    b.Property<int?>("CurrencyType")
                         .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("DeleterId")
                         .HasColumnType("uuid")
@@ -1606,7 +1610,7 @@ namespace QuickSell.Migrations
 
             modelBuilder.Entity("QuickSell.MovementDetails.MovementDetail", b =>
                 {
-                    b.HasOne("QuickSell.StockCards.StockCard", null)
+                    b.HasOne("QuickSell.MovementHeaders.MovementHeader", null)
                         .WithMany()
                         .HasForeignKey("HeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1623,9 +1627,7 @@ namespace QuickSell.Migrations
                 {
                     b.HasOne("QuickSell.CustomerCards.CustomerCard", null)
                         .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressID");
 
                     b.HasOne("QuickSell.CustomerCards.CustomerCard", null)
                         .WithMany()
