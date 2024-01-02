@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 import { formatDate } from 'devextreme/localization';
@@ -13,6 +13,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./customer-address.component.css']
 })
 export class CustomerAddressComponent {
+  customerCardId:any;
+  masterData:any;
+  visible = true;
+  keyCount= 0;
+  dataSourceDetail:any;
+  DetailData:any[] = [];
+  @ViewChild('targetDataGrid2', { static: false }) dataGrid2!: DxDataGridComponent;
+  @ViewChild('gridContainer', { read: ViewContainerRef }) gridContainer!: ViewContainerRef;
   successButtonOptions: any;
   cancelButtonOptions: any;
   copyButtonOptions: any;
@@ -37,13 +45,10 @@ export class CustomerAddressComponent {
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
   constructor(private http: HttpClient, private toastr:ToastrService) {
-    this.dataSource = new CustomStore({
-      key: 'id',
-      load: () => this.sendRequest('https://localhost:44369/200204'),
-      // insert: (values) => this.sendRequest('https://localhost:44369/200201', 'POST', values),
-      // update: (key, values) => this.sendRequest(`https://localhost:44369/200202/${key}`, 'PUT', values),
-      // remove: (key) => this.sendRequest(`https://localhost:44369/200203/${key}`, 'DELETE'),
-    });
+    this.http.get('https://localhost:44369/200304').subscribe((res:any) => {
+      this.dataSource = res.data
+    })
+    this.dataSourceDetail = []
     this.successButtonOptions = {
       type: 'success',
       stylingMode: 'outlined',
@@ -77,112 +82,130 @@ export class CustomerAddressComponent {
     })
   }
 
-  sendRequest(url: string, method = 'GET', data: any = {}): any {
-    this.logRequest(method, url, data);
-    const httpParams = new HttpParams({ fromObject: data });
-    const httpOptions = { withCredentials: false, body: httpParams };
-  
-    switch (method) {
-      case 'GET':
-        this.result = this.http.get(url, httpOptions);
-        break;
-    }
-  
-    return lastValueFrom(this.result)
-      .then((data: any) => {
-        if (method === 'GET') {
-          return data.data;
-        } 
-        else {
-          return data;
-        }
-      })
-      .catch((e) => {
-        Swal.fire('Error', e.error.error.message, 'error')
-        // e.error.error.message
-        // throw e && e.error && e.error.Message;
-      });
-  }
-  logRequest(method: string, url: string, data: any): void {
-    const args = Object.keys(data || {}).map((key) => `${key}=${data[key]}`).join(' ');
+  onShowingPopup = (e:any) => {
+    this.visible = true
+  } 
 
-    const time = formatDate(new Date(), 'HH:mm:ss');
-
-    this.requests.unshift([time, method, url.slice(URL.length), args].join(' '));
+  onEditingStartMaster = (e:any) =>{
+    this.customerCardId = e.key,
+    this.masterData = e.data
+    this.visible = true
+    this.http.get('https://localhost:44369/200206/' + e.key ).subscribe((res:any) => {
+      this.dataSourceDetail = res
+      // this.dataGrid2.instance.refresh()
+    })
   }
 
-  clearRequests() {
-    this.requests = [];
-  }
+  onHiddenHeaderPopup = (e: any) => {
+    this.visible = false
+    this.dataSourceDetail = []
+    this.gridContainer.clear()
+    // this.dataGrid2.instance.refresh()
+    this.DetailData = [];
+  };
+
   onRowInserting(e: any) {
-    e.cancel = true
-    try {
-      this.http.post('https://localhost:44369/200201', e.data).subscribe(
-        (res: any) => {
-          this.toastr.success('Data saved successfully', 'Success', {
-            closeButton: true,
-            timeOut: 5000
-          });
-          this.http.get('https://localhost:44369/200204').subscribe((res:any) => {
-            this.dataSource = res.data
-          })
-          e.component.cancelEditData();
-        },
-        (error: any) => {
-          console.error('An error occurred:', error);
-          Swal.fire('Error', error.error.error.message, 'error');
-          throw error;
-        }
-      );
-    } catch (error) {
-      console.error('An error occurred:', error);
+    e.data.keyCount = this.keyCount
+    const newData = e.data
+    let data = {
+      data: newData,
+      type: 'insert',
+      key: ''
     }
+
+    this.DetailData.push(data)
+    
+    this.keyCount +=1
   }
 
   onRowUpdating(e:any){
-    e.cancel = true
-    try {
-      this.http.put('https://localhost:44369/200202/' + e.key, e.newData).subscribe((res:any) => {
-        this.toastr.success('Data updated successfully', 'Success', {
-          closeButton: true,
-          timeOut: 5000
-        });
-        this.http.get('https://localhost:44369/200204').subscribe((res:any) => {
-            this.dataSource = res.data
-          })
-        e.component.cancelEditData();
-      },
-      (error:any) => {
-        console.error('An error occured:', error);
-        Swal.fire('Error', error.error.error.message, 'error');
-        throw error;
-      });
-    } catch (error) {
-      console.error('An error occurred:', error);
+    let flag = false
+    for (var key in e.newData) {
+      if (e.oldData.hasOwnProperty(key)) {
+        e.oldData[key] = e.newData[key];
+      }
+    }
+    this.DetailData.forEach((item:any) => {
+      if((item.data.keyCount || item.data.keyCount == 0) && (item.data.keyCount == e.oldData.keyCount)){
+        flag = true
+        for(const key in e.newData){
+          item.data[key] = e.newData[key]
+        }
+      }
+      
+    })
+    if(flag == false) {
+      let data = {
+        data : e.oldData,
+        key: e.key,
+        type: 'update'
+      }
+
+      this.DetailData.push(data)
     }
   }
 
   onRowRemoving(e:any) {
-    e.cancel = true
-    try {
-      this.http.delete('https://localhost:44369/200203/' + e.key).subscribe((res:any) => {
-        debugger
-        this.toastr.success('Data removed successfully', 'Success', {
-          closeButton: true,
-          timeOut:5000
-        });
-        this.http.get('https://localhost:44369/200204').subscribe((res:any) => {
-            this.dataSource = res.data
-          })
-        e.component.cancelEditData();
-      },
-      (error:any) => {
-        console.error('An error occured:', error);
-        Swal.fire('Error', error.error.error.message, 'error');
-        throw error;
-      })
-    } catch (error) {
-      console.error('An error occured:', error);
+    if(!e.data.hasOwnProperty('keyCount')){
+      let data = {
+        data: e.data,
+        key: e.data.id,
+        type: 'remove'
+      }
+      this.DetailData.push(data)
     }
+    else {
+      for (let i = 0; i < this.DetailData.length; i++) {
+        if (this.DetailData[i].data.keyCount !== undefined && this.DetailData[i].data.keyCount === e.data.keyCount) {
+          // Silinen veriyi bulduk, şimdi diziden kaldıralım
+          this.DetailData.splice(i, 1);
+          break; // Döngüden çık, işimiz tamam
+        }
+      }
+    }
+  }
+  onSavingHeader(e:any) {
+        e.cancel = true
+        
+        this.DetailData.forEach((item:any) => {
+          if(item.type == 'insert'){
+            let data = this.customerCardId
+            item.data.customerCardId = data
+          this.http.post('https://localhost:44369/200201', item.data).subscribe((res:any) => {
+            e.component.cancelEditData();
+            this.http.get('https://localhost:44369/200304').subscribe((res:any) => {
+              this.dataSource = res.data
+            })
+            this.toastr.success('Data saved successfully', 'Success', {
+              closeButton: true,
+              timeOut: 5000
+            });
+          })
+          }
+          if(item.type == 'update'){
+            this.http.put('https://localhost:44369/200202/'+ item.data.id, item.data).subscribe((res:any) => {
+              e.component.cancelEditData();
+              this.http.get('https://localhost:44369/200304').subscribe((res:any) => {
+                this.dataSource = res.data
+              })
+              this.toastr.success('Data updated successfully', 'Success', {
+                closeButton: true,
+                timeOut: 5000
+              });
+            })
+          }
+          if(item.type == 'remove'){
+            this.http.delete('https://localhost:44369/200203/' + item.data.id).subscribe((res:any) => {
+              e.component.cancelEditData();
+              this.http.get('https://localhost:44369/200304').subscribe((res:any) => {
+                this.dataSource = res.data
+              })
+              this.toastr.success('Data removed successfully', 'Success', {
+                closeButton: true,
+                timeOut: 5000
+              });
+            })
+          }
+        })
   }
 }

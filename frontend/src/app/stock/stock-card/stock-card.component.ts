@@ -30,6 +30,7 @@ export class StockCardComponent {
   stockTypeLookup:any;
   stockUnitLookup:any;
   stockGroupLookup:any;
+  currencyTypeLookup:any;
 
   showInfo = true;
   dataSource:any;
@@ -67,6 +68,9 @@ export class StockCardComponent {
     })
     this.http.get('https://localhost:44369/100404').subscribe((res:any) => {
       this.stockGroupLookup = res.data;
+    })
+    this.http.get('https://localhost:44369/100106').subscribe((res:any) => {
+      this.currencyTypeLookup = res
     })
   }
 
