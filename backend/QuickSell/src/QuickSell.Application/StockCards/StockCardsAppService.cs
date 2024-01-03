@@ -100,9 +100,6 @@ namespace QuickSell.StockCards
         }
         public async Task StockCardValidation(StockCardDto input)
         {
-            //var qry = await _stockCardRepository.GetQueryableAsync();
-            //await Validation<StockCard, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
-            //await Validation<StockCard, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
             await AvailableQuantityControl(input);
         }
         public async Task<StockCardDto> AddStockCard(StockCardDto input)
