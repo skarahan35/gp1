@@ -5,6 +5,8 @@
     "SamplePageMessage": "A sample page for the QuickSell module",
     "Code:AlreadyExist": "This code already exists",
     "Code:Null": "Code field cannot be empty",
+    "Name:AlreadyExist": "This name already exists",
+    "Name:Null": "Name field cannot be empty",
     "InsufficientStock": "Insufficient stock",
     "AvailableQuantity": "Quantity cannot be less than 0"
   }
