@@ -64,7 +64,6 @@ namespace QuickSell.StockCards
 
         public async Task<StockCard> UpdateAsync(
            Guid? id,
-          string? code, 
           string? name,
           Guid? stockTypeID,
           Guid? stockUnitID,
@@ -88,7 +87,6 @@ namespace QuickSell.StockCards
 
             var stockCard = await AsyncExecuter.FirstOrDefaultAsync(query);
 
-                stockCard.Code=code;
                 stockCard.Name=name;
                 stockCard.StockTypeID = stockTypeID;
                 stockCard.StockUnitID = stockUnitID;

@@ -91,11 +91,16 @@ namespace QuickSell.StockCards
                 return stockCard;
             }
         }
+        public async Task AvailableQuantityControl(StockCardDto input)
+        {
+            if (input.AvailableQuantity <0)
+            {
+                throw new UserFriendlyException(string.Format(_localizer["AvailableQuantity"]));
+            }
+        }
         public async Task StockCardValidation(StockCardDto input)
         {
-            var qry = await _stockCardRepository.GetQueryableAsync();
-            await Validation<StockCard, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
-            await Validation<StockCard, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
+            await AvailableQuantityControl(input);
         }
         public async Task<StockCardDto> AddStockCard(StockCardDto input)
         {
@@ -129,10 +134,9 @@ namespace QuickSell.StockCards
         }
         public async Task<StockCardDto> BPUpdateStockCards(Guid? id, StockCardDto input)
         {
-            //await StockCardValidation(input);
+            await StockCardValidation(input);
             var stockCard = await _stockCardManager.UpdateAsync(
               id,
-              input.Code,
               input.Name,
               input.StockTypeID,
               input.StockUnitID,
