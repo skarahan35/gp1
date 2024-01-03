@@ -23,6 +23,10 @@
         "node_modules/jszip/dist/jszip.min.js"
       ]
     },
+    "typeRoots": [
+      "./typings",
+      "./node_modules/@types/"
+    ],
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",

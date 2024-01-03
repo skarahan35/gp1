@@ -15,7 +15,7 @@
         [dataSource]="dataSource"
         keyExpr="id"
         [showBorders]="true"
-          
+        (onExporting)="onExporting($event)"
           (onEditingStart)="onEditingStartMaster($event)"
           (onSaving)="onSavingHeader($event)"
           [allowColumnReordering]="true"
@@ -32,6 +32,11 @@
           [remoteOperations]="false"
           
       >
+      <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx']"
+	  [allowExportSelectedData]="true"
+      ></dxo-export>
       <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
     <dxo-pager
@@ -45,10 +50,6 @@
     </dxo-pager>
       <dxo-filter-panel [visible]="true"> </dxo-filter-panel>
         <dxo-paging [enabled]="true"></dxo-paging>
-        <dxo-export
-          [enabled]="true"
-          [formats]="['xlsx', 'pdf']"
-      ></dxo-export>
         <dxo-editing
           mode="popup"
           
@@ -93,7 +94,7 @@
               <dxi-item dataField="discountAmount" [colCount]="1"></dxi-item>
               <dxi-item dataField="vatAmount" [colCount]="1"></dxi-item>
               <dxi-item dataField="totalAmount" [colCount]="1"></dxi-item> -->
-              <dxi-item dataField="addressID" ></dxi-item>
+              <!-- <dxi-item dataField="addressID" ></dxi-item> -->
               <dxi-item dataField="paymentType"></dxi-item>
             </dxi-item>
             <dxi-item itemtype="group" [colSpan]="2">
@@ -115,6 +116,7 @@
                     [headerFilter]="{ visible: true }"
                     [groupPanel]="{ visible: true }"
                     [searchPanel]="{ visible: true }"
+                    (onExporting)="onExporting($event)"
                     [selection]="{ mode: 'multiple' }"
                     [rowAlternationEnabled]="true"
                     (onRowInserting)="onRowInsertingDetail($event)"
@@ -128,6 +130,11 @@
                     [allowDeleting]="true"
                     [useIcons]="true"
                   ></dxo-editing>
+                  <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx']"
+	  [allowExportSelectedData]="true"
+      ></dxo-export>
                       <dxi-column dataField="stockCardID" dataType="string" caption="Stock" [width]="100">
                           <dxo-lookup [dataSource]="stockCardLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
                           <dxi-validation-rule type="required"></dxi-validation-rule>
@@ -166,9 +173,6 @@
             <dxo-lookup [dataSource]="customerCardLookup" valueExpr="id" displayExpr="name" ></dxo-lookup>
             <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
-        <dxi-column dataField="addressID" caption="Address" [width]="100" >
-          <dxo-lookup [dataSource]="customerAddressLookup" valueExpr="id" displayExpr="code"></dxo-lookup>
-      </dxi-column>
         <dxi-column dataField="firstAmount" caption="First Amount" dataType="number" [width]="180"></dxi-column>
         <dxi-column dataField="discountAmount" caption="Discount Amount" dataType="number" [width]="200"></dxi-column>
         <dxi-column dataField="vatAmount" caption="VAT Amount" dataType="number" [width]="170"></dxi-column>

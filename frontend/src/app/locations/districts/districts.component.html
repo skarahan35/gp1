@@ -15,6 +15,7 @@
         (onRowInserting)="onRowInserting($event)"
         (onRowUpdating)="onRowUpdating($event)"
         (onRowRemoving)="onRowRemoving($event)"
+        (onExporting)="onExporting($event)"
         [showBorders]="true"
         height="800px"
           [allowColumnResizing]="true"
@@ -90,5 +91,10 @@
         <dxi-column dataField="name" dataType="string">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx']"
+	  [allowExportSelectedData]="true"
+      ></dxo-export>
       </dx-data-grid>
     </div>

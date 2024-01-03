@@ -6,6 +6,9 @@ import { formatDate } from 'devextreme/localization';
 import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
+import * as Excel from "exceljs";
+import { saveAs } from 'file-saver-es';
+import { exportDataGrid } from 'devextreme/excel_exporter';
 
 @Component({
   selector: 'app-customer-address',
@@ -85,6 +88,21 @@ export class CustomerAddressComponent {
   onShowingPopup = (e:any) => {
     this.visible = true
   } 
+  onExporting(e: any) {
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Download');
+
+    exportDataGrid({
+      component: e.component,
+      worksheet,
+      autoFilterEnabled: true,
+    }).then(() => {
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Download.xlsx');
+      });
+    });
+    e.cancel = true;
+}
 
   onEditingStartMaster = (e:any) =>{
     this.customerCardId = e.key,

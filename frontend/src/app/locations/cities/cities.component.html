@@ -18,6 +18,7 @@
         [showBorders]="true"
         height="800px"
           [allowColumnResizing]="true"
+          (onExporting)="onExporting($event)"
           columnResizingMode="nextColumn"
           [columnMinWidth]="100"
           [allowColumnReordering]="true"
@@ -83,7 +84,11 @@
             </dxi-item>
           </dxo-form>
         </dxo-editing>
-    
+        <dxo-export
+        [enabled]="true"
+        [formats]="['xlsx']"
+        [allowExportSelectedData]="true"
+    ></dxo-export>
         <dxi-column dataField="code" dataType="string">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>

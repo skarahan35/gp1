@@ -3,9 +3,14 @@ import { AfterViewInit, ChangeDetectorRef, Component, ViewChild, ViewContainerRe
 import { DxDataGridComponent } from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 import { formatDate } from 'devextreme/localization';
+import { ExportingEvent } from 'devextreme/ui/data_grid';
+import * as Excel from "exceljs";
+import { saveAs } from 'file-saver-es';
 import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+
 
 @Component({
   selector: 'app-movement',
@@ -149,13 +154,16 @@ setCellValuePrice(newData:any, value:any, currentRowData:any) {
 
 }
 setCellValueDiscountRate(newData:any, value:any, currentRowData:any) {
- if(currentRowData.firstAmount){
+ if(currentRowData.firstAmount && !currentRowData.vatAmount){
   newData.discountRate = value
   newData.discountAmount = (value / 100) * currentRowData.firstAmount
   newData.totalAmount = currentRowData.firstAmount - newData.discountAmount
  }
- if(currentRowData.vatAmount){
+ if(currentRowData.firstAmount && currentRowData.vatAmount){
+  newData.discountRate = value
+  newData.discountAmount = (value / 100) * currentRowData.firstAmount
   newData.vatAmount = (currentRowData.vatRate / 100) * (currentRowData.firstAmount - newData.discountAmount)
+  newData.totalAmount = currentRowData.firstAmount - newData.discountAmount + newData.vatAmount
  }
 }
 setCellValueVATRate(newData:any, value:any, currentRowData:any) {
@@ -163,6 +171,11 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
    newData.vatRate = value
    newData.vatAmount = (value / 100) * (currentRowData.firstAmount - currentRowData.discountAmount)
    newData.totalAmount = currentRowData.firstAmount - currentRowData.discountAmount + newData.vatAmount
+  }
+  if(currentRowData.firstAmount && !currentRowData.discountAmount){
+    newData.vatRate = value
+    newData.vatAmount = (value / 100) * (currentRowData.firstAmount)
+    newData.totalAmount = currentRowData.firstAmount + newData.vatAmount
   }
  }
   sendRequest(url: string, method = 'GET', data: any = {}): any {
@@ -368,6 +381,8 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
             closeButton: true,
             timeOut: 5000
           });
+        }, (e) => {
+          Swal.fire('Error', e.error.error.message, 'error');
         })
       }
       if(e.changes[0].type == 'update'){
@@ -395,6 +410,8 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
             closeButton: true,
             timeOut: 5000
           });
+        }, (e) => {
+          Swal.fire('Error', e.error.error.message, 'error');
         })
       }
       if(e.changes[0].type == 'remove'){
@@ -406,6 +423,8 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
             closeButton: true,
             timeOut: 5000
           });
+        }, (e) => {
+          Swal.fire('Error', e.error.error.message, 'error');
         })
       }
     }
@@ -435,6 +454,8 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
             closeButton: true,
             timeOut: 5000
           });
+        }, (e) => {
+          Swal.fire('Error', e.error.error.message, 'error');
         })
     }
 
@@ -457,7 +478,21 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
     //   })
     // }
   }
+  onExporting(e: any) {
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Download');
 
+    exportDataGrid({
+      component: e.component,
+      worksheet,
+      autoFilterEnabled: true,
+    }).then(() => {
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Download.xlsx');
+      });
+    });
+    e.cancel = true;
+}
   onRowInserting(e: any) {
     e.cancel = true
     try {
@@ -496,6 +531,7 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
           })
         e.component.cancelEditData();
       },
+      
       (error:any) => {
         console.error('An error occured:', error);
         Swal.fire('Error', error.error.error.message, 'error');

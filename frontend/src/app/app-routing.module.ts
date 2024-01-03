@@ -5,7 +5,6 @@ import { StockTypeComponent } from './stock/stock-type/stock-type.component';
 import { StockUnitComponent } from './stock/stock-unit/stock-unit.component';
 import { StockGroupComponent } from './stock/stock-group/stock-group.component';
 import { StockCardComponent } from './stock/stock-card/stock-card.component';
-import { StockPriceComponent } from './stock/stock-price/stock-price.component';
 import { CustomerTypeComponent } from './customer/customer-type/customer-type.component';
 import { CustomerGroupComponent } from './customer/customer-group/customer-group.component';
 import { CountriesComponent } from './locations/countries/countries.component';
@@ -36,10 +35,6 @@ const routes: Routes = [
   {
     path: 'stock/stock-card',
     component: StockCardComponent
-  },
-  {
-    path: 'stock/stock-price',
-    component: StockPriceComponent
   },
   {
     path: 'customer/customer-type',

@@ -29,6 +29,7 @@
           [selection]="{ mode: 'multiple' }"
           [rowAlternationEnabled]="true"
           [remoteOperations]="false"
+          (onExporting)="onExporting($event)"
           
       >
       <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
@@ -83,7 +84,11 @@
             </dxi-item>
           </dxo-form>
         </dxo-editing>
-    
+        <dxo-export
+          [enabled]="true"
+          [formats]="['xlsx']"
+          [allowExportSelectedData]="true"
+      ></dxo-export>
         <dxi-column dataField="code" dataType="string">
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>

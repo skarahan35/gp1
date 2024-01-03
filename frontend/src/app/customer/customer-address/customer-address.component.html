@@ -15,6 +15,7 @@
         height="800px"
           [allowColumnResizing]="true"
           columnResizingMode="nextColumn"
+          (onExporting)="onExporting($event)"
           [columnMinWidth]="100"
           (onSaving)="onSavingHeader($event)"
           (onEditingStart)="onEditingStartMaster($event)"
@@ -45,7 +46,8 @@
         <dxo-paging [enabled]="true"></dxo-paging>
         <dxo-export
           [enabled]="true"
-          [formats]="['xlsx', 'pdf']"
+          [formats]="['xlsx']"
+          [allowExportSelectedData]="true"
       ></dxo-export>
       <dxo-editing
       mode="popup"
@@ -93,6 +95,7 @@
                 (onRowInserting)="onRowInserting($event)"
                 (onRowUpdating)="onRowUpdating($event)"
                 (onRowRemoving)="onRowRemoving($event)"
+                (onExporting)="onExporting($event)"
                 keyExpr="id"
                 [showBorders]="true"
                 [allowColumnReordering]="true"
@@ -114,6 +117,7 @@
                 [allowDeleting]="true"
                 [useIcons]="true"
               ></dxo-editing>
+              <dxo-export [enabled]="true" [formats]="['xlsx']" [allowExportSelectedData]="true"></dxo-export>
                   <dxi-column dataField="code" caption="Code" dataType="string"></dxi-column>
                   <dxi-column dataField="road" caption="Road" dataType="string"></dxi-column>
                   <dxi-column dataField="street" caption="Street" dataType="string"></dxi-column>
