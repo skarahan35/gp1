@@ -86,7 +86,6 @@ namespace QuickSell.CustomerCards
         {
             var qry = await _customerCardRepository.GetQueryableAsync();
             await Validation<CustomerCard, QuickSellResource>.CodeControl(input, qry.Where(x => x.Code == input.Code), _localizer);
-            await Validation<CustomerCard, QuickSellResource>.NameControl(input, qry.Where(x => x.Name == input.Name), _localizer);
         }
         public async Task<CustomerCardDto> AddCustomerCard(CustomerCardDto input)
         {
