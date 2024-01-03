@@ -5,10 +5,10 @@
       <li class="breadcrumb-item active" aria-current="page">Stock Card</li>
     </ol>
   </nav>
-  
+
   <div id="data-grid-demo">
       <dx-data-grid
-      
+
       #targetDataGrid
         id="gridContainer"
         width="1400px"
@@ -31,7 +31,7 @@
           [selection]="{ mode: 'multiple' }"
           [rowAlternationEnabled]="true"
           [remoteOperations]="false"
-          
+
       >
       <dxo-scrolling rowRenderingMode="standart"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
@@ -97,16 +97,16 @@
               <dxi-item dataField="discountRate" [colCount]="1"></dxi-item> -->
             </dxi-item>
             <dxi-item itemType="group" caption="Price Information">
-              
+
               <dxi-item dataField="price1" [colCount]="1"></dxi-item>
               <dxi-item dataField="price2" [colCount]="1"></dxi-item>
               <dxi-item dataField="price3" [colCount]="1"></dxi-item>
               <dxi-item dataField="currencyType" [colCount]="1"></dxi-item>
             </dxi-item>
-          
+
           </dxo-form>
         </dxo-editing>
-    
+
         <dxi-column dataField="code" dataType="string" [visible]="true" [width]="150">,
           <dxi-validation-rule type="required"></dxi-validation-rule>
         </dxi-column>
@@ -116,11 +116,11 @@
         <dxi-column dataField="stockTypeID" caption="Stock Type" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockTypeLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-    
+
         <dxi-column dataField="stockUnitID" caption="Stock Unit" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockUnitLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
-    
+
         <dxi-column dataField="stockGroupID" caption="Stock Group" dataType="string" [visible]="true" [width]="150">
             <dxo-lookup [dataSource]="stockGroupLookup" valueExpr="id" displayExpr="name"></dxo-lookup>
         </dxi-column>
@@ -128,7 +128,9 @@
         <dxi-column dataField="discountRate" caption="Discount Rate" dataType="number" [visible]="true" [width]="150"></dxi-column> -->
         <dxi-column caption="Quantity" alignment="center ">
           <dxi-column dataField="transferredQuantity" caption="Transferred" dataType="number"  [visible]="true" [width]="150"></dxi-column>
-        <dxi-column dataField="availableQuantity" caption="Available" dataType="number"  [visible]="true" [width]="150"></dxi-column>
+        <dxi-column dataField="availableQuantity" caption="Available" dataType="number"  [visible]="true" [width]="150">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
         <dxi-column dataField="totalEntryQuantity" caption="Total Entry" dataType="number"  [visible]="true" [width]="150"></dxi-column>
         <dxi-column dataField="totalOutputQuantity" caption="Total Output" dataType="number"  [visible]="true" [width]="150"></dxi-column>
         </dxi-column>
@@ -140,6 +142,6 @@
         <dxi-column dataField="currencyType" caption="Currency Type" dataType="string"  [visible]="true" [width]="200">
           <dxo-lookup [dataSource]="currencyTypeLookup" valueExpr="id" displayExpr="displayName"></dxo-lookup>
         </dxi-column>
-        
+
       </dx-data-grid>
     </div>

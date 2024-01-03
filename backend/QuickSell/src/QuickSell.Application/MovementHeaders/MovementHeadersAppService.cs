@@ -200,9 +200,16 @@ namespace QuickSell.MovementHeaders
                     {
                         if (updateDto.AvailableQuantity >= 0)
                         {
-                            updateDto.AvailableQuantity = updateDto.AvailableQuantity - movementDetail.Quantity;
-                            await _movementDetailsAppService.AddMovementDetail(movementDetail);
-                            await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                            if (movementDetail.Quantity < 0)
+                            {
+                                throw new UserFriendlyException(string.Format(_localizer["AvailableQuantity"]));
+                            }
+                            else
+                            {
+                                updateDto.AvailableQuantity = updateDto.AvailableQuantity - movementDetail.Quantity;
+                                await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                                await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                            }
                         }
                         else
                         {
@@ -211,10 +218,17 @@ namespace QuickSell.MovementHeaders
                     }
                     else if (input.Header.TypeCode == TypeEnum.Purchase)
                     {
-                       updateDto.AvailableQuantity = updateDto.AvailableQuantity + movementDetail.Quantity;
-                       await _movementDetailsAppService.AddMovementDetail(movementDetail);
-                       await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
-                   
+                        if (movementDetail.Quantity < 0)
+                        {
+                            throw new UserFriendlyException(string.Format(_localizer["AvailableQuantity"]));
+                        }
+                        else
+                        {
+                            updateDto.AvailableQuantity = updateDto.AvailableQuantity + movementDetail.Quantity;
+                            await _movementDetailsAppService.AddMovementDetail(movementDetail);
+                            await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+
+                        }
                     }
                     
                   }
@@ -235,8 +249,15 @@ namespace QuickSell.MovementHeaders
                             updateDto.AvailableQuantity = updateDto.AvailableQuantity + oldData.Quantity - movementDetail.Quantity;
                             if (updateDto.AvailableQuantity >= 0)
                             {
-                                await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
-                                await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                                if (movementDetail.Quantity < 0)
+                                {
+                                    throw new UserFriendlyException(string.Format(_localizer["AvailableQuantity"]));
+                                }
+                                else
+                                {
+                                    await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                                    await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                                }
                             }
                             else
                             {
@@ -255,11 +276,17 @@ namespace QuickSell.MovementHeaders
                         var oldData = qry.Where(qry => qry.HeaderId == movementDetail.HeaderId && qry.StockCardID == movementDetail.StockCardID).FirstOrDefault();
                         if (movementDetail.Quantity != oldData.Quantity)
                         {
-                            updateDto.AvailableQuantity = updateDto.AvailableQuantity + oldData.Quantity + movementDetail.Quantity;
-                            
-                            await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
-                            await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
-                            
+                            if (movementDetail.Quantity < 0)
+                            {
+                                throw new UserFriendlyException(string.Format(_localizer["AvailableQuantity"]));
+                            }
+                            else
+                            {
+                                updateDto.AvailableQuantity = updateDto.AvailableQuantity + oldData.Quantity + movementDetail.Quantity;
+
+                                await _movementDetailsAppService.UpdateMovementDetails(movementDetail.Id, movementDetail);
+                                await _stockCardsAppService.BPUpdateStockCards(movementDetail.StockCardID, updateDto);
+                            }
                         }
                         else
                         {
