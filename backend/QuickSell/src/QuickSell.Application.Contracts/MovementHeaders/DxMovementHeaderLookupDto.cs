@@ -15,7 +15,6 @@ namespace QuickSell.MovementHeaders
         public decimal? DiscountAmount { get; set; }
         public decimal? VATAmount { get; set; }
         public decimal? TotalAmount { get; set; }
-        public Guid? AddressID { get; set; }
         public PaymentType? PaymentType { get; set; }
     }
 }

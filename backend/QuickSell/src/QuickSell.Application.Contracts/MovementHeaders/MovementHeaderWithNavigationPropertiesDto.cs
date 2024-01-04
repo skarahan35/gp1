@@ -17,7 +17,6 @@ namespace QuickSell.MovementHeaders
         public MovementHeaderDto  MovementHeader  {get; set;}
         
         public CustomerCardDto CustomerCard { get; set; }
-        public CustomerAddress CustomerAddress { get; set; }
         
        
 

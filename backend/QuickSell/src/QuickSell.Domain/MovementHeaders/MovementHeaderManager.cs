@@ -28,7 +28,6 @@ namespace QuickSell.MovementHeaders
               decimal? discountAmount,
               decimal? vAtAmount,
               decimal? totalAmount,
-              Guid? addressID,
               PaymentType? paymentType
 
         )
@@ -43,7 +42,6 @@ namespace QuickSell.MovementHeaders
                discountAmount, 
                vAtAmount, 
                totalAmount,
-               addressID,
                paymentType
              );
 
@@ -59,7 +57,6 @@ namespace QuickSell.MovementHeaders
           decimal? discountAmount,
           decimal? vAtAmount,
           decimal? totalAmount, 
-          Guid? addressId, 
           PaymentType? paymentType, 
             [CanBeNull] string concurrencyStamp = null
         )
@@ -77,7 +74,6 @@ namespace QuickSell.MovementHeaders
                  movementHeader.DiscountAmount=discountAmount;
                  movementHeader.VATAmount=vAtAmount;
                  movementHeader.TotalAmount=totalAmount;
-                 movementHeader.AddressID=addressId;
                  movementHeader.PaymentType=paymentType;
 
          movementHeader.SetConcurrencyStampIfNotNull(concurrencyStamp);

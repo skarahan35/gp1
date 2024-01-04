@@ -65,7 +65,6 @@ namespace QuickSell.MovementHeaders
                                     DiscountAmount = mvmnthdr.DiscountAmount,
                                     VATAmount = mvmnthdr.VATAmount,
                                     TotalAmount= mvmnthdr.TotalAmount,
-                                    AddressID= mvmnthdr.AddressID,
                                     PaymentType= mvmnthdr.PaymentType,
                                 };
             return await DataSourceLoader.LoadAsync(getJoinedData, loadOptions);
@@ -88,7 +87,6 @@ namespace QuickSell.MovementHeaders
                                           DiscountAmount = mvmnthdr.DiscountAmount,
                                           VATAmount = mvmnthdr.VATAmount,
                                           TotalAmount = mvmnthdr.TotalAmount,
-                                          AddressID = mvmnthdr.AddressID,
                                           PaymentType = mvmnthdr.PaymentType,
                                       }).FirstOrDefault();
                 return movementDetail;
@@ -104,7 +102,6 @@ namespace QuickSell.MovementHeaders
               input.DiscountAmount,
               input.VATAmount,
               input.TotalAmount,
-              input.AddressID,
               input.PaymentType
           );
             return ObjectMapper.Map<MovementHeader, MovementHeaderDto>(movementHeader);
@@ -127,7 +124,6 @@ namespace QuickSell.MovementHeaders
                 input.DiscountAmount,
                 input.VATAmount,
                 input.TotalAmount,
-                input.AddressID,
                 input.PaymentType
             );
             await _movementHeaderRepository.UpdateAsync(movementHeader);
@@ -151,7 +147,6 @@ namespace QuickSell.MovementHeaders
                 DiscountAmount = headerDto.DiscountAmount,
                 VATAmount = headerDto.VATAmount,
                 TotalAmount = headerDto.TotalAmount,
-                AddressID = headerDto.AddressID,
                 PaymentType = headerDto.PaymentType,
             };
 
