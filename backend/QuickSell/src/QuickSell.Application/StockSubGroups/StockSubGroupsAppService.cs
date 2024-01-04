@@ -15,7 +15,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace QuickSell.StockSubGroups
 {
-    public abstract class StockSubGroupsAppService : ApplicationService, IStockSubGroupsAppService
+    public class StockSubGroupsAppService : ApplicationService, IStockSubGroupsAppService
     {
         private readonly IStockSubGroupRepository _stockSubGroupRepository;
         private readonly StockSubGroupManager _stockSubGroupManager;
