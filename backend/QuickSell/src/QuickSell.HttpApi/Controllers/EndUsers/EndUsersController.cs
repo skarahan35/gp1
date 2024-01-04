@@ -47,5 +47,11 @@ namespace QuickSell.Controllers.EndUsers
         {
             return await _endUsersAppService.UpdateEndUser(id, input);
         }
+        [HttpGet]
+        [Route("600106")]
+        public async Task<bool> Login(string username, string password)
+        {
+            return await _endUsersAppService.Login(username, password);
+        }
     }
 }

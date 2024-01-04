@@ -8,6 +8,7 @@
     "Name:AlreadyExist": "This name already exists",
     "Name:Null": "Name field cannot be empty",
     "InsufficientStock": "Insufficient stock",
-    "AvailableQuantity": "Quantity cannot be less than 0"
+    "AvailableQuantity": "Quantity cannot be less than 0",
+    "WrongEntry": "Username or password is wrong"
   }
 }

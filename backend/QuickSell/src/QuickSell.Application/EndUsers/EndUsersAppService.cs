@@ -112,5 +112,18 @@ namespace QuickSell.EndUsers
         {
             await _endUserRepository.DeleteAsync(id);
         }
+        public async Task<bool> Login(string username, string password)
+        {
+            var qry = await _endUserRepository.GetQueryableAsync();
+            var result = qry.Where(x=>x.UserName == username && x.Password == password);
+            if (result.Any())
+            {
+                return true;
+            }
+            else
+            {
+                throw new UserFriendlyException(string.Format(_localizer["WrongEntry"]));
+            }
+        }
     }
 }
