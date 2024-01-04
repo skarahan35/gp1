@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent {
   title = 'gp1';
-  constructor(private toastr: ToastrService){
-      // this.toastr.success('Toastr Deneme', 'Toastr Deneme', {
-      //   timeOut: 5000,
-      //   positionClass: 'toast-bottom-right',
-      //   closeButton: true,
-      //   progressBar: true,
-      //   progressAnimation: 'decreasing',
-  
-      // });
+  isLoggedIn: boolean = false;
+  constructor(private toastr: ToastrService, private authService: AuthService){
+
+      this.authService.isLoggedIn().subscribe((res:any) => {
+        this.isLoggedIn = res
+      });
   }
+  
 }

@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import * as Excel from "exceljs";
 import { saveAs } from 'file-saver-es';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-group',
@@ -34,13 +36,15 @@ export class StockGroupComponent {
   showNavButtons = true;
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
-  constructor(private http: HttpClient, private toastr:ToastrService) {
+  constructor(private http: HttpClient, private toastr:ToastrService, private authService: AuthService, private router: Router) {
+    this.authService.isLoggedIn().subscribe((res:any) => {
+      if(res == false){
+        this.router.navigate(['/login'])
+      }
+    });
     this.dataSource = new CustomStore({
       key: 'id',
       load: () => this.sendRequest('https://localhost:44369/100404'),
-      // insert: (values) => this.sendRequest('https://localhost:44369/100401', 'POST', values),
-      // update: (key, values) => this.sendRequest(`https://localhost:44369/100402/${key}`, 'PUT', values),
-      // remove: (key) => this.sendRequest(`https://localhost:44369/100403/${key}`, 'DELETE'),
     });
     this.successButtonOptions = {
       type: 'success',
@@ -84,8 +88,6 @@ export class StockGroupComponent {
       })
       .catch((e) => {
         Swal.fire('Error', e.error.error.message, 'error')
-        // e.error.error.message
-        // throw e && e.error && e.error.Message;
       });
   }
   logRequest(method: string, url: string, data: any): void {
@@ -168,7 +170,6 @@ export class StockGroupComponent {
     e.cancel = true
     try {
       this.http.delete('https://localhost:44369/100403/' + e.key).subscribe((res:any) => {
-        debugger
         this.toastr.success('Data removed successfully', 'Success', {
           closeButton: true,
           timeOut:5000

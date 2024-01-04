@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import * as Excel from "exceljs";
 import { saveAs } from 'file-saver-es';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-address',
@@ -47,7 +49,12 @@ export class CustomerAddressComponent {
   showNavButtons = true;
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
-  constructor(private http: HttpClient, private toastr:ToastrService) {
+  constructor(private http: HttpClient, private toastr:ToastrService, private authService: AuthService, private router: Router) {
+    this.authService.isLoggedIn().subscribe((res:any) => {
+      if(res == false){
+        this.router.navigate(['/login'])
+      }
+    });
     this.http.get('https://localhost:44369/200304').subscribe((res:any) => {
       this.dataSource = res.data
     })
@@ -110,7 +117,6 @@ export class CustomerAddressComponent {
     this.visible = true
     this.http.get('https://localhost:44369/200206/' + e.key ).subscribe((res:any) => {
       this.dataSourceDetail = res
-      // this.dataGrid2.instance.refresh()
     })
   }
 
@@ -118,7 +124,6 @@ export class CustomerAddressComponent {
     this.visible = false
     this.dataSourceDetail = []
     this.gridContainer.clear()
-    // this.dataGrid2.instance.refresh()
     this.DetailData = [];
   };
 
@@ -175,9 +180,8 @@ export class CustomerAddressComponent {
     else {
       for (let i = 0; i < this.DetailData.length; i++) {
         if (this.DetailData[i].data.keyCount !== undefined && this.DetailData[i].data.keyCount === e.data.keyCount) {
-          // Silinen veriyi bulduk, şimdi diziden kaldıralım
           this.DetailData.splice(i, 1);
-          break; // Döngüden çık, işimiz tamam
+          break; 
         }
       }
     }

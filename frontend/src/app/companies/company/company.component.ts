@@ -1,10 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DxDataGridComponent } from 'devextreme-angular';
 import CustomStore from 'devextreme/data/custom_store';
 import { formatDate } from 'devextreme/localization';
 import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -35,7 +37,12 @@ export class CompanyComponent {
   showNavButtons = true;
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
-  constructor(private http: HttpClient, private toastr:ToastrService) {
+  constructor(private http: HttpClient, private toastr:ToastrService, private authService: AuthService, private router: Router) {
+    this.authService.isLoggedIn().subscribe((res:any) => {
+      if(res == false){
+        this.router.navigate(['/login'])
+      }
+    });
     this.dataSource = new CustomStore({
       key: 'id',
       load: () => this.sendRequest('https://localhost:44369/700404'),
@@ -98,7 +105,6 @@ export class CompanyComponent {
           return data.data;
         } 
         else if (method === 'POST') {
-          // Başarılı kayıt durumunda toastr ile uyarı mesajı göster
           this.toastr.success('Data saved successfully', 'Success', {
             closeButton: true,
             timeOut: 5000
@@ -125,8 +131,6 @@ export class CompanyComponent {
       })
       .catch((e) => {
         Swal.fire('Error', e.error.error.message, 'error')
-        // e.error.error.message
-        // throw e && e.error && e.error.Message;
       });
   }
   logRequest(method: string, url: string, data: any): void {

@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import * as Excel from "exceljs";
 import { saveAs } from 'file-saver-es';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-type',
@@ -34,13 +36,15 @@ export class CustomerTypeComponent {
   showNavButtons = true;
   @ViewChild('targetDataGrid', { static: false })
   dataGrid!: DxDataGridComponent;
-  constructor(private http: HttpClient, private toastr:ToastrService) {
+  constructor(private http: HttpClient, private toastr:ToastrService, private authService: AuthService, private router: Router) {
+    this.authService.isLoggedIn().subscribe((res:any) => {
+      if(res == false){
+        this.router.navigate(['/login'])
+      }
+    });
     this.dataSource = new CustomStore({
       key: 'id',
       load: () => this.sendRequest('https://localhost:44369/200104'),
-      // insert: (values) => this.sendRequest('https://localhost:44369/200101', 'POST', values),
-      // update: (key, values) => this.sendRequest(`https://localhost:44369/200102/${key}`, 'PUT', values),
-      // remove: (key) => this.sendRequest(`https://localhost:44369/200103/${key}`, 'DELETE'),
     });
     this.successButtonOptions = {
       type: 'success',
@@ -165,7 +169,6 @@ export class CustomerTypeComponent {
     e.cancel = true
     try {
       this.http.delete('https://localhost:44369/200103/' + e.key).subscribe((res:any) => {
-        debugger
         this.toastr.success('Data removed successfully', 'Success', {
           closeButton: true,
           timeOut:5000

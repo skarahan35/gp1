@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom } from 'rxjs';
 import Swal from 'sweetalert2';
 import { exportDataGrid } from 'devextreme/excel_exporter';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -59,21 +61,17 @@ export class MovementComponent implements AfterViewInit {
   @ViewChild('targetDataGrid2', { static: false }) dataGrid2!: DxDataGridComponent;
   @ViewChild('gridContainer', { read: ViewContainerRef }) gridContainer!: ViewContainerRef;
   @ViewChild('addressLookup') addressLookup: any;
-  constructor(private http: HttpClient, private toastr:ToastrService, private cdr: ChangeDetectorRef) {
+  constructor(private http: HttpClient, private toastr:ToastrService, private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) {
+    this.authService.isLoggedIn().subscribe((res:any) => {
+      if(res == false){
+        this.router.navigate(['/login'])
+      }
+    });
     this.dataSourceDetail = []
-    // this.dataSourceDetail = new CustomStore({
-    //   key: 'id',
-    //   load: () => this.sendRequest('https://localhost:44369/300204'),
-    // });
 
     this.http.get('https://localhost:44369/300104').subscribe((res:any) => {
       this.dataSource = res.data
     })
-
-    // this.dataSource = new CustomStore({
-    //   key: 'id',
-    //   load: () => this.sendRequest('https://localhost:44369/300104'),
-    // });
     this.successButtonOptions = {
       type: 'success',
       stylingMode: 'outlined',
@@ -201,8 +199,6 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
         })
         .catch((e) => {
           Swal.fire('Error', e.error.error.message, 'error');
-          // e.error.error.message
-          // throw e && e.error && e.error.Message;
         });
     } catch (error) {
       console.error('An error occurred:', error);
@@ -273,7 +269,6 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
         if((item.data.keyCount || item.data.keyCount == 0) && (item.data.keyCount == e.oldData.keyCount)){
           flag = true
           for(const key in e.newData){
-            debugger
             item.data[key] = e.newData[key]
           }
         }
@@ -308,20 +303,18 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
     this.visible = true
     this.http.get('https://localhost:44369/300208/' + e.key ).subscribe((res:any) => {
       this.dataSourceDetail = res
-      // this.dataGrid2.instance.refresh()
     })
   }
 
   ngAfterViewInit() {
-    this.cdr.detectChanges(); // Change detection'ı tetikle
-    console.log(this.dataGrid2); // Bu satırı ekleyerek consolda görebilirsiniz
+    this.cdr.detectChanges();
+    console.log(this.dataGrid2); 
   }
 
   onHiddenHeaderPopup = (e: any) => {
     this.visible = false
     this.dataSourceDetail = []
     this.gridContainer.clear()
-    // this.dataGrid2.instance.refresh()
     this.DetailData = [];
   };
 
@@ -337,9 +330,8 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
     else {
       for (let i = 0; i < this.DetailData.length; i++) {
         if (this.DetailData[i].data.keyCount !== undefined && this.DetailData[i].data.keyCount === e.data.keyCount) {
-          // Silinen veriyi bulduk, şimdi diziden kaldıralım
           this.DetailData.splice(i, 1);
-          break; // Döngüden çık, işimiz tamam
+          break; 
         }
       }
     }
@@ -458,25 +450,6 @@ setCellValueVATRate(newData:any, value:any, currentRowData:any) {
           Swal.fire('Error', e.error.error.message, 'error');
         })
     }
-
-    // if(e.changes.length < 1 && this.DetailData.length > 0){
-    //   e.cancel = true
-    //   let data  = this.masterData
-    //   let sendData = {
-    //     header: data,
-    //     details: this.DetailData
-    //   }
-    //   this.http.post('https://localhost:44369/300106', sendData).subscribe((res:any) => {
-    //     e.component.cancelEditData();
-    //     this.http.get('https://localhost:44369/300104').subscribe((res:any) => {
-    //       this.dataSource = res.data
-    //     })
-    //     this.toastr.success('Data updated successfully', 'Success', {
-    //       closeButton: true,
-    //       timeOut: 5000
-    //     });
-    //   })
-    // }
   }
   onExporting(e: any) {
     const workbook = new Excel.Workbook();

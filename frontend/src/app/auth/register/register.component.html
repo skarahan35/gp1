@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+            <form [formGroup]="loginForm" (ngSubmit)="signup()" style="margin-top: 100px;" >
+                <div class="login__field">
+                  <i class="login__icon fas fa-user"></i>
+                  <input required type="text" class="login__input" placeholder="User name" formControlName="username">
+                </div>
+                <div class="login__field">
+                  <i class="login__icon fas fa-user"></i>
+                  <input required type="text" class="login__input" placeholder="Email" formControlName="email">
+                </div>
+                <div class="login__field">
+                  <i class="login__icon fas fa-lock"></i>
+                  <input required type="password" class="login__input__register" placeholder="Password" formControlName="password">
+                </div>
+                <div class="login__buttons" style="margin-top: -30px;">
+                  <button style="margin-left: 60px;" class="button login__submit smaller-button" type="submit">
+                    <span class="button__text">Sign Up</span>
+                    <i class="button__icon fas fa-chevron-right"></i>
+                  </button>
+                  <button style="margin-left: 20px;" class="button login__submit smaller-button" (click)="goToLoginPage()">
+                    <span class="button__text">Back</span>
+                    <i class="button__icon fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </form>
+			
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>

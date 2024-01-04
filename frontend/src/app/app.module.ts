@@ -27,6 +27,10 @@ import { CustomerCardComponent } from './customer/customer-card/customer-card.co
 import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
 import { CompanyComponent } from './companies/company/company.component';
 import { MovementComponent } from './movements/movement/movement.component';
+import { AuthModule } from './auth/auth.module';
+import { HomepageComponent } from './homepage/homepage.component';
+import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,11 +49,14 @@ import { MovementComponent } from './movements/movement/movement.component';
     CustomerCardComponent,
     CustomerAddressComponent,
     CompanyComponent,
-    MovementComponent
+    MovementComponent,
+    HomepageComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule,
+    AuthModule,
     BreadcrumbModule,
     AppRoutingModule,
     DxDataGridModule,
@@ -57,6 +64,8 @@ import { MovementComponent } from './movements/movement/movement.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimations(), 

@@ -497,9 +497,6 @@ export class DenemeComponent implements OnInit {
       dataTypes: ['date'],
       icon: 'check',
       hasValue: false,
-      // calculateFilterExpression() {
-      //   return [[getOrderDay, '=', 0], 'or', [getOrderDay, '=', 6]];
-      // },
     }];
 
     this.saleAmountHeaderFilter = [{
