@@ -1,6 +1,6 @@
 /* Genel stiller */
 body {
-    background-color: #f8f9fa;
+    background-color: #3286BF; /* Güncellendi */
 }
 
 .container-fluid {
@@ -11,7 +11,7 @@ body {
 .sidebar {
     width: 280px;
     height: 100vh;
-    background-color: #343a40;
+    background-color: #3286BF; /* Güncellendi */
     color: #fff;
 }
 
@@ -26,9 +26,9 @@ body {
 
 /* Accordion stilleri */
 .accordion-button {
-    background-color: #343a40;
+    background-color: #31729F; /* Güncellendi */
     color: #fff;
-    border: 1px solid #343a40;
+    border: 1px solid #31729F; /* Güncellendi */
 }
 
 .accordion-button:focus {
@@ -36,7 +36,7 @@ body {
 }
 
 .accordion-body {
-    background-color: #212529;
+    background-color: #094F7D;
     color: #fff;
 }
 
@@ -47,7 +47,7 @@ body {
 
 /* Dropdown stilleri */
 .dropdown-menu-dark {
-    background-color: #343a40;
+    background-color: #31729F; /* Güncellendi */
     color: #fff;
     border: none;
 }

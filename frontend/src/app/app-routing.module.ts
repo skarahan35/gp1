@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DenemeComponent } from './deneme/deneme.component';
 import { StockTypeComponent } from './stock/stock-type/stock-type.component';
 import { StockUnitComponent } from './stock/stock-unit/stock-unit.component';
 import { StockGroupComponent } from './stock/stock-group/stock-group.component';
@@ -14,16 +13,11 @@ import { CustomerCardComponent } from './customer/customer-card/customer-card.co
 import { CustomerAddressComponent } from './customer/customer-address/customer-address.component';
 import { CompanyComponent } from './companies/company/company.component';
 import { MovementComponent } from './movements/movement/movement.component';
-import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {
-    path: 'deneme',
-    component: DenemeComponent
-  },
   {
     path: 'stock/stock-type',
     component: StockTypeComponent,

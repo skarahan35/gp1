@@ -7,7 +7,6 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { DenemeComponent } from './deneme/deneme.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DxDataGridModule, DxTabPanelModule } from 'devextreme-angular';
 import { StockTypeComponent } from './stock/stock-type/stock-type.component';
@@ -36,7 +35,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    DenemeComponent,
     StockTypeComponent,
     StockUnitComponent,
     StockGroupComponent,

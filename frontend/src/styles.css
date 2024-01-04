@@ -1,6 +1,6 @@
 
 .dx-datagrid-headers {
-    background-color: #394A57; 
+    background-color: #3286BF; 
     color: #ffffff; 
     border: none;
     border-radius: 0; 
@@ -10,7 +10,7 @@
 }
 
 .dx-datagrid-headers:hover {
-    background-color: #2C3136; 
+    background-color: #31729F; 
 }
 
 .dx-datagrid-headers.dx-header-row .dx-datagrid-text-content.dx-datagrid-text-content-hidden {
