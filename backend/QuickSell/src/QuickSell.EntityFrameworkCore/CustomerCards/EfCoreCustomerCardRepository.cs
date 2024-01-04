@@ -29,8 +29,7 @@ namespace QuickSell.CustomerCards
              string phoneNumber = null, 
              string authorizedPerson = null, 
              string eMail = null,
-             int? taxNoMin = null, 
-             int? taxNoMax = null,
+             string? taxNo = null, 
              decimal? riskLimitMin = null,
              decimal? riskLimitMax = null, 
              int maxResultCount = int.MaxValue, 
@@ -44,8 +43,7 @@ namespace QuickSell.CustomerCards
                phoneNumber,
                authorizedPerson,
                eMail
-            ,taxNoMin 
-            ,taxNoMax 
+            ,taxNo
             , riskLimitMin
             , riskLimitMin
             );
@@ -63,8 +61,7 @@ namespace QuickSell.CustomerCards
          string phoneNumber = null, 
          string authorizedPerson = null,
          string eMail = null,
-         int? taxNoMin = null, 
-         int? taxNoMax = null,
+         string? taxNo = null, 
          decimal? riskLimitMin = null,
          decimal? riskLimitMax = null, 
          CancellationToken cancellationToken = default)
@@ -75,8 +72,7 @@ namespace QuickSell.CustomerCards
            ,phoneNumber
            ,authorizedPerson
            ,eMail
-           ,taxNoMin 
-           ,taxNoMax 
+           ,taxNo
            ,riskLimitMin 
            ,riskLimitMax 
          );
@@ -93,8 +89,7 @@ namespace QuickSell.CustomerCards
           ,string phoneNumber = null  
           ,string authorizedPerson= null  
           ,string eMail= null  
-          ,int? taxNoMin= null 
-          ,int? taxNoMax= null 
+          , string? taxNo= null
           ,decimal? riskLimitMin= null 
           ,decimal? riskLimitMax= null 
 )
@@ -107,8 +102,7 @@ namespace QuickSell.CustomerCards
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.PhoneNumber.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.AuthorizedPerson.Contains(filterText)) 
             .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.EMail.Contains(filterText)) 
-            .WhereIf(taxNoMin.HasValue, e => e.TaxNo >= taxNoMin.Value)
-            .WhereIf(taxNoMax.HasValue, e => e.TaxNo >= taxNoMax.Value)
+            .WhereIf(!string.IsNullOrWhiteSpace(filterText),e => e.TaxNo.Contains(filterText)) 
             .WhereIf(riskLimitMin.HasValue, e => e.RiskLimit >= riskLimitMin.Value)
             .WhereIf(riskLimitMax.HasValue, e => e.RiskLimit >= riskLimitMax.Value)
 

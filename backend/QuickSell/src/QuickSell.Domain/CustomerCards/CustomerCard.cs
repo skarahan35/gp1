@@ -28,7 +28,7 @@ namespace QuickSell.CustomerCards
         public Guid? CustomerGroupID { get; set; }
         [StringLength(128,MinimumLength=0)]
         public string TaxOffice { get; set; }
-        public int? TaxNo { get; set; }
+        public string TaxNo { get; set; }
         [StringLength(13,MinimumLength=0)]
         public string PhoneNumber { get; set; }
         [StringLength(64,MinimumLength=0)]
@@ -56,7 +56,7 @@ namespace QuickSell.CustomerCards
           ,string phoneNumber
           , string authorizedPerson 
           ,string eMail 
-          ,int? taxNo
+          ,string? taxNo
 
           ,decimal? riskLimit
 

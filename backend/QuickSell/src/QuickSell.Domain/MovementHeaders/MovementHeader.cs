@@ -19,7 +19,6 @@ namespace QuickSell.MovementHeaders
         public decimal? DiscountAmount { get; set; }
         public decimal? VATAmount { get; set; }
         public decimal? TotalAmount { get; set; }  
-        public Guid? AddressID { get; set; }  
         public PaymentType? PaymentType { get; set; }  
 
         public Guid? TenantId { get; set; }
@@ -41,7 +40,6 @@ namespace QuickSell.MovementHeaders
           , decimal? discountAmount
           , decimal? vAtAmount
           , decimal? totalAmount
-          ,Guid? addressID
           ,PaymentType? paymentType
           
             
@@ -58,7 +56,6 @@ namespace QuickSell.MovementHeaders
                 DiscountAmount=discountAmount;
                 VATAmount=vAtAmount;
                 TotalAmount=totalAmount;
-            AddressID = addressID;
             PaymentType = paymentType;
 
         }

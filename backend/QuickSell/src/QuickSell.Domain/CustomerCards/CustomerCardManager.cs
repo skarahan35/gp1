@@ -28,7 +28,7 @@ namespace QuickSell.CustomerCards
               string phoneNumber, 
               string authorizedPerson, 
               string eMail, 
-              int? taxNo, 
+              string? taxNo, 
               decimal? riskLimit
         )
         {
@@ -59,8 +59,8 @@ namespace QuickSell.CustomerCards
           string taxOffice, 
           string phoneNumber, 
           string authorizedPerson, 
-          string eMail, 
-          int? taxNo, 
+          string eMail,
+          string? taxNo, 
 
           decimal? riskLimit,
             [CanBeNull] string concurrencyStamp = null

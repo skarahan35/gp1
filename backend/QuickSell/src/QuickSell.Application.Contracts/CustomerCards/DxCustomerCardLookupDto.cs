@@ -12,7 +12,7 @@ namespace QuickSell.CustomerCards
         public Guid? CustomerTypeID { get; set; }
         public Guid? CustomerGroupID { get; set; }
         public string TaxOffice { get; set; }
-        public int? TaxNo { get; set; }
+        public string? TaxNo { get; set; }
         public string? PhoneNumber { get; set; }
         public string? AuthorizedPerson { get; set; }
         public string? EMail { get; set; }

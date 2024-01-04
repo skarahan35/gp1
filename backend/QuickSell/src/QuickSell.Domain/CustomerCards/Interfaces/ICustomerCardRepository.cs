@@ -24,8 +24,7 @@ namespace QuickSell.CustomerCards
          ,string phoneNumber = null 
          ,string authorizedPerson= null 
          ,string eMail= null 
-         ,int? taxNoMin= null 
-         ,int? taxNoMax= null 
+         , string? taxNo =  null
          ,decimal? riskLimitMin= null 
          ,decimal? riskLimitMax= null 
          ,int maxResultCount = int.MaxValue
@@ -40,9 +39,8 @@ namespace QuickSell.CustomerCards
           string taxOffice= null , 
           string phoneNumber = null , 
           string authorizedPerson= null , 
-          string eMail= null , 
-          int? taxNoMin= null , 
-          int? taxNoMax= null ,
+          string eMail= null ,
+          string? taxNo = null,
           decimal? riskLimitMin= null , 
           decimal? riskLimitMax= null ,
         CancellationToken cancellationToken = default);

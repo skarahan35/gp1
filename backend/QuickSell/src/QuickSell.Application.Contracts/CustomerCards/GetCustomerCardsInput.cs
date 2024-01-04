@@ -13,8 +13,7 @@ namespace QuickSell.CustomerCards
         public string  AuthorizedPerson { get; set; } 
         public string  EMail { get; set; } 
              
-        public int? TaxNoMin { get; set; } 
-        public int? TaxNoMax { get; set; } 
+        public string? TaxNo { get; set; } 
         public int? RiskLimitMin { get; set; } 
         public int? RiskLimitMax { get; set; } 
         public GetCustomerCardsInput()
