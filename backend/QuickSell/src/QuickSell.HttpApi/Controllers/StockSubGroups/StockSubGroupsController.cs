@@ -9,7 +9,7 @@ using System;
 
 namespace QuickSell.Controllers.StockSubGroups
 {
-    public abstract class StockSubGroupsController : AbpController, IStockSubGroupsAppService
+    public class StockSubGroupsController : AbpController, IStockSubGroupsAppService
     {
         private readonly IStockSubGroupsAppService _stockSubGroupsAppService;
 
